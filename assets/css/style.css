@@ -650,10 +650,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .data-table th {
   text-align: left;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-size: 11px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--text-3);
+  color: var(--text-2);
   font-weight: 400;
   padding: 0 16px 14px 0;
   border-bottom: 1px solid var(--line-mid);
@@ -903,10 +903,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .cmd-table th {
   text-align: left;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
+  font-size: 11px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-3);
+  color: var(--text-2);
   font-weight: 400;
   padding: 0 14px 12px 0;
   border-bottom: 1px solid var(--line-mid);
@@ -930,6 +930,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   padding: 2px 7px;
   border-radius: 2px;
   white-space: nowrap;
+}
+
+/* 窄屏下允许长指令换行，避免撑破表格 */
+@media (max-width: 760px) {
+  .cmd-table code {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    font-size: 12.5px;
+    padding: 2px 5px;
+  }
 }
 
 code {
