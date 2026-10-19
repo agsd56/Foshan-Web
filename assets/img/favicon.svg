@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#0b0e0d"/>
+  <rect x="4.5" y="4.5" width="55" height="55" fill="none" stroke="#d8b45a" stroke-width="1.2" opacity="0.55"/>
+  <path d="M12 12h6M12 12v6M52 12h-6M52 12v6M12 52h6M12 52v-6M52 52h-6M52 52v-6" stroke="#d8b45a" stroke-width="1.6" fill="none" opacity="0.9"/>
+  <text x="32" y="45" text-anchor="middle" font-family="Songti SC, STSong, SimSun, serif" font-size="34" font-weight="600" fill="#e6c479">佛</text>
+</svg>
