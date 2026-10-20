@@ -23,7 +23,6 @@ EarthMC 大明共和国广东省佛山市的城市网站。纯静态站点，无
 .
 ├── index.html              首页
 ├── foshan.html             城市志（档案、纪事、分区、市民）
-├── ming.html               大明共和国
 ├── guide.html              新手指南（11 个章节）
 ├── join.html               加入我们
 ├── 404.html                404 页面
@@ -118,30 +117,10 @@ Pages 项目 → **Custom domains** → **Set up a custom domain**。
 
 ## 替换占位图片
 
-页面里所有图片都**已经写好了真实文件名**，只是文件还不存在。浏览器加载失败时会自动渲染一张同风格的占位图（显示"图片占位 · 待替换"和文件名）。
+完整清单见 **[图片清单.md](图片清单.md)**：每张图的文件名、所在页面、建议尺寸、上传注意事项都在里面。
 
-**替换方法：把真实图片按下面的文件名放进 `assets/img/`，刷新页面即可。不需要改任何 HTML。**
-
-| 文件名 | 所在页面 | 建议尺寸 | 内容 |
-|---|---|---|---|
-| `league-hero.jpg` | 联盟首页首屏 | 1920 × 1080 | 联盟全景（同时作为分享封面） |
-| `league-map.jpg` | 联盟首页 · 简介 | 1600 × 900 | 八城分布示意 / 地图截图 |
-| `city-foshan.jpg` | 联盟首页 · 佛山主卡 | 1400 × 1000 | 佛山城市全景 |
-| `city-shaoguan.jpg` | 联盟首页 · 韶关 | 1200 × 675 | 韶关（丹霞、北江） |
-| `city-qingyuan.jpg` | 联盟首页 · 清远 | 1200 × 675 | 清远（北江、峡谷） |
-| `city-yingde.jpg` | 联盟首页 · 英德 | 1200 × 675 | 英德（英西峰林） |
-| `city-fengxigu.jpg` | 联盟首页 · 风溪谷 | 1200 × 675 | 风溪谷（城景） |
-| `city-shantou.jpg` | 联盟首页 · 汕头 | 1200 × 675 | 汕头（内海湾） |
-| `city-sihui.jpg` | 联盟首页 · 四会 | 1200 × 675 | 四会（贞山、绥江） |
-| `city-shixing.jpg` | 联盟首页 · 始兴 | 1200 × 675 | 始兴（客家围楼） |
-| `history-founding.jpg` | 城市志 · 纪事 | 1600 × 900 | 建城初期的佛山 |
-| `history-shop.jpg` | 城市志 · 纪事 | 1000 × 1000 | 佛山商店 |
-| `history-gate.jpg` | 城市志 · 纪事 | 1000 × 1000 | 城市门禁 |
-| `ming-capital.jpg` | 明国页 · 历史 | 1600 × 900 | 南京 · 大明首都 |
-
-> 早期版本的 `hero-foshan.jpg`、`city-zumiao.jpg`、`scene-01~04.jpg` 已不再被引用，可以忽略。
->
-> `assets/img/recipes/` 下的 16 张合成配方图已从官方《城镇指南》PDF 中提取，随仓库一并提交，**不需要替换**。
+核心规则：把图片按清单里的文件名放进 `assets/img/`，刷新页面即可生效，**不需要修改任何 HTML**。
+文件不存在时，页面会自动渲染同风格的占位图。
 
 **注意事项**
 
@@ -198,7 +177,6 @@ Pages 项目 → **Custom domains** → **Set up a custom domain**。
 ## 内容来源
 
 - 城镇与国家实时数据：[EarthMC API v4](https://api.earthmc.net/ui)
-- 国家历史与行政区划：[EarthMC Wiki · 大明共和国](https://wiki.earthmc.net/wiki/Nostra:Republic_of_Ming)
 - 佛山现实文化背景：公开资料（祖庙、南风古灶、千灯湖、醒狮、石湾陶艺等）
 
 本站为非官方粉丝站点，与 Mojang Studios、Microsoft 及 EarthMC 官方无隶属关系。

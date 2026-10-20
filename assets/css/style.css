@@ -766,6 +766,34 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-align: center;
 }
 
+/* ---------- 9d. 待补充占位块 ---------- */
+.tbd {
+  border: 1px dashed var(--line-mid);
+  background: rgba(216, 180, 90, 0.035);
+  padding: 32px 26px;
+  text-align: center;
+}
+
+.tbd b {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.tbd span {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--text-3);
+}
+
+.tbd--sm { padding: 20px 18px; }
+.tbd--sm b { font-size: 14px; margin-bottom: 4px; }
+
 /* ---------- 10. Photo placeholders & figures ---------- */
 .photo {
   position: relative;
@@ -1262,7 +1290,7 @@ pre code { background: none; padding: 0; color: inherit; }
 
 .footer-top {
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  grid-template-columns: 1.6fr 1fr 1fr;
   gap: 40px;
   padding-bottom: 48px;
 }
