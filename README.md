@@ -40,7 +40,11 @@ EarthMC 大明共和国广东省佛山市的城市网站。纯静态站点，无
     │   ├── main.js         导航 / 滚动动画 / 目录高亮 / 复制
     │   └── live.js         实时数据渲染
     └── img/
-        └── favicon.svg
+        ├── favicon.ico          站点图标（16/32/48/64）
+        ├── foshan-logo-512.png  高清图标 / 分享图
+        ├── foshan-logo-180.png  iOS 主屏图标
+        ├── recipes/             16 张合成配方图（已提取）
+        └── （城市图 / 风景图待补）
 ```
 
 ---
