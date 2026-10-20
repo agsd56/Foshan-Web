@@ -722,6 +722,50 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   color: var(--text-2);
 }
 
+/* ---------- 9c. Recipe grid ---------- */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 26px 0 18px;
+}
+
+.recipe-item {
+  margin: 0;
+  padding: 14px 12px 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.recipe-item:hover {
+  border-color: var(--line-mid);
+  background: var(--bg-card-2);
+}
+
+/* 统一 1:1 容器，保证不同尺寸的配方图下方文字基线对齐 */
+.recipe-item img {
+  width: 100%;
+  max-width: 116px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  image-rendering: pixelated;
+  display: block;
+  border-radius: 2px;
+}
+
+.recipe-item figcaption {
+  font-size: 13px;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  text-align: center;
+}
+
 /* ---------- 10. Photo placeholders & figures ---------- */
 .photo {
   position: relative;
@@ -1377,6 +1421,8 @@ pre code { background: none; padding: 0; color: inherit; }
   }
   .city-card--feature .city-card-body { padding: 30px 26px; }
 
+  .recipe-grid { grid-template-columns: repeat(3, 1fr); }
+
   .gallery { grid-template-columns: repeat(2, 1fr); }
   .gallery > *:nth-child(n) { grid-column: span 1; }
   .gallery > *:nth-child(1) { grid-column: span 2; }
@@ -1425,6 +1471,10 @@ pre code { background: none; padding: 0; color: inherit; }
   .city-card--feature .city-card-body { padding: 26px 22px; }
   .city-card--feature .city-name { font-size: 27px; }
   .belt { grid-template-columns: 1fr; gap: 8px; }
+
+  .recipe-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .recipe-item { padding: 12px 10px 10px; }
+  .recipe-item img { max-width: 100%; }
   .join-card { padding: 28px 22px; }
   .ming-banner { padding: 28px 22px; }
 

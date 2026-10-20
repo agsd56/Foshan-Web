@@ -126,7 +126,7 @@ Pages 项目 → **Custom domains** → **Set up a custom domain**。
 | `city-shaoguan.jpg` | 联盟首页 · 韶关 | 1200 × 675 | 韶关（丹霞、北江） |
 | `city-qingyuan.jpg` | 联盟首页 · 清远 | 1200 × 675 | 清远（北江、峡谷） |
 | `city-yingde.jpg` | 联盟首页 · 英德 | 1200 × 675 | 英德（英西峰林） |
-| `city-fengxigu.jpg` | 联盟首页 · 风溪谷 | 1200 × 675 | 风溪谷（山谷城景） |
+| `city-fengxigu.jpg` | 联盟首页 · 风溪谷 | 1200 × 675 | 风溪谷（城景） |
 | `city-shantou.jpg` | 联盟首页 · 汕头 | 1200 × 675 | 汕头（内海湾） |
 | `city-sihui.jpg` | 联盟首页 · 四会 | 1200 × 675 | 四会（贞山、绥江） |
 | `city-shixing.jpg` | 联盟首页 · 始兴 | 1200 × 675 | 始兴（客家围楼） |
@@ -136,6 +136,8 @@ Pages 项目 → **Custom domains** → **Set up a custom domain**。
 | `ming-capital.jpg` | 明国页 · 历史 | 1600 × 900 | 南京 · 大明首都 |
 
 > 早期版本的 `hero-foshan.jpg`、`city-zumiao.jpg`、`scene-01~04.jpg` 已不再被引用，可以忽略。
+>
+> `assets/img/recipes/` 下的 16 张合成配方图已从官方《城镇指南》PDF 中提取，随仓库一并提交，**不需要替换**。
 
 **注意事项**
 
