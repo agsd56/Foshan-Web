@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>佛山 Foshan · EarthMC 大明共和国广东省</title>
-<meta name="description" content="佛山（Foshan）是 EarthMC 大明共和国广东省下辖城市，2026 年 7 月 3 日建城。这里是佛山的城市官网：城市档案、建设纪事、大明共和国介绍与 EarthMC 新手指南。">
+<title>佛山联盟 Foshan League · EarthMC 大明共和国广东省</title>
+<meta name="description" content="佛山联盟由八座城市组成：佛山、韶关、清远、英德、风溪谷、汕头、四会、始兴。以佛山为核心，同属 EarthMC 大明共和国广东省。">
 <meta name="theme-color" content="#0b0e0d">
 <meta property="og:type" content="website">
-<meta property="og:title" content="佛山 Foshan · EarthMC">
-<meta property="og:description" content="岭南古城，像素新生。EarthMC 大明共和国广东省 · 佛山市城市官网。">
-<meta property="og:image" content="assets/img/hero-foshan.jpg">
+<meta property="og:title" content="佛山联盟 · EarthMC">
+<meta property="og:description" content="八座城，一条江。以佛山为核心的城市协作网络。">
+<meta property="og:image" content="assets/img/league-hero.jpg">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/style.css">
 <script src="assets/js/placeholder.js"></script>
@@ -19,9 +19,9 @@
 <!-- ============ HEADER ============ -->
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href="index.html" aria-label="佛山首页">
+    <a class="brand" href="index.html" aria-label="佛山联盟首页">
       <span class="brand-mark">佛</span>
-      <span class="brand-text"><b>佛山</b><i>FOSHAN · EARTHMC</i></span>
+      <span class="brand-text"><b>佛山联盟</b><i>FOSHAN LEAGUE</i></span>
     </a>
 
     <nav class="nav" id="nav">
@@ -43,44 +43,44 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-media">
-    <img src="assets/img/hero-foshan.jpg" alt="佛山城市全景" data-label="佛山 · 城市全景" data-hint="建议 1920 × 1080" data-ph-style="hero" onerror="phFallback(this)">
+    <img src="assets/img/league-hero.jpg" alt="佛山联盟城市全景" data-label="佛山联盟 · 联盟全景" data-hint="建议 1920 × 1080" data-ph-style="hero" onerror="phFallback(this)">
   </div>
   <div class="hero-veil"></div>
 
   <div class="hero-inner">
     <p class="eyebrow">EarthMC · 大明共和国 · 广东省</p>
-    <h1 class="hero-title">佛山<span>FOSHAN</span></h1>
+    <h1 class="hero-title">佛山联盟<span>FOSHAN LEAGUE</span></h1>
     <p class="hero-sub">
-      岭南古城，像素新生。一座由玩家一砖一瓦垒起的城市，
-      青砖灰瓦的旧城肌理之下，正在长出属于这个时代的天际线。
+      八座城，一条江。以佛山为核心，从北江上游的山地到潮汕平原，
+      一群老玩家把各自建起的城市连成了一片。
     </p>
     <div class="hero-actions">
-      <a class="btn btn--primary" href="guide.html">新手入门 <span class="arrow">→</span></a>
-      <a class="btn btn--ghost" href="foshan.html">城市档案</a>
+      <a class="btn btn--primary" href="#cities">认识八座城 <span class="arrow">→</span></a>
+      <a class="btn btn--ghost" href="join.html">加入我们</a>
     </div>
   </div>
 
   <div class="hero-stats">
     <div class="hero-stats-inner">
       <div class="stat-cell">
+        <span class="stat-label">Cities</span>
+        <span class="stat-value">8<small> 座</small></span>
+        <span class="stat-sub">联盟城市</span>
+      </div>
+      <div class="stat-cell">
         <span class="stat-label">Residents</span>
-        <span class="stat-value" data-live="residents">9<small> 人</small></span>
-        <span class="stat-sub">常住居民</span>
+        <span class="stat-value">20<small> 人</small></span>
+        <span class="stat-sub">合计常住居民</span>
       </div>
       <div class="stat-cell">
         <span class="stat-label">Town Blocks</span>
-        <span class="stat-value" data-live="blocks">83<small> 区块</small></span>
-        <span class="stat-sub">已认领 / 上限 208</span>
+        <span class="stat-value">422<small> 区块</small></span>
+        <span class="stat-sub">合计已认领</span>
       </div>
       <div class="stat-cell">
-        <span class="stat-label">Founded</span>
-        <span class="stat-value" data-live="founded">2026.07.03</span>
-        <span class="stat-sub">建城日期</span>
-      </div>
-      <div class="stat-cell">
-        <span class="stat-label">Mayor</span>
-        <span class="stat-value" data-live="mayor">bbdqz</span>
-        <span class="stat-sub">现任市长</span>
+        <span class="stat-label">First Founded</span>
+        <span class="stat-value">2026.07.03</span>
+        <span class="stat-sub">佛山建城</span>
       </div>
     </div>
   </div>
@@ -91,150 +91,331 @@
   <div class="wrap">
     <div class="grid grid-2" style="gap: 72px; align-items: center;">
       <div class="reveal">
-        <p class="eyebrow">01 / 城市</p>
-        <h2 class="section-title">一座还在生长的<em>城市</em></h2>
+        <p class="eyebrow">01 / 关于联盟</p>
+        <h2 class="section-title">不是建制，是<em>互相照应</em></h2>
         <p class="section-desc" style="margin-top: 24px;">
-          佛山是 EarthMC 服务器中大明共和国广东省下辖的一座城市，2026 年 7 月 3 日建城，
-          同年 7 月 12 日加入大明共和国。城市以现实中的广东佛山为文化原型，
-          把祖庙、骑楼、陶窑与醒狮的记忆，重新砌进方块的尺度里。
+          佛山联盟不是一个游戏内建制。EarthMC 里没有"联盟"这个按钮，
+          八座城市在系统上各自独立，同属大明共和国广东省。
+          联盟是玩家之间的约定：共享物资与路线，统一建筑风貌，遇到纠纷一起出面。
         </p>
         <p class="section-desc">
-          与许多只求扩张的城镇不同，佛山更在意"住得下、待得住"：
-          有公共仓库与商店，有门禁与地块管理，也有留给新人的第一间小屋。
-          城市仍在建设期，欢迎你成为下一块砖。
+          联盟以佛山为核心。佛山建城最早、人口最多，城内有公共商店、公寓与门禁，
+          也是新居民落脚的第一站。其余七座城市由佛山的老玩家陆续建立，
+          分布在北江流域、珠三角外围与粤东沿海。
         </p>
         <div class="mt-32">
-          <a class="btn btn--ghost" href="foshan.html">阅读城市志 <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href="#cities">按建城顺序看 <span class="arrow">→</span></a>
         </div>
       </div>
 
-      <figure class="photo photo--tall reveal" style="margin: 0;">
-        <img src="assets/img/city-zumiao.jpg" alt="佛山祖庙片区" data-label="祖庙片区 · 建设中" data-hint="建议尺寸 1200 × 1500" onerror="phFallback(this)">
-        <figcaption class="photo-cap"><b>祖庙片区</b><span>ZUMIAO DISTRICT</span></figcaption>
+      <figure class="photo photo--wide reveal" style="margin: 0;">
+        <img src="assets/img/league-map.jpg" alt="佛山联盟城市分布" data-label="联盟城市分布" data-hint="建议 1600 × 900" onerror="phFallback(this)">
+        <figcaption class="photo-cap"><b>联盟城市分布</b><span>EIGHT CITIES · ONE NETWORK</span></figcaption>
       </figure>
     </div>
   </div>
 </section>
 
-<!-- ============ FEATURES ============ -->
-<section class="section section--alt">
+<!-- ============ CITIES ============ -->
+<section class="section section--alt" id="cities">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">02 / 为何选择佛山</p>
-      <h2 class="section-title">三件我们会<em>认真做</em>的事</h2>
+      <p class="eyebrow">02 / 城市名录</p>
+      <h2 class="section-title">八座城，<em>按建城顺序</em></h2>
+      <p class="section-desc">
+        从 2026 年 7 月到 10 月，三个月里陆续建起八座城市。
+        每座城都有自己的风景与性格，影像会陆续补充。
+      </p>
     </div>
 
-    <div class="grid grid-3">
-      <article class="card reveal">
-        <svg class="feature-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4">
-          <path d="M6 40h36M10 40V22l14-9 14 9v18"/>
-          <path d="M18 40V28h12v12M20 22h8"/>
-        </svg>
-        <p class="card-index">01</p>
-        <h3 class="card-title">有规划的城区</h3>
-        <p class="card-text">
-          主干道、街区与公共空间先落地，再谈建筑。
-          东平河沿岸预留了住宅与商业地块，任何人都可以申请一块地，
-          按统一的风貌指引建造自己的房子。
-        </p>
+    <div class="grid grid-2">
+
+      <!-- 佛山（主城） -->
+      <article class="card city-card city-card--feature reveal">
+        <figure class="photo" style="margin: 0;">
+          <img src="assets/img/city-foshan.jpg" alt="佛山城市全景" data-label="佛山 · 城市全景" data-hint="建议 1400 × 1000" onerror="phFallback(this)">
+          <figcaption class="photo-cap"><b>佛山</b><span>THE CORE CITY</span></figcaption>
+        </figure>
+        <div class="city-card-body">
+          <div class="flex-between" style="gap: 12px;">
+            <span class="city-order">01 · 2026.07.03</span>
+            <span class="tag">联盟核心</span>
+          </div>
+          <h3 class="city-name">佛山 <em>FOSHAN</em></h3>
+          <p class="city-desc">
+            祖庙、南风古灶、醒狮与石湾陶艺。联盟里建城最早、人口最多的一座，
+            公共商店、公寓与城市门禁都已落地。新居民通常先到这里落脚，
+            再决定去其他城市。
+          </p>
+          <div class="city-meta">
+            <span>市长 <b>bbdqz</b></span>
+            <span>居民 <b>9</b></span>
+            <span>区块 <b>83</b> / 208</span>
+          </div>
+        </div>
       </article>
 
-      <article class="card reveal">
-        <svg class="feature-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="24" cy="24" r="16"/>
-          <path d="M24 8v32M8 24h32"/>
-          <circle cx="24" cy="24" r="6"/>
-        </svg>
-        <p class="card-index">02</p>
-        <h3 class="card-title">岭南的文化底色</h3>
-        <p class="card-text">
-          镬耳墙、青砖、满洲窗、陶塑瓦脊——这些属于佛山的建筑语汇，
-          会被尽量还原。我们不追求最大，只想让这座城市一眼就能被认出来。
-        </p>
+      <!-- 韶关 -->
+      <article class="card city-card reveal">
+        <figure class="photo" style="margin: 0;">
+          <img src="assets/img/city-shaoguan.jpg" alt="韶关" data-label="韶关 · 丹霞与北江" data-hint="建议 1200 × 675" onerror="phFallback(this)">
+        </figure>
+        <div class="city-card-body">
+          <div class="flex-between" style="gap: 12px;">
+            <span class="city-order">02 · 2026.08.02</span>
+            <span class="tag tag--dim">北江流域</span>
+          </div>
+          <h3 class="city-name">韶关 <em>SHAOGUAN</em></h3>
+          <p class="city-desc">
+            丹霞山与南华寺所在，粤北门户。城市公告只有一句 "North of Canton"，
+            和这座城市的位置一样干脆。
+          </p>
+          <div class="city-meta">
+            <span>市长 <b>Oos3</b></span>
+            <span>居民 <b>2</b></span>
+            <span>区块 <b>50</b> / 124</span>
+          </div>
+        </div>
       </article>
 
-      <article class="card reveal">
-        <svg class="feature-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4">
-          <path d="M16 20a8 8 0 1 1 16 0c0 4-3 6-3 9h-10c0-3-3-5-3-9Z"/>
-          <path d="M20 34h8M21 38h6"/>
-        </svg>
-        <p class="card-index">03</p>
-        <h3 class="card-title">对新人友好</h3>
-        <p class="card-text">
-          从注册账号到拥有第一块地，我们会一步一步带你走。
-          城内有公共工具、食物与临时住所，起步不需要你有任何经验。
-        </p>
+      <!-- 清远 -->
+      <article class="card city-card reveal">
+        <figure class="photo" style="margin: 0;">
+          <img src="assets/img/city-qingyuan.jpg" alt="清远" data-label="清远 · 北江与峡谷" data-hint="建议 1200 × 675" onerror="phFallback(this)">
+        </figure>
+        <div class="city-card-body">
+          <div class="flex-between" style="gap: 12px;">
+            <span class="city-order">03 · 2026.08.05</span>
+            <span class="tag tag--dim">北江流域</span>
+          </div>
+          <h3 class="city-name">清远 <em>QINGYUAN</em></h3>
+          <p class="city-desc">
+            北江穿城而过，漂流与温泉之乡。公告写着 "Beautiful mounts and rivers here"，
+            基本上就是这座城的全部介绍。
+          </p>
+          <div class="city-meta">
+            <span>市长 <b>Xinxin163</b></span>
+            <span>居民 <b>1</b></span>
+            <span>区块 <b>28</b> / 112</span>
+          </div>
+        </div>
       </article>
+
+      <!-- 英德 -->
+      <article class="card city-card reveal">
+        <figure class="photo" style="margin: 0;">
+          <img src="assets/img/city-yingde.jpg" alt="英德" data-label="英德 · 英西峰林" data-hint="建议 1200 × 675" onerror="phFallback(this)">
+        </figure>
+        <div class="city-card-body">
+          <div class="flex-between" style="gap: 12px;">
+            <span class="city-order">04 · 2026.08.28</span>
+            <span class="tag tag--dim">北江流域</span>
+          </div>
+          <h3 class="city-name">英德 <em>YINGDE</em></h3>
+          <p class="city-desc">
+            英西峰林与红茶。公告里明确写着 "under Foshan"，
+            是联盟里第一座公开表态的卫星城，目前靠试炼密室做自给据点。
+          </p>
+          <div class="city-meta">
+            <span>市长 <b>NL733</b></span>
+            <span>居民 <b>3</b></span>
+            <span>区块 <b>88</b> / 136</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 风溪谷 -->
+      <article class="card city-card reveal">
+        <figure class="photo" style="margin: 0;">
+          <img src="assets/img/city-fengxigu.jpg" alt="风溪谷" data-label="风溪谷 · 山谷城景" data-hint="建议 1200 × 675" onerror="phFallback(this)">
+        </figure>
+        <div class="city-card-body">
+          <div class="flex-between" style="gap: 12px;">
+            <span class="city-order">05 · 2026.08.29</span>
+            <span class="tag tag--dim">玩家命名</span>
+          </div>
+          <h3 class="city-name">风溪谷 <em>FENGXIGU</em></h3>
+          <p class="city-desc">
+            城名由市民自定，不是现实地名。公告引用"人民就是江山"。
+            112 区块已经全部认领，是联盟里开发得最满的一座。
+          </p>
+          <div class="city-meta">
+            <span>市长 <b>Truzz666</b></span>
+            <span>居民 <b>1</b></span>
+            <span>区块 <b>112</b> / 112</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 汕头 -->
+      <article class="card city-card reveal">
+        <figure class="photo" style="margin: 0;">
+          <img src="assets/img/city-shantou.jpg" alt="汕头" data-label="汕头 · 内海湾" data-hint="建议 1200 × 675" onerror="phFallback(this)">
+        </figure>
+        <div class="city-card-body">
+          <div class="flex-between" style="gap: 12px;">
+            <span class="city-order">06 · 2026.09.07</span>
+            <span class="tag tag--dim">粤东沿海</span>
+          </div>
+          <h3 class="city-name">汕头 <em>SHANTOU</em></h3>
+          <p class="city-desc">
+            南澳岛、骑楼与潮汕菜。联盟在粤东的唯一据点，
+            也是八座城里离佛山最远的一座。
+          </p>
+          <div class="city-meta">
+            <span>市长 <b>Soundmist</b></span>
+            <span>居民 <b>2</b></span>
+            <span>区块 <b>31</b> / 124</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 四会 -->
+      <article class="card city-card reveal">
+        <figure class="photo" style="margin: 0;">
+          <img src="assets/img/city-sihui.jpg" alt="四会" data-label="四会 · 贞山与绥江" data-hint="建议 1200 × 675" onerror="phFallback(this)">
+        </figure>
+        <div class="city-card-body">
+          <div class="flex-between" style="gap: 12px;">
+            <span class="city-order">07 · 2026.10.01</span>
+            <span class="tag tag--dim">珠三角外围</span>
+          </div>
+          <h3 class="city-name">四会 <em>SIHUI</em></h3>
+          <p class="city-desc">
+            贞山、绥江与柑桔，玉器之乡。2026 年 10 月建城，
+            是联盟向肇庆方向的一次延伸。
+          </p>
+          <div class="city-meta">
+            <span>市长 <b>TlipocaMixtec</b></span>
+            <span>居民 <b>1</b></span>
+            <span>区块 <b>22</b> / 112</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 始兴 -->
+      <article class="card city-card reveal">
+        <figure class="photo" style="margin: 0;">
+          <img src="assets/img/city-shixing.jpg" alt="始兴" data-label="始兴 · 客家围楼" data-hint="建议 1200 × 675" onerror="phFallback(this)">
+        </figure>
+        <div class="city-card-body">
+          <div class="flex-between" style="gap: 12px;">
+            <span class="city-order">08 · 2026.10.18</span>
+            <span class="tag tag--dim">北江流域</span>
+          </div>
+          <h3 class="city-name">始兴 <em>SHIXING</em></h3>
+          <p class="city-desc">
+            满堂围与车八岭，客家围楼之乡，现属韶关。
+            联盟里最年轻的一座，2026 年 10 月 18 日刚刚建城。
+          </p>
+          <div class="city-meta">
+            <span>市长 <b>AmmoniumMC</b></span>
+            <span>居民 <b>1</b></span>
+            <span>区块 <b>8</b> / 112</span>
+          </div>
+        </div>
+      </article>
+
     </div>
+
+    <p class="muted reveal" style="font-size: 12px; margin-top: 22px;">
+      数据由 EarthMC 官方 API 读取，截至 2026 年 10 月 20 日。城市规模会随居民增减变化。
+    </p>
   </div>
 </section>
 
-<!-- ============ GALLERY ============ -->
+<!-- ============ GEOGRAPHY ============ -->
 <section class="section">
   <div class="wrap">
-    <div class="flex-between reveal" style="margin-bottom: 40px;">
-      <div class="section-head" style="margin-bottom: 0;">
-        <p class="eyebrow">03 / 城市掠影</p>
-        <h2 class="section-title">正在成形的<em>风景</em></h2>
+    <div class="grid grid-2" style="gap: 72px; align-items: start;">
+      <div class="reveal">
+        <p class="eyebrow">03 / 分布</p>
+        <h2 class="section-title">沿江而上，<em>向两翼展开</em></h2>
+        <p class="section-desc" style="margin-top: 24px;">
+          联盟的城市不是均匀铺开的，而是沿着北江一条线往上游走，
+          再向东西两翼各伸出一座。这个形状决定了物资怎么流动，
+          也决定了新人该去哪座城。
+        </p>
       </div>
-      <p class="mono muted" style="font-size: 12px; letter-spacing: 0.1em;">影像持续补充中</p>
-    </div>
 
-    <div class="gallery reveal">
-      <figure class="photo photo--wide" style="margin: 0;">
-        <img src="assets/img/scene-01.jpg" alt="千灯湖" data-label="千灯湖 · 夜景" data-hint="建议尺寸 1600 × 900" onerror="phFallback(this)">
-        <figcaption class="photo-cap"><b>千灯湖</b><span>QIAN DENG HU</span></figcaption>
-      </figure>
-      <figure class="photo photo--square" style="margin: 0;">
-        <img src="assets/img/scene-02.jpg" alt="佛山商店" data-label="佛山商店" data-hint="建议尺寸 1000 × 1000" onerror="phFallback(this)">
-        <figcaption class="photo-cap"><b>佛山商店</b><span>FOSHAN SHOP</span></figcaption>
-      </figure>
-      <figure class="photo photo--square" style="margin: 0;">
-        <img src="assets/img/scene-03.jpg" alt="南风古灶" data-label="南风古灶 · 陶窑" data-hint="建议尺寸 1000 × 1000" onerror="phFallback(this)">
-        <figcaption class="photo-cap"><b>南风古灶</b><span>NANFENG KILN</span></figcaption>
-      </figure>
-      <figure class="photo photo--wide" style="margin: 0;">
-        <img src="assets/img/scene-04.jpg" alt="东平河沿岸" data-label="东平河 · 沿岸" data-hint="建议尺寸 1600 × 900" onerror="phFallback(this)">
-        <figcaption class="photo-cap"><b>东平河沿岸</b><span>DONGPING RIVER</span></figcaption>
-      </figure>
+      <div class="reveal">
+        <div class="belt">
+          <div class="belt-label">North River</div>
+          <div>
+            <h4>北江流域 · 粤北</h4>
+            <p>韶关、清远、英德、始兴。四座城沿北江自下游向上游排列，
+              是联盟的主体，也是目前区块最集中的一片。</p>
+          </div>
+        </div>
+
+        <div class="belt">
+          <div class="belt-label">Delta Rim</div>
+          <div>
+            <h4>珠三角外围</h4>
+            <p>四会，位于肇庆方向。作为佛山向西的延伸，
+              与核心城的距离最近，往返最方便。</p>
+          </div>
+        </div>
+
+        <div class="belt">
+          <div class="belt-label">East Coast</div>
+          <div>
+            <h4>粤东沿海</h4>
+            <p>汕头。联盟唯一的海港城市，离佛山最远，
+              也是联盟与潮汕玩家之间的接口。</p>
+          </div>
+        </div>
+
+        <div class="belt">
+          <div class="belt-label">Valley</div>
+          <div>
+            <h4>风溪谷</h4>
+            <p>城名由市民自定，不属于任何现实地名。
+              112 区块全部认领，是联盟里密度最高的一座城。</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ MING ============ -->
+<!-- ============ CORE CITY ============ -->
 <section class="section section--tight">
   <div class="wrap">
     <div class="ming-banner reveal">
       <div class="grid grid-2" style="gap: 56px; align-items: center;">
         <div>
-          <p class="eyebrow">04 / 所属国家</p>
-          <h2 class="section-title" style="font-size: clamp(26px, 3.2vw, 36px);">大明共和国</h2>
+          <p class="eyebrow">04 / 核心城市</p>
+          <h2 class="section-title" style="font-size: clamp(26px, 3.2vw, 36px);">佛山<em>，一切的起点</em></h2>
           <p class="section-desc" style="margin-top: 20px;">
-            大明共和国（Republic of Ming）于 2026 年 4 月 23 日建国于南京，
-            是 EarthMC 中华地区规模最大的华人国家。佛山作为广东省的一员，
-            共享国家的市场、铁路与外交保护。
+            2026 年 7 月 3 日，佛山在广东沿海建城。九天后加入大明共和国。
+            此后三个月，从这里走出去的玩家陆续建起了另外七座城市。
+          </p>
+          <p class="section-desc">
+            佛山目前有 9 位居民、83 个区块，城内有公共商店、公寓与门禁。
+            它既是联盟的行政中心，也是新人的第一站。
           </p>
           <div class="mt-24">
-            <a class="btn btn--ghost" href="ming.html">了解大明 <span class="arrow">→</span></a>
+            <a class="btn btn--ghost" href="foshan.html">阅读佛山城市志 <span class="arrow">→</span></a>
           </div>
         </div>
 
         <div class="grid grid-2" style="gap: 1px; background: var(--line);">
           <div style="background: var(--bg-card); padding: 24px;">
-            <span class="stat-label">人口</span>
-            <span class="stat-value" data-live="n-residents" style="font-size: 22px;">389<small> 人</small></span>
+            <span class="stat-label">建城</span>
+            <span class="stat-value" style="font-size: 20px;">2026.07.03</span>
           </div>
           <div style="background: var(--bg-card); padding: 24px;">
-            <span class="stat-label">城镇</span>
-            <span class="stat-value" data-live="n-towns" style="font-size: 22px;">151<small> 城</small></span>
+            <span class="stat-label">市长</span>
+            <span class="stat-value" style="font-size: 20px;" data-live="mayor">bbdqz</span>
           </div>
           <div style="background: var(--bg-card); padding: 24px;">
-            <span class="stat-label">首都</span>
-            <span class="stat-value" data-live="n-capital" style="font-size: 22px;">南京</span>
+            <span class="stat-label">居民</span>
+            <span class="stat-value" style="font-size: 20px;" data-live="residents">9<small> 人</small></span>
           </div>
           <div style="background: var(--bg-card); padding: 24px;">
-            <span class="stat-label">建国</span>
-            <span class="stat-value" data-live="n-founded" style="font-size: 22px;">2026.04.23</span>
+            <span class="stat-label">区块</span>
+            <span class="stat-value" style="font-size: 20px;" data-live="blocks">83<small> 块</small></span>
           </div>
         </div>
       </div>
@@ -242,52 +423,17 @@
   </div>
 </section>
 
-<!-- ============ NEWS ============ -->
+<!-- ============ JOIN ============ -->
 <section class="section">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <p class="eyebrow">05 / 本站动态</p>
-      <h2 class="section-title">最近在<em>发生</em></h2>
-    </div>
-
-    <div class="grid grid-3">
-      <article class="card reveal">
-        <p class="card-index">2026.10.19</p>
-        <h3 class="card-title">城市官网上线</h3>
-        <p class="card-text">
-          站点 v1.0 正式启用。城市档案、大明共和国介绍与 EarthMC 新手指南同时开放阅读。
-        </p>
-      </article>
-
-      <article class="card reveal">
-        <p class="card-index">长期</p>
-        <h3 class="card-title">城市影像征集中</h3>
-        <p class="card-text">
-          官网目前的图片位为占位图。欢迎市民投稿游戏内截图，署名后展示在"城市掠影"栏目。
-        </p>
-      </article>
-
-      <article class="card reveal">
-        <p class="card-index">持续更新</p>
-        <h3 class="card-title">新手指南</h3>
-        <p class="card-text">
-          从进入服务器到拥有第一块地，全流程拆成十二步。依据官方《城镇指南》整理，不是道听途说。
-        </p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CTA ============ -->
-<section class="section section--tight">
   <div class="wrap center reveal">
-    <p class="eyebrow" style="justify-content: center;">06 / 加入</p>
-    <h2 class="section-title" style="font-size: clamp(30px, 4.4vw, 50px);">下一块砖，<em>等你来放</em></h2>
-    <p class="section-desc" style="margin: 22px auto 34px; text-align: center;">
-      不需要经验，不需要预先准备。带上一个正版账号，剩下的交给我们。
+    <p class="eyebrow" style="justify-content: center;">05 / 加入</p>
+    <h2 class="section-title" style="font-size: clamp(30px, 4.4vw, 50px);">八座城里，<em>总有一座适合你</em></h2>
+    <p class="section-desc" style="margin: auto auto 34px; text-align: center;">
+      想热闹去佛山，想安静去始兴，想从零开始就去最年轻的那座。
+      带上正版账号，剩下的交给我们。
     </p>
     <div class="hero-actions" style="justify-content: center;">
-      <a class="btn btn--primary" href="join.html">加入佛山 <span class="arrow">→</span></a>
+      <a class="btn btn--primary" href="join.html">加入联盟 <span class="arrow">→</span></a>
       <a class="btn btn--ghost" href="guide.html">先看新手指南</a>
     </div>
   </div>
@@ -300,19 +446,19 @@
       <div class="footer-brand">
         <a class="brand" href="index.html">
           <span class="brand-mark">佛</span>
-          <span class="brand-text"><b>佛山</b><i>FOSHAN · EARTHMC</i></span>
+          <span class="brand-text"><b>佛山联盟</b><i>FOSHAN LEAGUE</i></span>
         </a>
         <p class="footer-desc">
-          EarthMC 大明共和国广东省 · 佛山市非官方城市网站，
+          EarthMC 大明共和国广东省 · 佛山联盟非官方网站，
           由市民维护，与 Mojang Studios 及 EarthMC 官方无隶属关系。
         </p>
       </div>
 
       <div class="footer-col">
-        <h5>城市</h5>
-        <a href="foshan.html">城市志</a>
-        <a href="foshan.html#landmarks">地标建筑</a>
-        <a href="foshan.html#citizens">市民名录</a>
+        <h5>联盟</h5>
+        <a href="#cities">八座城市</a>
+        <a href="#cities">建城时间线</a>
+        <a href="foshan.html">佛山城市志</a>
         <a href="join.html">加入我们</a>
       </div>
 
@@ -327,14 +473,14 @@
       <div class="footer-col">
         <h5>入门</h5>
         <a href="guide.html">新手指南</a>
-        <a href="guide.html#commands">命令速查</a>
+        <a href="guide.html#town">城镇指令</a>
         <a href="guide.html#faq">常见问题</a>
         <a href="https://wiki.earthmc.net" target="_blank" rel="noopener">EarthMC Wiki ↗</a>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>© <span data-year>2026</span> 佛山市 · EarthMC. 保留所有权利。</p>
+      <p>© <span data-year>2026</span> 佛山联盟 · EarthMC. 保留所有权利。</p>
       <p class="mono" style="font-size: 11px; letter-spacing: 0.08em;">NOT AFFILIATED WITH MOJANG OR EARTHMC</p>
     </div>
   </div>

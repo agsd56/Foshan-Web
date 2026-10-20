@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>新手指南 · 从零开始玩 EarthMC | 佛山</title>
-<meta name="description" content="EarthMC 新手指南：如何进入服务器、加入城镇、赚取金锭、圈地建城。依据官方《城镇指南》整理，含完整指令速查表。">
+<title>新手指南 · EarthMC 入门与指令手册 | 佛山</title>
+<meta name="description" content="EarthMC 新手指南与完整指令手册：聊天频道、传送、金锭、城镇、国家、区块、自定义空间、技能与会员指令。">
 <meta name="theme-color" content="#0b0e0d">
-<meta property="og:title" content="新手指南 · 从零开始玩 EarthMC">
-<meta property="og:description" content="从进入服务器到拥有第一块地，依据官方文档整理，拒绝道听途说。">
+<meta property="og:title" content="新手指南 · EarthMC 入门与指令手册">
+<meta property="og:description" content="从基本玩法到完整指令表，一页看完。">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/style.css">
 <script src="assets/js/placeholder.js"></script>
@@ -18,7 +18,7 @@
   <div class="header-inner">
     <a class="brand" href="index.html" aria-label="佛山首页">
       <span class="brand-mark">佛</span>
-      <span class="brand-text"><b>佛山</b><i>FOSHAN · EARTHMC</i></span>
+      <span class="brand-text"><b>佛山联盟</b><i>FOSHAN LEAGUE</i></span>
     </a>
     <nav class="nav" id="nav">
       <a href="index.html">首页</a>
@@ -37,11 +37,11 @@
 <section class="page-hero">
   <div class="wrap">
     <p class="eyebrow">新手指南 · Getting Started</p>
-    <h1 class="page-title">从零开始<small>BEGINNER'S GUIDE TO EARTHMC</small></h1>
+    <h1 class="page-title">新手指南<small>EARTHMC · GUIDE &amp; COMMANDS</small></h1>
     <p class="page-desc">
-      这份指南写给第一次进入 EarthMC 的人。内容依据 EarthMC 官方《城镇指南》中文版
-      与服务器实际指令整理，不是二手传言。按顺序做完这十二步，你就会有一座城、一块地，
-      和一群邻居。
+      致新来的朋友：欢迎加入佛山。在这里，你将开启一段全新的游戏旅程。
+      本页内容整理自《EarthMC 新手指引》《指令汇总》与官方《城镇指南》，
+      保留原文表述，仅将示例城市替换为佛山。
     </p>
   </div>
 </section>
@@ -53,17 +53,17 @@
       <!-- ---------- TOC ---------- -->
       <aside class="toc" aria-label="目录">
         <p class="toc-title">目录</p>
-        <a href="#before"><span class="toc-num">01</span>开始之前</a>
-        <a href="#join-server"><span class="toc-num">02</span>进入服务器</a>
-        <a href="#map"><span class="toc-num">03</span>看懂地图</a>
-        <a href="#first-hour"><span class="toc-num">04</span>第一小时</a>
-        <a href="#town"><span class="toc-num">05</span>加入城镇</a>
-        <a href="#money"><span class="toc-num">06</span>金锭与谋生</a>
-        <a href="#claim"><span class="toc-num">07</span>圈地与保护</a>
-        <a href="#quarter"><span class="toc-num">08</span>区块与自定义空间</a>
-        <a href="#commands"><span class="toc-num">09</span>指令速查</a>
-        <a href="#foshan"><span class="toc-num">10</span>加入佛山</a>
-        <a href="#rules"><span class="toc-num">11</span>规则与礼仪</a>
+        <a href="#what"><span class="toc-num">01</span>这是个什么服务器</a>
+        <a href="#chat"><span class="toc-num">02</span>聊天频道</a>
+        <a href="#teleport"><span class="toc-num">03</span>传送</a>
+        <a href="#gold"><span class="toc-num">04</span>金锭与商店</a>
+        <a href="#town"><span class="toc-num">05</span>城镇</a>
+        <a href="#nation"><span class="toc-num">06</span>国家</a>
+        <a href="#quarter"><span class="toc-num">07</span>自定义空间</a>
+        <a href="#plot"><span class="toc-num">08</span>区块与头衔</a>
+        <a href="#skill"><span class="toc-num">09</span>技能与团队</a>
+        <a href="#member"><span class="toc-num">10</span>会员与其他</a>
+        <a href="#foshan"><span class="toc-num">11</span>加入佛山</a>
         <a href="#faq"><span class="toc-num">12</span>常见问题</a>
       </aside>
 
@@ -71,390 +71,406 @@
       <div class="guide-body">
 
         <!-- 01 -->
-        <section id="before">
-          <h2><span class="h2-num">STEP 01</span>开始之前</h2>
+        <section id="what">
+          <h2><span class="h2-num">01</span>这是个什么服务器</h2>
           <p class="guide-lead">
-            EarthMC 是一个基于 Minecraft Java 版的地缘政治服务器。玩家在 1:500 缩放的
-            定制地球地图上建城、立国、结盟、谈判。在动手之前，先确认几件事。
+            EarthMC 是一个以 Towny 插件为基础的地缘政治服务器（<b>但是没有战争插件</b>），
+            加入城镇进行发展是服务器大多数玩家的选择。
           </p>
 
-          <div class="steps">
-            <div class="step">
-              <div>
-                <h4>你需要一份正版 Java 版 Minecraft</h4>
-                <p>服务器使用 Mojang 正版验证，<b>必须从 minecraft.net 购买的账号</b>才能进入。
-                  离线账号、第三方启动器的"离线模式"都进不去。基岩版（手机、主机、Win10 版）不能直连。</p>
-              </div>
-            </div>
-
-            <div class="step">
-              <div>
-                <h4>版本跟随服务器</h4>
-                <p>服务器会随正式版更新，进服前把客户端升到<b>最新正式版</b>即可。
-                  如果启动器提示版本不兼容，通常就是客户端太旧。</p>
-              </div>
-            </div>
-
-            <div class="step">
-              <div>
-                <h4>不需要注册密码</h4>
-                <p>EarthMC <b>没有</b> <code>/register</code>、<code>/login</code> 这类指令。
-                  你的 Mojang 账号就是登录凭证，正版验证通过后直接进入游戏。
-                  如果看到有人教你输入注册密码，那说的是别的服务器。</p>
-              </div>
-            </div>
-
-            <div class="step">
-              <div>
-                <h4>不需要装模组，但要知道这些限制</h4>
-                <p>原版即可进入。允许性能模组（如 OptiFine）、护甲与状态 HUD、
-                  纯装饰模组，以及 Litematica 的投影打印功能。
-                  <b>禁止</b>任何提供额外信息或操作优势的模组——包括比官网地图信息更多的小地图、
-                  Schematica、自动操作宏。</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="callout">
-            <b>先接受两件事</b><br>
-            第一，服务器架设在欧洲，国内玩家延迟普遍偏高，这是地理位置决定的，不是你的网络问题。<br>
-            第二，EarthMC <b>没有战争插件</b>。玩家对战（PvP）与游戏进度不挂钩，国家之间的冲突主要靠外交解决。
-            这里的"战争"是谈判、封锁、圈地博弈，不是攻城战。
-          </div>
-        </section>
-
-        <!-- 02 -->
-        <section id="join-server">
-          <h2><span class="h2-num">STEP 02</span>进入服务器</h2>
-          <p class="guide-lead">
-            服务器地址只有一个，记不住也没关系，本页可以直接复制。
+          <p>
+            我猜你可能想知道，为什么在加入我们之前，你已经收到了无数城镇的邀请——
+            这是因为<b>居民数量的增加可以提高一个城镇的面积上限</b>，
+            很多城镇疯狂拉人就是为了增加这个上限。当然，这不是我们拉你进来的目的——
+            我们希望，我们能够共同建设一个团结友好的游戏社区，留下美好的游戏回忆。
           </p>
 
+          <h3>进入服务器</h3>
           <div class="ip-block">
             <span class="ip-value">join.earthmc.net</span>
             <button class="copy-btn" data-copy="join.earthmc.net">复制地址</button>
           </div>
 
-          <div class="steps">
-            <div class="step">
-              <div>
-                <h4>添加服务器</h4>
-                <p>启动游戏 → <b>多人游戏</b> → <b>添加服务器</b>。
-                  名称随意填（例如「EarthMC」），地址填 <code>join.earthmc.net</code>，<b>不需要填端口号</b>。</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h4>排队</h4>
-                <p>服务器满人时会自动进入等待队列。输入 <code>/queue</code> 可以查看你排在第几位。
-                  会员玩家有专属快速通道，平均等待不到 30 秒。</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h4>连不上怎么办</h4>
-                <p>依次检查：是否 Java 正版、是否用了基岩版、Mojang 验证服务是否正常。
-                  还可以把 DNS 换成 <code>1.1.1.1</code>（Cloudflare）或 <code>8.8.8.8</code>（Google）——
-                  部分运营商提供的 DNS 会导致无法连接。</p>
-              </div>
-            </div>
-          </div>
+          <ul>
+            <li><b>Java 版 + 正版账号</b>。服务器使用正版验证，离线账号无法进入。</li>
+            <li><b>不需要注册密码</b>。EarthMC 没有 <code>/register</code>、<code>/login</code>，
+              正版验证通过就直接进入。</li>
+            <li>版本跟随服务器，把客户端升到最新正式版即可。</li>
+            <li>服务器架设在欧洲，国内延迟偏高属于正常现象。</li>
+          </ul>
 
           <div class="callout callout--danger">
             <b>注意</b><br>
-            <code>play.earthmc.net</code> 是<b>已停用</b>的旧地址，不要用。
-            唯一有效地址是 <code>join.earthmc.net</code>。
+            <code>play.earthmc.net</code> 是已停用的旧地址，唯一有效地址是
+            <code>join.earthmc.net</code>。服务器满人时会排队，输入 <code>/queue</code>
+            可以查看你排在第几位。
           </div>
 
-          <h3>一个很有用的招募工具</h3>
-          <p>每个玩家都有一个专属域名，格式是 <code>你的ID.earthmc.net</code>。
-            用这个域名进来的朋友，会<b>自动加入你的城镇</b>——不用手动邀请，也不用教他敲指令。</p>
-          <p>如果你打算拉朋友一起玩，把你的专属域名发给他，比什么都省事。</p>
+          <h3>地图</h3>
+          <p>
+            输入 <code>/map</code> 可以打开服务器地图的网页链接（也可直接访问
+            <code>map.earthmc.net</code>）。地图比例为 1:500。
+          </p>
+          <p>
+            注意，玩家潜行时或头顶上有方块遮挡时，在地图上是不会显示位置的
+            （当然，这也可以用于躲避猎人的追杀）。
+          </p>
+
+          <div class="callout callout--jade">
+            <b>一个招募小技巧</b><br>
+            每个玩家都有专属域名，格式为 <code>你的ID.earthmc.net</code>。
+            用这个域名进来的朋友会自动加入你的城镇，不用手动邀请。
+            拉朋友一起玩的时候，把你的专属域名发给他就行。
+          </div>
+        </section>
+
+        <!-- 02 -->
+        <section id="chat">
+          <h2><span class="h2-num">02</span>聊天频道</h2>
+          <p class="guide-lead">
+            服务器采用频道制：先加入频道，再正常打字。不是每次发言都要带前缀。
+          </p>
+
+          <p>
+            <code>/g</code> 可加入国际聊天频道，<code>/chinese</code> 可加入中文聊天频道，
+            <code>/local</code> 可加入附近聊天频道，<code>/nc</code> 可加入国家聊天频道，
+            <code>/tc</code> 可加入城镇聊天频道。
+            如果你不想看到某个频道的信息，可以输入 <code>/ch leave 频道名</code>。
+          </p>
+
+          <table class="cmd-table">
+            <thead><tr><th>频道</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/global</code></td><td>全球频道，<b>仅限英语</b></td></tr>
+              <tr><td><code>/local</code></td><td>本地频道，仅距你较近的玩家可见</td></tr>
+              <tr><td><code>/tradechat</code></td><td>买卖等交易频道</td></tr>
+              <tr><td><code>/ch join premium</code></td><td>会员玩家频道</td></tr>
+              <tr><td><code>/nc</code> 或 <code>/nationchat</code></td><td>国家频道</td></tr>
+              <tr><td><code>/tc</code> 或 <code>/townchat</code></td><td>城镇频道</td></tr>
+              <tr><td><code>/[语言]</code></td><td>一系列的语言频道，如 <code>/chinese</code> 为加入中文频道</td></tr>
+            </tbody>
+          </table>
+
+          <h3>聊天指令</h3>
+          <table class="cmd-table">
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/ch join [频道]</code></td><td>加入频道</td></tr>
+              <tr><td><code>/ch leave [频道]</code></td><td>离开频道</td></tr>
+              <tr><td><code>/msg [玩家] [信息]</code></td><td>向玩家发送信息</td></tr>
+              <tr><td><code>/r [信息]</code></td><td>回复信息至你最后私信的玩家</td></tr>
+              <tr><td><code>/rtoggle</code></td><td>打开或关闭 /r 功能</td></tr>
+              <tr><td><code>/mail send [玩家] [信息]</code></td><td>向指定玩家发送邮件</td></tr>
+              <tr><td><code>/mail read</code></td><td>阅读邮件</td></tr>
+              <tr><td><code>/mail clear</code></td><td>清理邮箱</td></tr>
+              <tr><td><code>/ignore [玩家]</code></td><td>屏蔽指定玩家的信息</td></tr>
+              <tr><td><code>/unignore [玩家]</code></td><td>停止屏蔽指定玩家的信息</td></tr>
+            </tbody>
+          </table>
+          <p class="muted" style="font-size: 13px;">全球频道只允许英语，这是服务器规则。说中文请去 <code>/chinese</code>。</p>
         </section>
 
         <!-- 03 -->
-        <section id="map">
-          <h2><span class="h2-num">STEP 03</span>看懂地图</h2>
+        <section id="teleport">
+          <h2><span class="h2-num">03</span>传送</h2>
           <p class="guide-lead">
-            进服第一件事不是砍树，是搞清楚自己在哪。EarthMC 的所有决策——选址、扩张、
-            判断邻居——都建立在看地图的基础上。
+            你可以传送至自己的城镇、你所在国家的城镇、盟国的首都及你的床边。
+            EarthMC <b>不支持玩家之间的传送</b>，没有 /tpa 这类指令。
           </p>
 
-          <p>在聊天框输入 <code>/map</code>，会得到一个可点击的链接，也可以在浏览器直接打开
-            <code>map.earthmc.net</code>。滚轮缩放，点击色块可以查看所属城镇或国家的信息。</p>
+          <table class="cmd-table">
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/t spawn</code></td><td>传送至自己城镇的出生点</td></tr>
+              <tr><td><code>/t spawn [城镇]</code></td><td>传送至指定城镇</td></tr>
+              <tr><td><code>/t warp [传送点]</code></td><td>传送至城镇传送点</td></tr>
+              <tr><td><code>/t warp [城镇] [传送点]</code></td><td>传送至指定城镇的指定传送点</td></tr>
+              <tr><td><code>/n spawn</code></td><td>传送至自己国家的首都</td></tr>
+              <tr><td><code>/n spawn [国家]</code></td><td>传送至指定国家</td></tr>
+              <tr><td><code>/res spawn</code> 或 <code>/home</code></td><td>回到你的床边</td></tr>
+              <tr><td><code>/warp</code></td><td>查看可用传送点</td></tr>
+            </tbody>
+          </table>
 
-          <h3>地图上能看到什么</h3>
-          <ul>
-            <li><b>在线玩家</b>——但在地下、潜行或喝隐身药水时不会显示。这既是危险，也是保命技巧。</li>
-            <li><b>地形变化</b>——包括玩家改造过的地貌。</li>
-            <li><b>领土</b>——不同颜色的方块代表城镇或国家宣称的土地。</li>
-            <li><b>首都</b>——用星形符号标记。</li>
-          </ul>
+          <h3>仅限新玩家（入服时间 &lt; 24 小时）</h3>
+          <table class="cmd-table">
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/rtp</code></td><td>传送至地图上的随机位置</td></tr>
+              <tr><td><code>/rtp region [地区]</code></td><td>传送至所选区域内的随机地点，例如非洲（Africa）</td></tr>
+            </tbody>
+          </table>
 
-          <div class="callout callout--jade">
-            <b>坐标怎么对</b><br>
-            地图左下角显示的坐标，与游戏内按 <code>F3</code> 看到的坐标一致。
-            找城址时，先在地图上挑位置，记下坐标，再进游戏走过去。
+          <div class="callout">
+            <b>城镇传送点（warp）</b><br>
+            城镇达到 128 区块后才解锁传送点，且每天要交维护费：第一个 4 金，
+            之后每个约为前一个的 1.5 倍（4 → 6 → 9 → 14）。
+            佛山的对外传送点（Outsider Spawn）目前未开放，所以非明国玩家无法直接传送到佛山。
           </div>
         </section>
 
         <!-- 04 -->
-        <section id="first-hour">
-          <h2><span class="h2-num">STEP 04</span>第一小时做什么</h2>
+        <section id="gold">
+          <h2><span class="h2-num">04</span>金锭与商店</h2>
           <p class="guide-lead">
-            第一小时的目标只有两个：<b>活下来</b>，以及<b>决定去哪</b>。
-            不要急着建城——建城要 64 金，你身上大概率没有。
+            服务器的货币是<b>金锭</b>（简称 g），一般可以通过挖矿或"签到"获得。
           </p>
 
-          <div class="steps">
-            <div class="step">
-              <div>
-                <h4>跑起来</h4>
-                <p>刚入服的 24 小时内，你可以用 <code>/rtp</code> 随机传送到地图上的任意位置，
-                  或用 <code>/rtp region [地区]</code> 指定区域（例如 <code>/rtp region Africa</code>）。
-                  这是新人唯一的"免费搬家"机会，用掉它。</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h4>做新手任务</h4>
-                <p>新玩家进服会自动开启新手任务，老玩家可以 <code>/quests start</code> 手动开启。
-                  任务会引导你熟悉服务器的主要玩法，进度条会提示下一步做什么。
-                  目前完成任务没有物质奖励，但值得走一遍。</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h4>收集基础物资</h4>
-                <p>砍树、做工具、找食物。有床就睡一觉，把重生点设在你落脚的地方。
-                  金矿从 <b>Y=0 到 Y=-64</b> 均匀分布，顺手挖一点，这是启动资金。</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h4>别在出生点附近建东西</h4>
-                <p>公共出生点和首都周边早已被认领或规划。你在那里放的方块，既不受保护，
-                  也大概率会被清理。先决定去哪，再动手。</p>
-              </div>
-            </div>
-          </div>
+          <h3>怎么获得金锭</h3>
+          <p>
+            所谓签到，就是输入 <code>/vote</code> 在两个网址中给服务器投票。
+            投票后可以获得一个 gold crate，右键打开 gold crate 后可以获得随机数量的金锭。
+            每 24 小时最多 4 个金箱。
+          </p>
+          <p>
+            每当服务器积累 5000 个投票后，就会触发一次 voteparty 事件，
+            每个在线玩家可获得一个 giant gold crate（奖励金锭的数额很多）。
+            你可以通过 <code>/vp</code> 指令查看服务器触发 voteparty 事件还差多少个投票。
+          </p>
+          <p>
+            金锭可以用于在商店中购买物品、建立城镇/国家、扩大城镇区块等等，
+            请一定要保管好你的金锭。最安全的地方是末影箱——死亡不会掉落，别人也打不开。
+          </p>
 
-          <div class="callout">
-            <b>关于"被邀请"</b><br>
-            你可能会在进服后收到一堆城镇邀请。原因很直接：<b>每增加 1 位居民，城镇的区块上限 +12</b>。
-            所以城镇拉人是为了扩张空间。这不一定是坏事，但要挑一个真的愿意教你的城镇，
-            而不是只把你当名额。
+          <h3>服务器的大型商店</h3>
+          <p>
+            服务器有几个大型商店，如 <code>/n spawn ob</code>、<code>/n spawn mali</code>、
+            <code>/n spawn brazil</code> 等。<code>/n spawn western_china</code> 是国营商店。
+          </p>
+
+          <h3>银行</h3>
+          <table class="cmd-table">
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/t deposit [数量]</code></td><td>向城镇银行捐钱（要在 home 区块或 bank 区块操作）</td></tr>
+              <tr><td><code>/t withdraw [数量]</code></td><td>从城镇银行取钱，只有市长或议员（Councillor）有此权限</td></tr>
+              <tr><td><code>/n deposit [数量]</code></td><td>保存黄金至国家银行</td></tr>
+              <tr><td><code>/n withdraw [数量]</code></td><td>从国家银行中取出黄金</td></tr>
+            </tbody>
+          </table>
+
+          <h3>开商店（QuickShop）</h3>
+          <p>
+            商店必须建在 <code>shop</code> 类型的区块上。放置箱子后，手持商品左键点击箱子，
+            按提示输入价格即可。最低是 1 金换 64 件物品。
+          </p>
+          <table class="cmd-table">
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/qs buy</code></td><td>切换商店至购买模式</td></tr>
+              <tr><td><code>/qs sell</code></td><td>切换商店至收购模式</td></tr>
+              <tr><td><code>/qs price [价格]</code></td><td>更改商店价格</td></tr>
+              <tr><td><code>/qs size</code></td><td>更改商店销售数量</td></tr>
+              <tr><td><code>/qs staff add [玩家]</code></td><td>为您的商店增加管理人员</td></tr>
+              <tr><td><code>/qs staff remove [玩家]</code></td><td>从您的商店移除管理人员</td></tr>
+              <tr><td><code>/qs staff clear</code></td><td>清除所有工作人员</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout callout--danger">
+            <b>防骗提醒</b><br>
+            <code>/t forsale</code> 或 <code>/t fs</code> 是出售<b>整个城镇</b>的指令。
+            部分玩家有可能诱使你输入这一指令以骗取你的城镇。任何让你敲这条指令的人，都值得怀疑。
           </div>
         </section>
 
         <!-- 05 -->
         <section id="town">
-          <h2><span class="h2-num">STEP 05</span>加入城镇</h2>
+          <h2><span class="h2-num">05</span>城镇</h2>
           <p class="guide-lead">
-            城镇是 EarthMC 的基本单位。它决定了你的领地是否受保护、能传送到哪里、
-            以及你属于哪个国家。绝大多数玩家都会先加入一座城镇。
+            城镇是 EarthMC 的基本单位。加入城镇进行发展，是服务器大多数玩家的选择。
           </p>
 
-          <h3>方式一：加入别人的城镇（推荐）</h3>
-          <p>收到邀请后，在聊天框输入 <code>/accept</code>，或直接点击聊天里的提示即可加入。
-            如果对方是开放加入的城镇，你也可以主动申请：</p>
+          <h3>加入与创建</h3>
+          <p>收到邀请后输入 <code>/accept</code> 即可加入；开放加入的城镇可以直接申请：</p>
           <pre><code>/t join &lt;城镇名&gt;</code></pre>
-
-          <h3>方式二：自己建城</h3>
-          <p>建城需要 <b>64 金锭</b>，且必须站在一块未被认领的土地上：</p>
+          <p>自己建城需要 <b>64 金锭</b>，且要站在未被认领的土地上：</p>
           <pre><code>/t new &lt;城镇名&gt;</code></pre>
-          <p>建成后你拥有一个 <b>1 区块</b>的城镇，出生点就在你脚下。
-            城镇刚建立时区块上限只有 <b>12</b>，之后每增加 1 位居民，上限增加 12；
-            加入国家后还会获得基于国家人口的国家加成（10 到 100 不等）。</p>
+          <p>
+            建成后占地 1 区块，区块上限为 12。之后每增加 1 位居民，上限增加 12；
+            加入国家后还会获得基于国家人口的国家加成。
+          </p>
+          <p>为城镇圈地每块 <b>16 金锭</b>，费用从城镇银行扣除：</p>
+          <pre><code>/t claim</code></pre>
 
-          <div class="callout">
-            <b>建城不是终点，是起点</b><br>
-            64 金只是"注册费"。之后每圈一块地要再花 16 金，传送点、维护费、
-            超额圈地保护都要持续投入。没有稳定收入来源的话，一座城很快就会停滞。
-          </div>
+          <h3>城镇指令</h3>
+          <table class="cmd-table">
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/t [城镇]</code></td><td>查看特定城镇信息</td></tr>
+              <tr><td><code>/t here</code></td><td>显示当前所处城镇的信息</td></tr>
+              <tr><td><code>/t list</code></td><td>显示所有城镇列表</td></tr>
+              <tr><td><code>/t leave</code></td><td>离开城镇</td></tr>
+              <tr><td><code>/t new [名字]</code></td><td>创建新城镇</td></tr>
+              <tr><td><code>/t invite [玩家]</code></td><td>邀请玩家入城</td></tr>
+              <tr><td><code>/t add [玩家]</code></td><td>邀请玩家入城</td></tr>
+              <tr><td><code>/t kick [玩家]</code></td><td>驱逐居民出城</td></tr>
+              <tr><td><code>/t spawn</code></td><td>传送至城镇出生点</td></tr>
+              <tr><td><code>/t claim</code></td><td>为城镇圈地</td></tr>
+              <tr><td><code>/t deposit [数量]</code></td><td>金锭存入银行</td></tr>
+              <tr><td><code>/t withdraw [数量]</code></td><td>从城镇银行取出金锭</td></tr>
+              <tr><td><code>/t warp [城镇] [传送点]</code></td><td>传送至城镇传送点</td></tr>
+              <tr><td><code>/t warpmanager [action]</code></td><td>管理城镇传送点</td></tr>
+              <tr><td><code>/t set wikipage</code></td><td>将 wiki.earthmc.net 的链接显示在城镇公告栏和网站地图上</td></tr>
+              <tr><td><code>/t takeoverclaim</code></td><td>从另一城镇夺取已占领区块，这种行为被称为过度索取</td></tr>
+              <tr><td><code>/t rank [add/remove] [玩家] [头衔]</code></td><td>添加/移除玩家头衔</td></tr>
+              <tr><td><code>/t set [board/mayor/homeblock/perm]</code></td><td>城镇权限设置</td></tr>
+              <tr><td><code>/t set plotprice</code></td><td>设置默认区块的默认价格。设置为 -1 可防止所有城镇区块被出售</td></tr>
+              <tr><td><code>/t set perm [build/destroy/switch/itemuse] [resident/ally/nation/outsider]</code></td><td>设置城镇权限及对应的身份组权限</td></tr>
+              <tr><td><code>/t toggle [explosion/fire/mobs/pvp]</code></td><td>设置城镇（允许爆炸/火焰蔓延/生物生成/pvp）权限</td></tr>
+              <tr><td><code>/t forsale [数量]</code> / <code>/t fs [数量]</code></td><td>将整个城镇出售。注意！部分玩家有可能诱使你输入这一指令以骗取你的城镇</td></tr>
+              <tr><td><code>/t buytown [城镇]</code></td><td>购买一座待售城镇，价格显示在 <code>/t [城镇]</code> 上</td></tr>
+              <tr><td><code>/t merge [城镇]</code></td><td>合并两个城镇</td></tr>
+            </tbody>
+          </table>
 
-          <h3>加入国家</h3>
-          <p>城镇可以加入一个国家，从而获得传送、市场和保护。两种方式：</p>
+          <h3>42 天规则</h3>
+          <p>
+            注意：玩家若 <b>42 天</b>不上线，其在服务器的 Towny 信息会被删除。
+            若该玩家是一个城市的唯一成员，这个城镇也会随着玩家信息的删除而被删除——
+            有些人会专门寻找这样的城市，当市长快删号时加入城镇以夺取该城市。
+          </p>
+          <p>
+            市长 42 天不活跃时，会按顺序由任职最久的议员继任；没有议员则由最活跃的居民接任。
+            所以长期不上线，一定要提前打招呼。
+          </p>
+
+          <h3>过度索取（OC）</h3>
+          <p>
+            如果一个城镇占领的区块数超过它的上限（通常因为居民流失），
+            其他城镇可以用 <code>/t takeoverclaim</code> 夺取这些超额区块。限制条件：
+          </p>
           <ul>
-            <li>主动申请：<code>/n join &lt;国家名&gt;</code>（该国必须处于开放状态）</li>
-            <li>接受邀请：<code>/t invite accept &lt;国家名&gt;</code></li>
+            <li>只有面积大于 12 区块的城镇才能被夺取。</li>
+            <li>城镇的 home 区块受保护，永远不能被夺。</li>
+            <li>城镇必须建立超过 30 天，才有资格夺取别人。</li>
+            <li>每天最多使用 24 次。</li>
+            <li>被夺取的一方可以花钱买区块护盾：超限部分每 4 块、每 24 小时 1 金。</li>
           </ul>
-          <p>国家有距离限制：城镇必须位于首都 <b>3500 格</b>范围内才能受邀加入。
-            每有一个城镇加入，这个范围就向外扩展 <b>1000 格</b>，所以大国可以像链条一样延伸领土。</p>
-
-          <h3>离开</h3>
-          <pre><code>/t leave</code></pre>
-          <p>离开后你会失去该城镇的领地保护，城内属于你的区块也会被收回。走之前把东西搬干净。</p>
         </section>
 
         <!-- 06 -->
-        <section id="money">
-          <h2><span class="h2-num">STEP 06</span>金锭与谋生</h2>
+        <section id="nation">
+          <h2><span class="h2-num">06</span>国家</h2>
           <p class="guide-lead">
-            EarthMC 的货币是<b>金锭</b>，1 金锭 = 1 货币单位。建城、圈地、缴税、买卖全靠它。
-            服务器不设官方商店，所有交易由玩家之间完成。
+            国家由城镇组成。首都由一个国家内的城镇担任，国家频道、传送与外交都围绕它展开。
           </p>
 
-          <h3>四条来钱的路</h3>
-          <div class="steps">
-            <div class="step">
-              <div>
-                <h4>挖矿</h4>
-                <p>最稳定的起步方式。金矿在 <b>Y=0 到 Y=-64</b> 之间均匀分布，
-                  出现频率大致相同，所以往深处挖不会更容易出金，但能避开表层已被翻遍的区域。</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h4>投票</h4>
-                <p>输入 <code>/vote</code>，点击给出的链接为服务器投票。每成功投票一次获得一个金箱，
-                  <b>每 24 小时最多 4 个</b>，每个金箱最多开出 64 金或特殊物品。
-                  人不在线时可以投票，但拿不到奖励。</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h4>开店</h4>
-                <p>长期收入的主要来源。商店必须建在 <code>shop</code> 类型的区块上，
-                  放置箱子后手持商品左键点击箱子，按提示输入价格即可。
-                  最赚钱的店通常开在首都，因为首都是国家的传送枢纽。</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h4>搜刮陷落城镇</h4>
-                <p>城镇陷落后会解除所有保护，里面的东西可以随便拿。
-                  服务器规则<b>允许</b>这种行为——保护财产是玩家自己的责任。
-                  这也是为什么你应该把家安在有人的城里。</p>
-              </div>
-            </div>
-          </div>
+          <p>
+            创建国家需要 <b>2048 金锭</b>，且只有市长才能创建，所在城镇自动成为首都。
+            城镇加入国家需要满足距离要求：首都 3500 格范围内的城镇可以受邀加入，
+            每有一个城镇加入，范围向外扩展 1000 格。
+          </p>
 
-          <h3>钱放哪</h3>
-          <p>最安全的地方是<b>末影箱</b>——死亡不会掉落，别人也打不开。
-            其次是城镇银行和国家银行：</p>
-          <pre><code>/t deposit &lt;数量&gt;     存入城镇银行
-/n deposit &lt;数量&gt;     存入国家银行
-/t withdraw &lt;数量&gt;    取出（需财务主管或市长权限）</code></pre>
-          <p>圈地、建城、传送点维护等开销，都从城镇银行扣款。所以存进去的钱不是"上交"，是城市的公共预算。</p>
-
-          <div class="callout callout--danger">
-            <b>防骗提醒</b><br>
-            服务器没有官方交易担保。不要相信"先给我金，我帮你建城"之类的承诺。
-            <code>/t forsale</code> 是出售<b>整个城镇</b>的指令，有人会诱导新手输入它来骗走城镇——
-            任何让你敲这条指令的人，都值得怀疑。
-          </div>
+          <table class="cmd-table">
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/n [国家]</code></td><td>查看指定国家的信息</td></tr>
+              <tr><td><code>/n new [国家]</code></td><td>创建新国家</td></tr>
+              <tr><td><code>/n spawn</code></td><td>传送至自己国家的首都</td></tr>
+              <tr><td><code>/n spawn [国家]</code></td><td>传送至指定国家</td></tr>
+              <tr><td><code>/n leave</code></td><td>使你的城镇离开国家</td></tr>
+              <tr><td><code>/n join [国家]</code></td><td>城镇加入国家</td></tr>
+              <tr><td><code>/n add [城镇]</code></td><td>邀请城镇进入国家</td></tr>
+              <tr><td><code>/n kick [城镇]</code></td><td>将城镇踢出国家</td></tr>
+              <tr><td><code>/n deposit [数量]</code></td><td>保存黄金至国家银行</td></tr>
+              <tr><td><code>/n withdraw [数量]</code></td><td>从国家银行中取出黄金</td></tr>
+              <tr><td><code>/n outlaw add/remove [玩家]</code></td><td>将玩家放逐出国，阻止其加入/传送至该国城镇</td></tr>
+              <tr><td><code>/n outlawlist [国家]</code></td><td>查看一个国家的放逐名单</td></tr>
+              <tr><td><code>/n ally add/remove [国家]</code></td><td>添加/移除盟友国家</td></tr>
+              <tr><td><code>/n enemy add/remove [国家]</code></td><td>添加/移除敌对国家</td></tr>
+              <tr><td><code>/n pact [action] [国家]</code></td><td>管理国家盟约</td></tr>
+              <tr><td><code>/n embargo [action] [国家]</code></td><td>管理国家禁运</td></tr>
+              <tr><td><code>/n rank add/remove [玩家] [头衔]</code></td><td>授予/撤销居民的国家头衔</td></tr>
+              <tr><td><code>/n toggle open</code></td><td>切换国家的公开性</td></tr>
+              <tr><td><code>/n delete</code></td><td>删除国家</td></tr>
+              <tr><td><code>/n set wikipage</code></td><td>将 wiki.earthmc.net 链接显示在国家公告栏和网站地图上</td></tr>
+              <tr><td><code>/n set king [玩家]</code></td><td>更换国家首领</td></tr>
+              <tr><td><code>/n set capital [城镇]</code></td><td>设置国家首都</td></tr>
+              <tr><td><code>/n set spawn</code></td><td>设置国家出生点</td></tr>
+              <tr><td><code>/n set board [信息]</code></td><td>设定国家公告</td></tr>
+              <tr><td><code>/n set taxes [数量]</code></td><td>按 24 小时为周期设定国家税收</td></tr>
+              <tr><td><code>/n set title [头衔]</code></td><td>为国家成员设定头衔</td></tr>
+              <tr><td><code>/n merge</code></td><td>合并两个国家</td></tr>
+              <tr><td><code>/n online</code></td><td>查看国家在线人员</td></tr>
+              <tr><td><code>/emcmap nationcolor [HEXcolour]</code></td><td>在 EMC 地图上设置国家区块颜色（仅限会员）</td></tr>
+              <tr><td><code>/emcmap nationoutline [HEXcolour]</code></td><td>在 EMC 地图上设置国家轮廓颜色（仅限会员）</td></tr>
+              <tr><td><code>/res set leaderprefix</code></td><td>将国家领导人聊天前缀设置为 Ⓚ 或 Ⓠ（国王或女王）</td></tr>
+            </tbody>
+          </table>
         </section>
 
         <!-- 07 -->
-        <section id="claim">
-          <h2><span class="h2-num">STEP 07</span>圈地与保护</h2>
+        <section id="quarter">
+          <h2><span class="h2-num">07</span>自定义空间</h2>
           <p class="guide-lead">
-            EarthMC 的地图按<b>区块</b>划分，每个区块 16×16 格，与 Minecraft 原生区块完全一致。
-            按 <code>F3+G</code> 可以显示区块边界。
+            Quarter 在官方中文文档中被称为"自定义空间"。
+            标准区块只能管一个 16×16×全高的柱子，而 Quarter 是可以自定义大小的长方体。
           </p>
 
-          <h3>圈地的完整流程</h3>
-          <div class="steps">
-            <div class="step">
-              <div>
-                <h4>存钱进城镇银行</h4>
-                <p>圈地费用从城镇银行扣，不是从你背包扣。先 <code>/t deposit 16</code>，
-                  而且要在城镇的 home 区块或 bank 区块里操作。</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h4>站到目标区块上</h4>
-                <p>这个区块必须与城镇已有领地<b>相邻</b>，不能跳着圈。</p>
-              </div>
-            </div>
-            <div class="step">
-              <div>
-                <h4>执行圈地</h4>
-                <p>输入 <code>/t claim</code>。每块消耗 <b>16 金锭</b>。
-                  只有拥有相应头衔的人能圈地，普通居民不行。</p>
-              </div>
-            </div>
+          <h3>类型</h3>
+          <p>Quarter 类型在默认的城镇、区块类型的基础上进行扩展。市长和议员可以更改 Quarter 类型：</p>
+          <pre><code>/q type [类型]</code></pre>
+
+          <table class="cmd-table">
+            <thead><tr><th>Quarter 类型</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td>公寓（Apartment）</td><td>默认的 Quarter 类型</td></tr>
+              <tr><td>客栈（Inn）</td><td>允许使用 Quarter 内的床铺</td></tr>
+              <tr><td>车站（Station）</td><td>允许使用船只和矿车等载具</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout">
+            <b>注意</b><br>
+            您必须将 Quarter 设置为<b>大使馆（Embassy）</b>，才能让外来者也享有车站（Station）等权限。
+            例如，当您希望城镇外的人也可以使用车站中的船只和矿车，
+            您必须将 Quarter 设置为大使馆方能使其对外来者（Outsider）生效。
           </div>
 
-          <h3>三种"区块"别搞混</h3>
-          <table class="cmd-table">
-            <thead><tr><th>概念</th><th>含义</th><th>指令</th></tr></thead>
-            <tbody>
-              <tr><td>城镇领地</td><td>城镇控制的地盘，决定边界与上限</td><td><code>/t claim</code></td></tr>
-              <tr><td>地块</td><td>城内的某一块地，可以卖给居民</td><td><code>/plot claim</code></td></tr>
-              <tr><td>自定义空间</td><td>城内的立体空间，用于公寓、车站</td><td><code>/q claim</code></td></tr>
-            </tbody>
-          </table>
-          <p class="muted" style="font-size: 13px;">很多教程把前两个都叫"区块"，这是混乱的根源。<code>/t claim</code> 是给城镇扩张，<code>/plot claim</code> 是给自己买地。</p>
-
-          <h3>保护范围</h3>
-          <ul>
-            <li><b>城镇领地内</b>：非居民默认无法建造、破坏、开箱、使用物品。四项权限默认全部关闭。</li>
-            <li><b>荒野（未被认领的区块）</b>：<b>没有保护</b>。任何人都可以拆、可以拿、可以烧。</li>
-            <li><b>领地周边 5 区块</b>：禁止恶意破坏，包括圆石山、岩浆瀑布、TNT 坑、大量刷实体。</li>
-          </ul>
-
-          <h3>42 天规则（很重要）</h3>
-          <p>玩家连续 <b>42 天</b>未登录，其在服务器上的 Towny 信息会被删除。
-            如果这个人是城镇的<b>唯一成员</b>，城镇会一起消失。
-            市长 42 天不活跃时，会按顺序由任职最久的议员继任；没有议员则由最活跃的居民接任。</p>
-          <p>这就是为什么长期不上线要提前打招呼——不是礼貌问题，是城市会不会被系统回收的问题。</p>
-
-          <h3>过度圈地（OC）</h3>
-          <p>如果一个城镇占领的区块数<b>超过了它的上限</b>（通常因为居民流失），
-            其他城镇可以用 <code>/t takeoverclaim</code> 夺取这些超额区块。规则限制：</p>
-          <ul>
-            <li>只有面积大于 12 区块的城镇才能被 OC。</li>
-            <li>城镇的 home 区块受保护，永远不能被夺。</li>
-            <li>城镇必须建立超过 30 天，才有资格 OC 别人。</li>
-            <li>每天最多使用 24 次。</li>
-            <li>被 OC 的一方可以花钱买"区块护盾"：超限部分每 4 块、每 24 小时 1 金。</li>
-          </ul>
-        </section>
-
-        <!-- 08 -->
-        <section id="quarter">
-          <h2><span class="h2-num">STEP 08</span>区块与自定义空间</h2>
-          <p class="guide-lead">
-            买了地之后，你可以决定这块地"能干什么"。这是 EarthMC 比普通 Towny 服务器细腻的地方。
+          <h3>创建</h3>
+          <p>
+            手持燧石（没有就 <code>/q wand</code> 免费领一个），左键点第一个角、右键点对角，
+            形成一个长方体轮廓，然后 <code>/q create</code>。
+            长方体必须完全位于同一个城镇内，不能包含未认领的荒野，不能与已有 Quarter 重叠，
+            也不能超出世界高度上下限。
           </p>
 
-          <h3>区块类型</h3>
+          <h3>自定义空间指令</h3>
           <table class="cmd-table">
-            <thead><tr><th>类型</th><th>用途</th></tr></thead>
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
             <tbody>
-              <tr><td><code>default</code> 默认</td><td>个人住宅、普通建筑</td></tr>
-              <tr><td><code>shop</code> 店铺</td><td>允许开设商店，卖东西必须用这个类型</td></tr>
-              <tr><td><code>arena</code> 竞技场</td><td>允许 PvP，死亡不掉落物品和经验</td></tr>
-              <tr><td><code>vault</code> 保险库</td><td>连议员和受信任者都进不去，只有你和明确授权的人能用</td></tr>
-              <tr><td><code>farm</code> 农场</td><td>可以收割作物、伤害生物，但不能破坏其他方块</td></tr>
-              <tr><td><code>embassy</code> 大使馆</td><td>允许其他城镇的居民购买，常用于跨城开店</td></tr>
-              <tr><td><code>inn</code> 客栈</td><td>任何人都能使用区块内的床</td></tr>
-              <tr><td><code>wild</code> 荒野</td><td>只能挖石头和矿物，适合做公共矿场</td></tr>
+              <tr><td><code>/q claim</code></td><td>认领一个在售的 Quarter</td></tr>
+              <tr><td><code>/q create</code></td><td>创建一个 Quarter</td></tr>
+              <tr><td><code>/q delete</code></td><td>删除你当前所在的 Quarter</td></tr>
+              <tr><td><code>/q delete plot</code></td><td>删除所在区块内的所有 Quarter</td></tr>
+              <tr><td><code>/q evict</code></td><td>清除目前 Quarter 的拥有者</td></tr>
+              <tr><td><code>/q edit</code></td><td>使用参数编辑 Quarter 的指令</td></tr>
+              <tr><td><code>/q here</code></td><td>查看你所在 Quarter 的信息</td></tr>
+              <tr><td><code>/q pos</code></td><td>在指定位置创建 Quarter</td></tr>
+              <tr><td><code>/q selection add</code></td><td>将选定的长方体添加到当前的选择范围</td></tr>
+              <tr><td><code>/q selection clear</code></td><td>移除所有已添加的长方体</td></tr>
+              <tr><td><code>/q selection copy</code></td><td>将当前添加的长方体复制到你所在的位置</td></tr>
+              <tr><td><code>/q selection paste</code></td><td>粘贴当前复制的长方体</td></tr>
+              <tr><td><code>/q set name [名字]</code></td><td>重命名 Quarter</td></tr>
+              <tr><td><code>/q set perm</code></td><td>设置权限，逻辑与 <code>/t set perm</code> 和 <code>/plot set perm</code> 一致</td></tr>
+              <tr><td><code>/q set particlesize</code></td><td>设定 Quarter 特效粒子大小。若不在 Quarter 内，则会对所有 Quarter 生效</td></tr>
+              <tr><td><code>/q remove</code></td><td>从当前选择中移除你所在的长方体</td></tr>
+              <tr><td><code>/q sell [价格]</code></td><td>以一定价格出售 Quarter</td></tr>
+              <tr><td><code>/q toggle embassy</code></td><td>切换 Quarter 的大使馆状态</td></tr>
+              <tr><td><code>/q toggle entryblinking</code></td><td>切换轮廓边框到闪烁模式</td></tr>
+              <tr><td><code>/q toggle constantoutlines</code></td><td>开启/关闭粒子轮廓显示</td></tr>
+              <tr><td><code>/q toggle entrynotifications</code></td><td>进入 Quarter 时启用/禁用聊天通知</td></tr>
+              <tr><td><code>/q toggle sellondelete</code></td><td>启用/禁用删除房主后自动出售 Quarter 的功能</td></tr>
+              <tr><td><code>/q trust add</code></td><td>为 Quarter 添加受信任者</td></tr>
+              <tr><td><code>/q trust remove</code></td><td>移除 Quarter 中的受信任者</td></tr>
+              <tr><td><code>/q trust clear</code></td><td>清除 Quarter 中的所有受信任者</td></tr>
+              <tr><td><code>/q unclaim</code></td><td>放弃 Quarter 的所有权</td></tr>
+              <tr><td><code>/q set colour</code></td><td>更改 Quarter 轮廓的粒子颜色</td></tr>
+              <tr><td><code>/q wand</code></td><td>免费获得一个燧石用以魔杖</td></tr>
+              <tr><td><code>/q set entrynotifications chat/hotbar</code></td><td>切换 Quarter 的通知显示方式，默认在物品栏上方显示</td></tr>
             </tbody>
           </table>
-          <p>切换方式：<code>/plot set &lt;类型&gt;</code>。一个区块只能设一种类型。</p>
-
-          <h3>自定义空间（Quarter）</h3>
-          <p>标准区块只能管一个 16×16×全高的柱子，而 Quarter 是一个可以自定义大小的<b>长方体</b>。
-            公寓、车站、商场内部的分区，用的都是它。</p>
-          <p>创建方法：手持燧石（没有就 <code>/q wand</code> 免费领一个），
-            左键点第一个角、右键点对角，形成一个长方体轮廓，然后 <code>/q create</code>。</p>
-
-          <h4 style="font-family: var(--font-serif); font-size: 16px; margin: 22px 0 10px;">创建规则</h4>
-          <ul>
-            <li>必须完全位于同一个城镇内。</li>
-            <li>长方体内不能包含未认领的荒野。</li>
-            <li>不能与已有 Quarter 重叠。</li>
-            <li>不能超出世界高度上下限。</li>
-          </ul>
-
-          <h4 style="font-family: var(--font-serif); font-size: 16px; margin: 22px 0 10px;">三种类型</h4>
-          <p><b>公寓（Apartment）</b>是默认类型；<b>客栈（Inn）</b>允许使用床；
-            <b>车站（Station）</b>允许使用船和矿车。如果想让<b>城外的人</b>也能用车船，
-            必须把 Quarter 设为<b>大使馆（Embassy）</b>，否则对外来者不生效。</p>
 
           <div class="callout callout--jade">
             <b>佛山的公寓就是这个</b><br>
@@ -463,264 +479,226 @@
           </div>
         </section>
 
-        <!-- 09 -->
-        <section id="commands">
-          <h2><span class="h2-num">STEP 09</span>指令速查</h2>
+        <!-- 08 -->
+        <section id="plot">
+          <h2><span class="h2-num">08</span>区块与头衔</h2>
           <p class="guide-lead">
-            下面这些是真正可用的指令，按用途分组。建议收藏本页。
+            区块是城镇内部的地皮单位。市长可以给居民授予头衔，不同头衔对应不同权限。
           </p>
 
-          <div class="callout callout--danger">
-            <b>先说三个常见误解</b><br>
-            1. EarthMC <b>没有</b> <code>/register</code>、<code>/login</code>——正版验证，不需要密码。<br>
-            2. EarthMC <b>不支持玩家之间传送</b>，没有 <code>/tpa</code>、<code>/tpaccept</code>。<br>
-            3. 聊天不是 <code>/g 内容</code> 这样发，而是先用 <code>/ch join</code> 加入频道，再正常打字。
-          </div>
-
-          <h3>聊天频道</h3>
-          <p>默认所有你有权查看的频道都是激活的。用 <code>/ch list</code> 查看当前频道，
-            <code>/ch leave [频道]</code> 退出，<code>/ch join [频道]</code> 加入。</p>
+          <h3>区块类型</h3>
           <table class="cmd-table">
-            <thead><tr><th>频道</th><th>说明</th></tr></thead>
+            <thead><tr><th>区块类型</th><th>描述</th></tr></thead>
             <tbody>
-              <tr><td><code>/global</code></td><td>全球频道，<b>仅限英语</b></td></tr>
-              <tr><td><code>/local</code></td><td>本地频道，附近玩家可见</td></tr>
-              <tr><td><code>/chinese</code></td><td>中文频道，中文玩家主要在这里</td></tr>
-              <tr><td><code>/tradechat</code></td><td>交易频道，买卖专用</td></tr>
-              <tr><td><code>/nc</code> 或 <code>/nationchat</code></td><td>国家频道</td></tr>
-              <tr><td><code>/tc</code> 或 <code>/townchat</code></td><td>城镇频道</td></tr>
-              <tr><td><code>/ch join premium</code></td><td>会员专属频道</td></tr>
-            </tbody>
-          </table>
-          <p class="muted" style="font-size: 13px;">全球频道只允许英语，这是服务器规则。说中文请去 <code>/chinese</code>。</p>
-
-          <h3>传送</h3>
-          <table class="cmd-table">
-            <thead><tr><th>指令</th><th>作用</th></tr></thead>
-            <tbody>
-              <tr><td><code>/t spawn</code></td><td>回自己城镇的出生点</td></tr>
-              <tr><td><code>/t spawn &lt;城镇&gt;</code></td><td>传送到本国或盟国的城镇</td></tr>
-              <tr><td><code>/n spawn</code></td><td>回自己国家的首都</td></tr>
-              <tr><td><code>/n spawn &lt;国家&gt;</code></td><td>传送到盟国的首都</td></tr>
-              <tr><td><code>/t warp &lt;传送点&gt;</code></td><td>使用城镇传送点</td></tr>
-              <tr><td><code>/warp</code></td><td>查看可用的公共传送点</td></tr>
-              <tr><td><code>/res spawn</code> 或 <code>/home</code></td><td>回到你的床</td></tr>
-              <tr><td><code>/rtp</code></td><td>随机传送（仅限入服 24 小时内）</td></tr>
-              <tr><td><code>/rtp region &lt;地区&gt;</code></td><td>传送到指定区域的随机位置（仅限新人）</td></tr>
-            </tbody>
-          </table>
-          <p class="muted" style="font-size: 13px;">传送点（warp）需要城镇达到 128 区块才解锁，且每天要交维护费：第一个 4 金，之后每个 ×1.5（4 → 6 → 9 → 14）。</p>
-
-          <h3>信息查询</h3>
-          <table class="cmd-table">
-            <thead><tr><th>指令</th><th>作用</th></tr></thead>
-            <tbody>
-              <tr><td><code>/t &lt;城镇&gt;</code></td><td>查看城镇信息（含区块上限）</td></tr>
-              <tr><td><code>/t here</code></td><td>查看当前所在城镇</td></tr>
-              <tr><td><code>/n &lt;国家&gt;</code></td><td>查看国家信息</td></tr>
-              <tr><td><code>/res &lt;玩家&gt;</code></td><td>查询玩家资料，不填则查自己</td></tr>
-              <tr><td><code>/n online</code></td><td>查看国家在线成员</td></tr>
-              <tr><td><code>/t list</code> / <code>/n list</code></td><td>城镇 / 国家排行榜</td></tr>
-              <tr><td><code>/map</code></td><td>获取网页地图链接</td></tr>
+              <tr><td>默认（default）</td><td>默认区块类型，适用于个人建筑、住宅等</td></tr>
+              <tr><td>店铺（shop）</td><td>允许创建店铺</td></tr>
+              <tr><td>竞技场（arena）</td><td>允许玩家对战（PvP），死亡不掉落物品和经验</td></tr>
+              <tr><td>保险库（Vault）</td><td>禁止所有受信任玩家和议员进入该地块。只有镇长和被明确信任的玩家 / <code>plot trust add</code> 才能使用该地块</td></tr>
+              <tr><td>农场（Farm）</td><td>允许收割作物，但不能破坏其他类型的方块；允许对生物造成伤害</td></tr>
+              <tr><td>大使馆（Embassy）</td><td>允许来自其他城镇的居民购买区块。被购买后，区块所有者仍享有主权。这多用于在不同城镇开设商店、拓展海外市场</td></tr>
+              <tr><td>客栈（Inn）</td><td>允许任何人使用区块内的床</td></tr>
+              <tr><td>荒野（wild）</td><td>仅允许开采石头（安山岩、花岗岩、闪长岩）、矿物、矿石和深板岩。这一权限支持在设立公共矿场的同时保护建筑物</td></tr>
             </tbody>
           </table>
 
-          <h3>城镇管理</h3>
+          <h3>区块指令</h3>
           <table class="cmd-table">
-            <thead><tr><th>指令</th><th>作用</th></tr></thead>
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
             <tbody>
-              <tr><td><code>/t new &lt;名字&gt;</code></td><td>创建城镇（64 金）</td></tr>
-              <tr><td><code>/t invite &lt;玩家&gt;</code> / <code>/t add &lt;玩家&gt;</code></td><td>邀请玩家入城</td></tr>
-              <tr><td><code>/t kick &lt;玩家&gt;</code></td><td>移出居民</td></tr>
-              <tr><td><code>/t claim</code></td><td>为城镇圈地（16 金/块）</td></tr>
-              <tr><td><code>/t unclaim</code></td><td>放弃城镇区块</td></tr>
-              <tr><td><code>/t deposit &lt;数量&gt;</code></td><td>向城镇银行存钱</td></tr>
-              <tr><td><code>/t withdraw &lt;数量&gt;</code></td><td>取钱（需权限）</td></tr>
-              <tr><td><code>/t rank add &lt;玩家&gt; &lt;头衔&gt;</code></td><td>授予头衔</td></tr>
-              <tr><td><code>/t set board &lt;文字&gt;</code></td><td>设置城镇公告</td></tr>
-              <tr><td><code>/t set mayor &lt;玩家&gt;</code></td><td>转让市长</td></tr>
-              <tr><td><code>/t set plotprice &lt;价格&gt;</code></td><td>设置默认地块价格，-1 表示禁止出售</td></tr>
-              <tr><td><code>/t toggle pvp</code></td><td>开关城内 PvP（还有 explosion/fire/mobs）</td></tr>
-              <tr><td><code>/t takeoverclaim</code></td><td>夺取其他城镇的超额区块</td></tr>
-              <tr><td><code>/t merge &lt;城镇&gt;</code></td><td>合并城镇（128 金 + 8 金/区块）</td></tr>
+              <tr><td><code>/plot fs [价格]</code></td><td>设置区块领取价格</td></tr>
+              <tr><td><code>/plot claim</code></td><td>购买区块</td></tr>
+              <tr><td><code>/plot unclaim</code></td><td>放弃区块</td></tr>
+              <tr><td><code>/plot set [区块类型]</code></td><td>设置区块类型</td></tr>
+              <tr><td><code>/plot set [最小加入天数/最大加入天数/clear]</code></td><td>根据玩家加入城镇的日期，限制他们是否可认领区块，允许市长为新玩家或老玩家预留土地。此设置不影响大使馆地块</td></tr>
+              <tr><td><code>/plot set perm [build/destroy/switch/itemuse] [resident/ally/nation/outsider]</code></td><td>设置区块权限，及对应的身份组（镇民/盟友/国家/外来者）权限</td></tr>
+              <tr><td><code>/plot toggle [explosion/fire/mobs/pvp]</code></td><td>设置区块（爆炸/火焰蔓延/生物生成/允许 pvp）权限</td></tr>
             </tbody>
           </table>
 
-          <h3>地块与自定义空间</h3>
+          <h3>城镇头衔</h3>
+          <p>市长可以给居民授予头衔：</p>
+          <pre><code>/t rank add [玩家] [头衔]</code></pre>
+
           <table class="cmd-table">
-            <thead><tr><th>指令</th><th>作用</th></tr></thead>
+            <thead><tr><th>头衔</th><th>权限</th></tr></thead>
             <tbody>
-              <tr><td><code>/plot fs &lt;价格&gt;</code></td><td>把自己的地块挂牌出售</td></tr>
-              <tr><td><code>/plot claim</code></td><td>购买地块</td></tr>
-              <tr><td><code>/plot unclaim</code></td><td>放弃地块</td></tr>
-              <tr><td><code>/plot set &lt;类型&gt;</code></td><td>设置区块类型（shop / farm / inn…）</td></tr>
-              <tr><td><code>/plot set perm ...</code></td><td>设置单块地的权限</td></tr>
-              <tr><td><code>/q wand</code></td><td>领一个燧石当魔杖</td></tr>
-              <tr><td><code>/q create</code></td><td>创建自定义空间</td></tr>
-              <tr><td><code>/q here</code></td><td>查看所在空间信息</td></tr>
-              <tr><td><code>/q sell &lt;价格&gt;</code></td><td>出售空间</td></tr>
-              <tr><td><code>/q claim</code></td><td>购买空间</td></tr>
-              <tr><td><code>/q trust add &lt;玩家&gt;</code></td><td>给空间添加受信任者</td></tr>
+              <tr><td>议员（Councillor）</td><td>对所有城镇地块的完全访问权限，并可使用除 <code>/t unclaim</code>、<code>/t set mayor</code>、<code>/t delete</code> 等之外的大部分城镇指令。议员可以踢出除市长和其他议员之外的所有人，从城镇银行提取金币，编辑城镇/区块的权限。由于议员可能对城镇造成不利影响，此身份应仅授予最被信赖的市民</td></tr>
+              <tr><td>受信任者（Trusted）</td><td>与议员级别类似，可以无视区块所有权访问所有区块，但不能像议员那样使用城镇指令</td></tr>
+              <tr><td>建造者（Builder）</td><td>可以编辑非个人所有区块。只要地块不属于某个玩家，他们就可以在城镇的任何地方建造、打开箱子、使用物品和破坏方块</td></tr>
+              <tr><td>房地产经纪人（Realtor）</td><td>可以将城镇中目前无人拥有的地块挂牌出售，也可以将其下架并设置为大使馆。拥有城镇内所有无人拥有区块的 <code>/plot</code> 有关权限。此外还拥有在自定义空间（Quarter）内驱逐、出售、改变颜色、更改类型及切换大使馆功能的权限</td></tr>
+              <tr><td>定居者（Settler）</td><td>可以为城镇认领新区块 <code>/t claim</code></td></tr>
+              <tr><td>招募者（Recruiter）</td><td>可以邀请其他玩家入城 <code>/t add [玩家]</code></td></tr>
+              <tr><td>警察（Police）</td><td>可以放逐玩家 <code>/t outlaw add [玩家]</code></td></tr>
+              <tr><td>财务主管（Treasurer）</td><td>可以从城镇银行提取黄金 <code>/t withdraw [数量]</code></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 09 -->
+        <section id="skill">
+          <h2><span class="h2-num">09</span>技能与团队</h2>
+          <p class="guide-lead">
+            服务器启用了 mcMMO。技能等级会带来实际效果，也有对应的排行榜。
+          </p>
+
+          <h3>技能概述</h3>
+          <table class="cmd-table">
+            <thead><tr><th>技能</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td>采矿（Mining）</td><td>开采石头/矿石</td></tr>
+              <tr><td>伐木（Woodcutting）</td><td>加速伐木</td></tr>
+              <tr><td>草药学（Herbalism）</td><td>收割农作物和植物</td></tr>
+              <tr><td>挖掘（Excavation）</td><td>挖掘泥土、沙子、砾石和黏土</td></tr>
+              <tr><td>钓鱼（Fishing）</td><td>钓鱼</td></tr>
+              <tr><td>徒手（Unarmed）</td><td>徒手搏斗</td></tr>
+              <tr><td>射箭（Archery）</td><td>使用弓箭和弩</td></tr>
+              <tr><td>剑术（Swords）</td><td>剑术战斗</td></tr>
+              <tr><td>斧（Axes）</td><td>使用斧战斗</td></tr>
+              <tr><td>驯服（Taming）</td><td>驯服动物</td></tr>
+              <tr><td>维修（Repair）</td><td>手持损坏工具右键点击铁块</td></tr>
+              <tr><td>杂技（Acrobatics）</td><td>遭受坠落伤害</td></tr>
+              <tr><td>炼金术（Alchemy）</td><td>炼制药水</td></tr>
+              <tr><td>打捞（Salvage）</td><td>钓鱼与维修</td></tr>
+              <tr><td>冶炼（Smelting）</td><td>采矿和炼制矿石</td></tr>
             </tbody>
           </table>
 
-          <h3>国家</h3>
+          <h3>MCMMO 指令</h3>
           <table class="cmd-table">
-            <thead><tr><th>指令</th><th>作用</th></tr></thead>
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
             <tbody>
-              <tr><td><code>/n new &lt;国家名&gt;</code></td><td>创建国家（2048 金，仅市长）</td></tr>
-              <tr><td><code>/n join &lt;国家&gt;</code></td><td>城镇加入国家</td></tr>
-              <tr><td><code>/n leave</code></td><td>城镇退出国家</td></tr>
-              <tr><td><code>/n add &lt;城镇&gt;</code></td><td>邀请城镇加入</td></tr>
-              <tr><td><code>/n ally add/remove &lt;国家&gt;</code></td><td>添加 / 移除盟友</td></tr>
-              <tr><td><code>/n enemy add/remove &lt;国家&gt;</code></td><td>添加 / 移除敌国</td></tr>
-              <tr><td><code>/n pact send &lt;国家&gt; &lt;时长&gt;</code></td><td>发起盟约（16 金，双方平分）</td></tr>
-              <tr><td><code>/n embargo add &lt;国家&gt;</code></td><td>对该国实施贸易禁运</td></tr>
-              <tr><td><code>/n set capital &lt;城镇&gt;</code></td><td>设置首都</td></tr>
-              <tr><td><code>/n set taxes &lt;数量&gt;</code></td><td>设置国家税（24 小时周期）</td></tr>
-              <tr><td><code>/n toggle open</code></td><td>切换国家是否开放加入</td></tr>
+              <tr><td><code>/skill [技能名]</code></td><td>关于这项技能的统计数据</td></tr>
+              <tr><td><code>/mctop</code></td><td>所有玩家排名</td></tr>
+              <tr><td><code>/mctop [技能名]</code></td><td>指定技能排名</td></tr>
+              <tr><td><code>/mcrank</code></td><td>显示你在各项技能中的排名</td></tr>
+              <tr><td><code>/inspect [玩家]</code></td><td>显示其他玩家的技能数据</td></tr>
             </tbody>
           </table>
 
-          <h3>经济与其他</h3>
+          <h3>团队指令</h3>
           <table class="cmd-table">
-            <thead><tr><th>指令</th><th>作用</th></tr></thead>
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
             <tbody>
-              <tr><td><code>/vote</code></td><td>投票领金箱（24 小时最多 4 个）</td></tr>
-              <tr><td><code>/vp</code></td><td>查看距下次投票派对还差多少票</td></tr>
-              <tr><td><code>/qs buy</code> / <code>/qs sell</code></td><td>商店切换收购 / 出售模式</td></tr>
-              <tr><td><code>/qs price &lt;价格&gt;</code></td><td>改商店价格</td></tr>
-              <tr><td><code>/qs size</code></td><td>改单次交易数量</td></tr>
-              <tr><td><code>/auction create ...</code></td><td>创建拍卖</td></tr>
-              <tr><td><code>/auction bid &lt;金额&gt;</code></td><td>参与竞价</td></tr>
-              <tr><td><code>/b store &lt;数量&gt;</code></td><td>把经验存进经验瓶</td></tr>
-              <tr><td><code>/mcrank</code></td><td>查看自己的 mcMMO 排名</td></tr>
-              <tr><td><code>/mctop</code></td><td>服务器技能排行榜</td></tr>
-              <tr><td><code>/queue</code></td><td>查看排队位置</td></tr>
-              <tr><td><code>/quests start</code></td><td>开启新手任务</td></tr>
+              <tr><td><code>/party create [名字]</code></td><td>创建团队（仅限会员）</td></tr>
+              <tr><td><code>/party</code> 或 <code>/party info</code></td><td>关于您团队的信息</td></tr>
+              <tr><td><code>/party invite [玩家]</code></td><td>邀请玩家至团队</td></tr>
+              <tr><td><code>/partychat</code> 或 <code>/pc</code></td><td>切换团队聊天频道</td></tr>
+              <tr><td><code>/party join [队长名字] [密码]</code></td><td>加入团队，密码可选</td></tr>
+              <tr><td><code>/party quit</code></td><td>退出团队</td></tr>
+              <tr><td><code>/party disband</code></td><td>解散团队</td></tr>
+              <tr><td><code>/party password [密码]</code></td><td>设置团队加入密码</td></tr>
+              <tr><td><code>/party kick [玩家]</code></td><td>将玩家踢出团队</td></tr>
+              <tr><td><code>/party leader [玩家]</code></td><td>移交团队队长给指定玩家</td></tr>
             </tbody>
           </table>
         </section>
 
         <!-- 10 -->
-        <section id="foshan">
-          <h2><span class="h2-num">STEP 10</span>加入佛山</h2>
-          <p class="guide-lead">
-            如果你已经决定玩下去，欢迎考虑佛山。这里目前 9 位居民、83 区块，
-            是一座还在建设中的城市，空地比建筑多——这既是缺点，也是机会。
+        <section id="member">
+          <h2><span class="h2-num">10</span>会员与其他</h2>
+
+          <h3>会员专属指令</h3>
+          <table class="cmd-table">
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/hat</code></td><td>把手中的物品当做帽子使用</td></tr>
+              <tr><td><code>/fly</code></td><td>在 hud 飞行</td></tr>
+              <tr><td><code>/nick [名字]</code> 或 <code>/nick off</code></td><td>设置、清除昵称</td></tr>
+              <tr><td><code>/seen [玩家]</code></td><td>查看某人上次在线时间</td></tr>
+              <tr><td><code>/discord link</code></td><td>EMC Discord 上的 Pink 用户名</td></tr>
+              <tr><td><code>/ch join premium</code></td><td>加入仅限会员的聊天室</td></tr>
+              <tr><td><code>/emcmap nationcolor [hex]</code></td><td>更改网站地图国家区域填充色</td></tr>
+              <tr><td><code>/emcmap nationoutline [hex]</code></td><td>更改网站地图国家边缘轮廓色</td></tr>
+            </tbody>
+          </table>
+
+          <h3>其他指令</h3>
+          <table class="cmd-table">
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/wipelore</code></td><td>删除您手上工具的制造信息</td></tr>
+              <tr><td><code>/bottle store [经验数值]</code></td><td>将自己的经验保存在经验瓶中</td></tr>
+              <tr><td><code>/mcrank</code></td><td>查看自己各项 mcMMO 技能的服务器排名</td></tr>
+              <tr><td><code>/queue</code></td><td>查看排队位置</td></tr>
+            </tbody>
+          </table>
+
+          <h3>经验指令</h3>
+          <p>使用如下指令可将你的经验存入经验瓶并进行相关操作：</p>
+          <table class="cmd-table">
+            <thead><tr><th>指令</th><th>描述</th></tr></thead>
+            <tbody>
+              <tr><td><code>/b convert</code></td><td>将你的所有非标准经验瓶转换为标准附魔之瓶</td></tr>
+              <tr><td><code>/b get [amount/max]</code></td><td>将你的经验值转化为特定数量的、或最大数量的附魔之瓶</td></tr>
+              <tr><td><code>/b mend</code></td><td>生成一个能恰好修复您手中工具的经验瓶</td></tr>
+              <tr><td><code>/b mend all</code></td><td>使用经验值直接修复身上和手上的工具，而不是生成经验瓶</td></tr>
+              <tr><td><code>/b stats</code></td><td>显示当前等级对应的经验值</td></tr>
+              <tr><td><code>/b store [amount/max] [quantity/max]</code></td><td>将指定数量的经验存入经验瓶中，输入 max 将取最大值</td></tr>
+              <tr><td><code>/b thrown</code></td><td>切换商店里的瓶子是被丢弃还是在使用后立即被消耗掉</td></tr>
+              <tr><td><code>/b until [等级]</code></td><td>告诉你达到指定等级需要多少经验值</td></tr>
+            </tbody>
+          </table>
+
+          <h3>工作台独特配方</h3>
+          <p>本服特有的工作台合成配方，可合成：</p>
+          <p class="mono" style="font-size: 13.5px; line-height: 2; color: var(--text-2);">
+            动力轨道 · 蛛网 · 墨囊 · 海晶碎片 · 海晶砂粒 · 珊瑚块 · 紫珀块 · 末地石 · 末地烛 ·
+            睡莲 · 藤蔓 · 幽匿块 · 回响碎片 · 幽匿感测体 · 幽匿催发体 · 幽匿尖啸体
           </p>
-
-          <div class="steps">
-            <div class="step">
-              <div>
-                <h4>先确认你能不能来</h4>
-                <p>佛山属于大明共和国，加入需要市长或议员邀请（城市不开放自由加入）。
-                  如果你已经是明国其他城市的居民，转城不会丢失物品。</p>
-              </div>
-            </div>
-
-            <div class="step">
-              <div>
-                <h4>怎么过去</h4>
-                <p>大明国民可以直接 <code>/t spawn Foshan</code>。
-                  <b>非明国玩家目前无法直接传送</b>——佛山的对外传送点未开放，
-                  需要先加入明国，或联系市长安排接应。</p>
-              </div>
-            </div>
-
-            <div class="step">
-              <div>
-                <h4>联系市长</h4>
-                <p>在游戏内私聊 <code>bbdqz</code>，或加入中文频道
-                  <code>/chinese</code> 找人。说明你的游戏 ID、大致在线时间、
-                  想做的事（建筑 / 挖矿 / 种田 / 经商）。</p>
-              </div>
-            </div>
-
-            <div class="step">
-              <div>
-                <h4>入住公寓</h4>
-                <p>通过后你会被邀请入城。城市公寓 Upbeat Dwelling 是 Quarter 类型空间，
-                  可以领一间临时房间放东西、过夜。</p>
-              </div>
-            </div>
-
-            <div class="step">
-              <div>
-                <h4>买地、盖房</h4>
-                <p>攒够 16 金后向市长申请地块，用 <code>/plot claim</code> 买下。
-                  建造前先看城市的风貌要求，别盖一栋和周围完全不搭的房子。</p>
-              </div>
-            </div>
-
-            <div class="step">
-              <div>
-                <h4>别当"42 天失踪人口"</h4>
-                <p>长期不上线，你的 Towny 信息会被系统删除，地块也会回收。
-                  要离开一段时间的话，提前在群里说一声。</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="callout callout--jade">
-            <b>如果你是新人</b><br>
-            佛山的居民有一半是第一次玩 EarthMC。这里不要求你会建筑、会打仗、会跑商，
-            只要求你不拆别人的东西、不玩消失。剩下的可以慢慢学。
-          </div>
         </section>
 
         <!-- 11 -->
-        <section id="rules">
-          <h2><span class="h2-num">STEP 11</span>规则与礼仪</h2>
+        <section id="foshan">
+          <h2><span class="h2-num">11</span>加入佛山</h2>
           <p class="guide-lead">
-            服务器规则和城镇公约是两回事。前者违反会被封号，后者违反会被踢出城。
+            我们所在的城市是佛山市（Foshan），位于大明共和国广东省。
+            佛山的城镇公告栏写着："一座美丽而现代的城市，欢迎你的加入。"
           </p>
 
-          <h3>服务器规则（会被封号）</h3>
+          <p>
+            我们是服务器中明国（Ming）的成员。明国是 EarthMC 中华地区规模最大的华人国家，
+            2026 年 4 月 23 日建国于南京，现任皇帝为 Judgemen_t，首相为 PreviousYun，
+            首都为南京，欢迎输入 <code>/n spawn</code> 参观。
+          </p>
+
+          <h3>怎么来</h3>
           <ul>
-            <li><b>禁止外挂与宏</b>——任何提供不公平优势的修改程序，永久封禁。</li>
-            <li><b>禁止小号与账号共享</b>——一人一号。同一网络下多人游玩可以，但必须本人操作。</li>
-            <li><b>禁止利用漏洞</b>——包括技术错误、刷物品、复制。</li>
-            <li><b>禁止恶意破坏</b>——领地及周边 5 区块内的圆石山、岩浆墙、TNT 坑、大量刷实体。</li>
-            <li><b>禁止贴脸建镇</b>——以骚扰邻城为目的在别人旁边建城。</li>
-            <li><b>禁止领地臂</b>——从城镇伸出一条细长领地阻碍他人扩张（船舶前哨除外）。</li>
-            <li><b>禁止大规模改造地形</b>——排干湖泊、造人工岛、平台覆盖海洋。垂直改造可以。</li>
-            <li><b>全球频道只用英语</b>——中文请去 <code>/chinese</code>。</li>
-            <li><b>禁止现实货币交易</b>——游戏内物品不能换真钱。</li>
+            <li>大明国民可以直接 <code>/t spawn Foshan</code>。</li>
+            <li>非明国玩家目前无法直接传送——佛山的对外传送点未开放，需要先加入明国，或联系市长安排接应。</li>
+            <li>佛山不开放自由加入，需要市长或议员邀请。</li>
           </ul>
 
-          <h3>容易误解的一点：偷窃是允许的</h3>
-          <p>服务器规则明确写着：<b>允许掠夺和偷窃其他玩家的物品，保护财产是玩家自己的责任。</b>
-            城镇领地内的箱子受保护，但荒野里的箱子、陷落城镇里的东西，谁都可以拿。</p>
-          <p>所以"不偷东西"不是服务器强制规定，而是<b>我们城镇自己的约定</b>——
-            在佛山，动别人的箱子会被踢出去。这是社区标准，不是平台规则。</p>
-
-          <h3>佛山居民公约</h3>
+          <h3>来了之后</h3>
           <ul>
-            <li>不破坏他人建筑，不拿他人箱子里的东西。</li>
-            <li>公共区域（商店、公寓、门禁）保持通行畅通。</li>
-            <li>新建建筑前先报备位置与风格。</li>
-            <li>不主动挑起与其他城镇的冲突，遇事先找市长。</li>
-            <li>长期不上线提前告知，地块会被回收再分配。</li>
+            <li>城市公寓 Upbeat Dwelling 是 Quarter 类型空间，可以领一间临时房间放东西、过夜。</li>
+            <li>城内有公共商店与门禁，需要什么可以直接问市长。</li>
+            <li>攒够 16 金后可以申请地块，用 <code>/plot claim</code> 买下，然后开始建造。</li>
+            <li>建造前先看城市的风貌要求，别盖一栋和周围完全不搭的房子。</li>
           </ul>
 
           <div class="callout">
-            <b>关于冲突</b><br>
-            服务器没有战争插件，所以"打仗"通常表现为外交施压、贸易禁运、圈地争夺。
-            真到了纠纷，先找市长，别自己在全球频道开骂——那只会让整座城被贴上标签。
+            <b>联系谁</b><br>
+            游戏内私聊市长 <code>bbdqz</code>，或加入中文频道 <code>/chinese</code> 找人。
+            说明你的游戏 ID、大致在线时间、想做的事（建筑 / 挖矿 / 种田 / 经商）。
+          </div>
+
+          <div class="callout callout--danger">
+            <b>别当"42 天失踪人口"</b><br>
+            连续 42 天不上线，你的 Towny 信息会被删除，地块也会回收。
+            要离开一段时间的话，提前在群里说一声。
           </div>
         </section>
 
         <!-- 12 -->
         <section id="faq">
-          <h2><span class="h2-num">STEP 12</span>常见问题</h2>
+          <h2><span class="h2-num">12</span>常见问题</h2>
 
           <div class="faq">
             <details open>
               <summary>一定要买正版吗？</summary>
               <div class="faq-a">
-                是的。服务器开启 Mojang 正版验证，必须使用从 minecraft.net 购买的 Java 版账号。
-                离线账号、破解客户端无法进入。基岩版（手机、主机）也不能直连。
+                是的。服务器开启正版验证，必须使用从 minecraft.net 购买的 Java 版账号。
+                离线账号、破解客户端无法进入，基岩版（手机、主机）也不能直连。
               </div>
             </details>
 
@@ -728,32 +706,31 @@
               <summary>进服要注册密码吗？</summary>
               <div class="faq-a">
                 不需要。EarthMC 没有 <code>/register</code>、<code>/login</code> 这类指令，
-                正版验证通过就直接进入。你在其他服务器养成的"先注册"习惯，在这里用不上。
+                正版验证通过就直接进入。
               </div>
             </details>
 
             <details>
               <summary>手机能玩吗？</summary>
               <div class="faq-a">
-                EarthMC 只支持 Java 版。手机上的基岩版无法连接。
-                虽然存在第三方启动器可以在手机上跑 Java 版，但操作体验很差，也不在官方支持范围内。
+                EarthMC 只支持 Java 版，手机上的基岩版无法连接。
+                虽然存在第三方启动器可以在手机上跑 Java 版，但体验很差，也不在官方支持范围内。
               </div>
             </details>
 
             <details>
               <summary>建一座城要多少钱？</summary>
               <div class="faq-a">
-                建城固定 <b>64 金锭</b>，建成后占地 1 区块。
-                之后每圈一块地再花 16 金，费用从城镇银行扣除。
-                新建国家的费用是 2048 金，且只有市长才能创建。
+                建城固定 <b>64 金锭</b>，之后每圈一块地 16 金，费用从城镇银行扣除。
+                新建国家需要 2048 金，且只有市长才能创建。
               </div>
             </details>
 
             <details>
               <summary>能传送到朋友身边吗？</summary>
               <div class="faq-a">
-                不能。EarthMC <b>不支持玩家之间的传送</b>，没有 <code>/tpa</code> 这类指令。
-                你只能传送到城镇出生点、国家首都、盟国首都、城镇传送点，或者自己的床。
+                不能。EarthMC 不支持玩家之间的传送，没有 <code>/tpa</code> 这类指令。
+                你只能传送到城镇出生点、国家首都、城镇传送点，或者自己的床。
                 这套设计是为了让地理位置真正有意义。
               </div>
             </details>
@@ -763,7 +740,7 @@
               <div class="faq-a">
                 在城镇领地内，非居民默认无法建造、破坏、开箱，是安全的。
                 但在荒野（未认领区块）没有任何保护，任何人都可以拆。
-                另外，如果城镇因居民长期不上线而被系统删除，领地保护也会一并消失。
+                服务器规则明确允许掠夺和偷窃，保护财产是玩家自己的责任。
               </div>
             </details>
 
@@ -772,7 +749,6 @@
               <div class="faq-a">
                 连续 <b>42 天</b>未登录，你的 Towny 信息会被删除。
                 如果你是城镇唯一成员，城镇也会消失。市长 42 天不活跃会由议员或最活跃居民继任。
-                所以长期离开前一定要打招呼。
               </div>
             </details>
 
@@ -780,34 +756,24 @@
               <summary>为什么全球频道不能打中文？</summary>
               <div class="faq-a">
                 这是服务器规则：<code>/global</code> 仅限英语，方便各国玩家交流。
-                中文玩家集中在 <code>/chinese</code> 频道，进去正常打字就行，不需要每次加前缀。
+                中文玩家集中在 <code>/chinese</code> 频道，进去正常打字就行。
               </div>
             </details>
 
             <details>
               <summary>别人能抢我的地吗？</summary>
               <div class="faq-a">
-                正常情况下不能。只有一种情况：你的城镇占领区块数<b>超过上限</b>（通常因为居民流失），
+                正常情况下不能。只有一种情况：你的城镇占领区块数超过上限（通常因为居民流失），
                 其他建立超过 30 天的城镇可以用 <code>/t takeoverclaim</code> 夺取超额部分。
-                城镇的 home 区块永远受保护。也可以花钱买区块护盾防止被夺。
+                城镇的 home 区块永远受保护。
               </div>
             </details>
 
             <details>
               <summary>怎么赚钱最快？</summary>
               <div class="faq-a">
-                前期靠 <code>/vote</code> 投票（每天最多 4 个金箱）和挖矿（Y=0 到 -64）。
+                前期靠 <code>/vote</code> 投票（每天最多 4 个金箱）和挖矿。
                 中期靠开店——但店要开在人流大的地方，首都的商业区通常最赚。
-                长期看，帮人建筑和跑商比挖矿效率高得多。
-              </div>
-            </details>
-
-            <details>
-              <summary>会员值得买吗？</summary>
-              <div class="faq-a">
-                会员提供排队优先、更远视距、双倍末影箱、亚太低延迟线路、地图颜色、每周神秘宝箱等。
-                不影响游戏平衡，主要是便利和外观。经常玩、又受不了排队的话可以考虑，
-                休闲玩家不买也完全能玩。
               </div>
             </details>
 
@@ -815,7 +781,7 @@
               <summary>迷路了怎么办？</summary>
               <div class="faq-a">
                 <code>/t spawn</code> 回自己城镇，<code>/n spawn</code> 回国家首都，
-                <code>/home</code> 回床边。如果你还没加入任何城镇，用 <code>/map</code> 对照坐标走回来，
+                <code>/home</code> 回床边。如果还没加入城镇，用 <code>/map</code> 对照坐标走回来，
                 或者入服未满 24 小时的话直接用 <code>/rtp</code> 重新开始。
               </div>
             </details>
@@ -823,10 +789,9 @@
 
           <div class="callout mt-48">
             <b>本页资料说明</b><br>
-            内容依据 EarthMC 官方《城镇指南》（2026 年 2 月中文版）、
-            《新手指引》与《指令汇总》整理，并结合当前周目（2026 年 5 月开启）的实际情况。
+            内容整理自《EarthMC 新手指引》、《指令汇总》（作者：桂林 _Plumme）
+            与 EarthMC 官方《城镇指南》中文版（2026 年 2 月）。
             游戏机制会随版本调整，若本页与游戏内 <code>/help</code> 不一致，以游戏内为准。
-            发现错误欢迎告诉市长，我们会更新。
           </div>
 
           <div class="ming-banner mt-32">
@@ -851,10 +816,10 @@
       <div class="footer-brand">
         <a class="brand" href="index.html">
           <span class="brand-mark">佛</span>
-          <span class="brand-text"><b>佛山</b><i>FOSHAN · EARTHMC</i></span>
+          <span class="brand-text"><b>佛山联盟</b><i>FOSHAN LEAGUE</i></span>
         </a>
         <p class="footer-desc">
-          EarthMC 大明共和国广东省 · 佛山市非官方城市网站，
+          EarthMC 大明共和国广东省 · 佛山联盟非官方网站，
           由市民维护，与 Mojang Studios 及 EarthMC 官方无隶属关系。
         </p>
       </div>
@@ -875,13 +840,13 @@
       <div class="footer-col">
         <h5>入门</h5>
         <a href="guide.html">新手指南</a>
-        <a href="guide.html#commands">指令速查</a>
+        <a href="guide.html#chat">聊天频道</a>
         <a href="guide.html#faq">常见问题</a>
         <a href="https://wiki.earthmc.net" target="_blank" rel="noopener">EarthMC Wiki ↗</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© <span data-year>2026</span> 佛山市 · EarthMC. 保留所有权利。</p>
+      <p>© <span data-year>2026</span> 佛山联盟 · EarthMC. 保留所有权利。</p>
       <p class="mono" style="font-size: 11px; letter-spacing: 0.08em;">NOT AFFILIATED WITH MOJANG OR EARTHMC</p>
     </div>
   </div>

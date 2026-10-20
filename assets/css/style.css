@@ -418,7 +418,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .hero-sub {
-  max-width: 48ch;
+  max-width: 34em;
   font-size: clamp(15px, 1.5vw, 17.5px);
   line-height: 1.9;
   color: rgba(234, 230, 220, 0.82);
@@ -590,6 +590,136 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin-bottom: 22px;
   color: var(--gold);
   opacity: 0.9;
+}
+
+/* ---------- 9b. City cards (league) ---------- */
+.city-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.city-card .photo {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  aspect-ratio: 21 / 9;
+}
+
+.city-card-body {
+  padding: 26px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.city-order {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+
+.city-name {
+  font-family: var(--font-serif);
+  font-size: 23px;
+  letter-spacing: 0.08em;
+  margin: 10px 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.city-name em {
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--text-3);
+}
+
+.city-desc {
+  margin: 12px 0 18px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-2);
+}
+
+.city-meta {
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--text-3);
+}
+
+.city-meta b {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* 佛山主城：横跨整行 */
+.city-card--feature {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+}
+
+.city-card--feature .photo {
+  aspect-ratio: auto;
+  height: 100%;
+  min-height: 320px;
+  border-bottom: 0;
+  border-right: 1px solid var(--line);
+}
+
+.city-card--feature .city-card-body {
+  padding: 38px 40px;
+  justify-content: center;
+}
+
+.city-card--feature .city-name {
+  font-size: 34px;
+}
+
+/* 联盟地理带 */
+.belt {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 28px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+
+.belt:last-child { border-bottom: 0; }
+
+.belt-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  text-transform: uppercase;
+  padding-top: 4px;
+}
+
+.belt h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.belt p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-2);
 }
 
 /* ---------- 10. Photo placeholders & figures ---------- */
@@ -1238,6 +1368,15 @@ pre code { background: none; padding: 0; color: inherit; }
 
   .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
 
+  /* 平板宽度下主城卡改为上下排，避免图片被压成窄条 */
+  .city-card--feature { grid-template-columns: 1fr; }
+  .city-card--feature .photo {
+    min-height: 240px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .city-card--feature .city-card-body { padding: 30px 26px; }
+
   .gallery { grid-template-columns: repeat(2, 1fr); }
   .gallery > *:nth-child(n) { grid-column: span 1; }
   .gallery > *:nth-child(1) { grid-column: span 2; }
@@ -1275,6 +1414,17 @@ pre code { background: none; padding: 0; color: inherit; }
   .hero-title span { letter-spacing: 0.4em; }
 
   .card { padding: 26px 22px; }
+  .city-card { padding: 0; }
+  .city-card-body { padding: 24px 22px; }
+  .city-card--feature { grid-template-columns: 1fr; }
+  .city-card--feature .photo {
+    min-height: 210px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .city-card--feature .city-card-body { padding: 26px 22px; }
+  .city-card--feature .city-name { font-size: 27px; }
+  .belt { grid-template-columns: 1fr; gap: 8px; }
   .join-card { padding: 28px 22px; }
   .ming-banner { padding: 28px 22px; }
 
