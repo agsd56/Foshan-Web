@@ -99,6 +99,7 @@
     var img = document.getElementById('lbImage');
     var cap = document.getElementById('lbCaption');
     var wall = document.getElementById('photoWall');
+    var hint = document.getElementById('lbHint');
     if (!box || !img) return;
 
     var current = 0;
@@ -112,34 +113,75 @@
       img.alt = p.title || '照片';
       cap.textContent = [p.title, p.caption].filter(Boolean).join(' · ');
       box.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+      if (hint) {
+        hint.textContent = list.length > 1
+          ? '点击空白处关闭 · 左右滑动切换'
+          : '点击空白处或按 ESC 关闭';
+      }
     }
 
     function close() {
       box.classList.remove('is-open');
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     }
 
+    // 打开
     wall.addEventListener('click', function (e) {
       var fig = e.target.closest('.ph-item');
       if (!fig) return;
       show(parseInt(fig.getAttribute('data-index'), 10) || 0);
     });
 
-    document.getElementById('lbClose').addEventListener('click', close);
-    document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); show(current - 1); });
-    document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); show(current + 1); });
+    // 按钮
+    var btnClose = document.getElementById('lbClose');
+    var btnPrev = document.getElementById('lbPrev');
+    var btnNext = document.getElementById('lbNext');
 
+    if (btnClose) btnClose.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    if (btnPrev) btnPrev.addEventListener('click', function (e) { e.stopPropagation(); show(current - 1); });
+    if (btnNext) btnNext.addEventListener('click', function (e) { e.stopPropagation(); show(current + 1); });
+
+    // 点击空白处关闭（点图片本身不关）
     box.addEventListener('click', function (e) {
       if (e.target === box) close();
     });
 
+    // 键盘
     document.addEventListener('keydown', function (e) {
       if (!box.classList.contains('is-open')) return;
       if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft') show(current - 1);
-      if (e.key === 'ArrowRight') show(current + 1);
+      else if (e.key === 'ArrowLeft') show(current - 1);
+      else if (e.key === 'ArrowRight') show(current + 1);
     });
+
+    // 触摸：左右切换，下滑关闭
+    var sx = 0, sy = 0, tracking = false;
+
+    box.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+
+    box.addEventListener('touchend', function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - sx;
+      var dy = t.clientY - sy;
+
+      if (Math.abs(dy) > 90 && Math.abs(dy) > Math.abs(dx)) {
+        if (dy > 0) close();
+        return;
+      }
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        show(current + (dx < 0 ? 1 : -1));
+      }
+    }, { passive: true });
   }
 
   /* ---------------- 启动 ---------------- */

@@ -47,7 +47,26 @@
     });
   }
 
-  function markDirty() { dirty = true; }
+  function updateDirtyMark() {
+    var el = $('dirtyMark');
+    if (el) el.hidden = !dirty;
+  }
+
+  function saveDraft() {
+    try {
+      localStorage.setItem('foshan_draft', JSON.stringify({ data: data, ts: Date.now() }));
+    } catch (e) {}
+  }
+
+  function clearDraft() {
+    try { localStorage.removeItem('foshan_draft'); } catch (e) {}
+  }
+
+  function markDirty() {
+    dirty = true;
+    updateDirtyMark();
+    saveDraft();
+  }
 
   /* ---------------- GitHub API ---------------- */
   function apiUrl(path) {
@@ -134,11 +153,30 @@
 
       $('connectBox').hidden = true;
       $('editor').hidden = false;
-      $('btnSave').hidden = false;
-      $('btnReload').hidden = false;
-      $('btnLogout').hidden = false;
+      ['btnSave', 'btnReload', 'btnLogout', 'btnExport', 'btnImport'].forEach(function (id) {
+        var el = $(id);
+        if (el) el.hidden = false;
+      });
+
+      // 检查上次未发布的草稿
+      try {
+        var raw = localStorage.getItem('foshan_draft');
+        if (raw) {
+          var d = JSON.parse(raw);
+          if (d && d.data && JSON.stringify(d.data) !== JSON.stringify(data)) {
+            var when = new Date(d.ts).toLocaleString();
+            if (confirm('发现上次未发布的草稿（' + when + '），要恢复吗？\n取消则保留仓库里的版本。')) {
+              data = d.data;
+              dirty = true;
+            } else {
+              clearDraft();
+            }
+          }
+        }
+      } catch (e) {}
 
       renderAll();
+      updateDirtyMark();
       toast('已连接 · ' + cfg.owner + '/' + cfg.repo, 'ok');
     } catch (err) {
       toast(err.message || '连接失败', 'error');
@@ -197,6 +235,7 @@
             '<div class="field"><label>介绍（留空则不显示）</label><textarea data-k="desc">' + esc(c.desc) + '</textarea></div>' +
           '</div>' +
           '<div class="admin-item-actions">' +
+            '<div class="admin-drag" draggable="true" title="拖动排序">⠿</div>' +
             '<button class="mini-btn" data-act="up">↑ 上移</button>' +
             '<button class="mini-btn" data-act="down">↓ 下移</button>' +
             '<button class="mini-btn" data-act="img">换图</button>' +
@@ -208,26 +247,36 @@
 
   function renderPhotos() {
     var box = $('photoList');
+    var tb = $('photoToolbar');
+
     if (!data.photos.length) {
       box.innerHTML = '<div class="admin-empty">还没有照片。上传的图片会自动压缩并提交到仓库。</div>';
+      if (tb) tb.hidden = true;
       return;
     }
 
     box.innerHTML = data.photos.map(function (p, i) {
       return '' +
         '<div class="admin-item" data-i="' + i + '">' +
-          '<div class="admin-thumb">' + thumbHtml(p.src, p.title) + '</div>' +
+          '<div class="admin-thumb">' +
+            '<label class="photo-check"><input type="checkbox" class="photo-sel" data-i="' + i + '"></label>' +
+            thumbHtml(p.src, p.title) +
+          '</div>' +
           '<div class="admin-item-body">' +
             '<div class="field"><label>标题</label><input type="text" data-k="title" value="' + esc(p.title) + '"></div>' +
             '<div class="field"><label>说明（可选）</label><input type="text" data-k="caption" value="' + esc(p.caption) + '"></div>' +
           '</div>' +
           '<div class="admin-item-actions">' +
+            '<div class="admin-drag" draggable="true" title="拖动排序">⠿</div>' +
             '<button class="mini-btn" data-act="up">↑ 上移</button>' +
             '<button class="mini-btn" data-act="down">↓ 下移</button>' +
             '<button class="mini-btn mini-btn--danger" data-act="del">删除</button>' +
           '</div>' +
         '</div>';
     }).join('');
+
+    if (tb) tb.hidden = false;
+    if (typeof updateSelCount === 'function') updateSelCount();
   }
 
   function renderSite() {
@@ -364,6 +413,8 @@
 
       pending.clear();
       dirty = false;
+      clearDraft();
+      updateDirtyMark();
       toast('已发布 · Cloudflare 约 30 秒后生效', 'ok');
     } catch (err) {
       toast(err.message || '保存失败', 'error');
@@ -550,9 +601,171 @@
     });
   }
 
+  /* ---------------- 增强功能 ---------------- */
+  function updateSelCount() {
+    var sel = document.querySelectorAll('.photo-sel:checked');
+    var el = $('selCount');
+    if (el) el.textContent = '已选 ' + sel.length + ' 张';
+
+    var all = document.querySelectorAll('.photo-sel');
+    var chk = $('checkAll');
+    if (chk) chk.checked = all.length > 0 && sel.length === all.length;
+  }
+
+  function bindDrag(listEl, getArr, rerender) {
+    if (!listEl) return;
+    var dragIndex = -1;
+
+    listEl.addEventListener('dragstart', function (e) {
+      var handle = e.target.closest ? e.target.closest('.admin-drag') : null;
+      if (!handle) { e.preventDefault(); return; }
+      var item = handle.closest('.admin-item');
+      dragIndex = parseInt(item.getAttribute('data-i'), 10);
+      item.classList.add('is-dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      try { e.dataTransfer.setData('text/plain', String(dragIndex)); } catch (err) {}
+    });
+
+    listEl.addEventListener('dragend', function () {
+      Array.prototype.forEach.call(listEl.querySelectorAll('.admin-item'), function (el) {
+        el.classList.remove('is-dragging', 'is-drop-target');
+      });
+      dragIndex = -1;
+    });
+
+    listEl.addEventListener('dragover', function (e) {
+      var item = e.target.closest ? e.target.closest('.admin-item') : null;
+      if (!item || dragIndex < 0) return;
+      e.preventDefault();
+      Array.prototype.forEach.call(listEl.querySelectorAll('.admin-item'), function (el) {
+        el.classList.remove('is-drop-target');
+      });
+      item.classList.add('is-drop-target');
+    });
+
+    listEl.addEventListener('drop', function (e) {
+      var item = e.target.closest ? e.target.closest('.admin-item') : null;
+      if (!item || dragIndex < 0) return;
+      e.preventDefault();
+      var to = parseInt(item.getAttribute('data-i'), 10);
+      var arr = getArr();
+      if (arr && to !== dragIndex) {
+        move(arr, dragIndex, to);
+        markDirty();
+        rerender();
+      }
+      dragIndex = -1;
+    });
+  }
+
+  function bindExtras() {
+    // 导出 JSON
+    var exp = $('btnExport');
+    if (exp) exp.addEventListener('click', function () {
+      if (!data) return;
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'site-' + new Date().toISOString().slice(0, 10) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+      toast('已导出 JSON', 'ok');
+    });
+
+    // 导入 JSON
+    var imp = $('btnImport');
+    var impInput = $('importInput');
+    if (imp && impInput) {
+      imp.addEventListener('click', function () { impInput.click(); });
+      impInput.addEventListener('change', function () {
+        var f = impInput.files[0];
+        if (!f) return;
+        var r = new FileReader();
+        r.onload = function () {
+          try {
+            var d = JSON.parse(r.result);
+            if (!Array.isArray(d.cities) || !Array.isArray(d.photos)) {
+              throw new Error('文件里缺少 cities / photos');
+            }
+            if (!confirm('导入会覆盖当前编辑内容，确定？')) return;
+            data = d;
+            markDirty();
+            renderAll();
+            toast('已导入，记得点保存发布', 'ok');
+          } catch (err) {
+            toast('导入失败：' + err.message, 'error');
+          }
+        };
+        r.readAsText(f);
+        impInput.value = '';
+      });
+    }
+
+    // 缩略图放大预览
+    var preview = $('preview');
+    document.addEventListener('click', function (e) {
+      // 勾选框在缩略图内部，点击它不应触发预览
+      if (e.target.closest && e.target.closest('.photo-check')) return;
+      var thumb = e.target.closest ? e.target.closest('.admin-thumb') : null;
+      if (!thumb || !preview) return;
+      var im = thumb.querySelector('img');
+      if (!im) return;
+      $('previewImg').src = im.src;
+      preview.hidden = false;
+    });
+    if (preview) preview.addEventListener('click', function () { preview.hidden = true; });
+
+    // 全选
+    var chkAll = $('checkAll');
+    if (chkAll) chkAll.addEventListener('change', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('.photo-sel'), function (c) {
+        c.checked = chkAll.checked;
+      });
+      updateSelCount();
+    });
+
+    var list = $('photoList');
+    if (list) list.addEventListener('change', function (e) {
+      if (e.target.classList && e.target.classList.contains('photo-sel')) updateSelCount();
+    });
+
+    // 批量删除
+    var delSel = $('btnDeleteSelected');
+    if (delSel) delSel.addEventListener('click', function () {
+      var idx = [];
+      Array.prototype.forEach.call(document.querySelectorAll('.photo-sel:checked'), function (c) {
+        idx.push(parseInt(c.getAttribute('data-i'), 10));
+      });
+      if (!idx.length) { toast('还没选中照片', 'error'); return; }
+      if (!confirm('删除选中的 ' + idx.length + ' 张照片？')) return;
+
+      idx.sort(function (a, b) { return b - a; }).forEach(function (i) {
+        data.photos.splice(i, 1);
+      });
+      markDirty();
+      renderPhotos();
+      toast('已删除 ' + idx.length + ' 张', 'ok');
+    });
+
+    // 拖拽排序
+    bindDrag($('cityList'), function () { return data ? data.cities : null; }, renderCities);
+    bindDrag($('photoList'), function () { return data ? data.photos : null; }, renderPhotos);
+
+    // Ctrl / Cmd + S
+    document.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        if (data) save();
+      }
+    });
+  }
+
   /* ---------------- 启动 ---------------- */
   loadCfg();
   bindEvents();
+  bindExtras();
 
   // 配置齐全时自动连接
   if (cfg.owner && cfg.repo && cfg.token) {

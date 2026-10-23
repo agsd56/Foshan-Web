@@ -846,36 +846,47 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   letter-spacing: 0.03em;
 }
 
-/* Lightbox */
+/* Lightbox —— flex 居中 + dvh，兼容移动端地址栏 */
 .lightbox {
   position: fixed;
-  inset: 0;
-  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
   display: none;
-  place-items: center;
-  padding: 5vh 6vw;
-  background: rgba(6, 8, 7, 0.96);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 60px 72px 72px;
+  background: rgba(6, 8, 7, 0.985);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overscroll-behavior: contain;
 }
 
-.lightbox.is-open { display: grid; }
+.lightbox.is-open { display: flex; }
 
 .lightbox-figure {
   margin: 0;
   max-width: 100%;
-  max-height: 90vh;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
 }
 
 .lightbox-figure img {
   max-width: 100%;
-  max-height: 82vh;
+  max-height: calc(100vh - 200px);
+  max-height: calc(100dvh - 200px);
+  width: auto;
+  height: auto;
   object-fit: contain;
   border: 1px solid var(--line-mid);
+  background: #0a0d0c;
 }
 
 .lightbox-figure figcaption {
@@ -884,48 +895,99 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   letter-spacing: 0.1em;
   color: var(--text-2);
   text-align: center;
+  padding: 0 10px;
 }
 
 .lightbox-close {
   position: absolute;
-  top: 20px;
-  right: 24px;
-  width: 44px;
-  height: 44px;
-  font-size: 26px;
+  top: calc(14px + env(safe-area-inset-top, 0px));
+  right: calc(14px + env(safe-area-inset-right, 0px));
+  z-index: 3;
+  width: 48px;
+  height: 48px;
+  font-size: 28px;
   line-height: 1;
-  color: var(--text-2);
+  color: var(--text);
+  background: rgba(19, 25, 23, 0.92);
   border: 1px solid var(--line-mid);
+  border-radius: 50%;
   display: grid;
   place-items: center;
   transition: all 0.25s var(--ease);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.lightbox-close:hover { color: var(--gold); border-color: var(--gold); }
+.lightbox-close:hover,
+.lightbox-close:active {
+  color: #10130f;
+  background: var(--gold);
+  border-color: var(--gold);
+}
 
 .lightbox-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 64px;
-  font-size: 30px;
+  z-index: 3;
+  width: 46px;
+  height: 72px;
+  font-size: 28px;
   line-height: 1;
-  color: var(--text-2);
+  color: var(--text);
+  background: rgba(19, 25, 23, 0.85);
   border: 1px solid var(--line);
   display: grid;
   place-items: center;
   transition: all 0.25s var(--ease);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.lightbox-nav:hover {
-  color: var(--gold);
+.lightbox-nav:hover,
+.lightbox-nav:active {
+  color: #10130f;
+  background: var(--gold);
   border-color: var(--gold);
-  background: rgba(216, 180, 90, 0.06);
 }
 
-.lightbox-prev { left: 18px; }
-.lightbox-next { right: 18px; }
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
+
+.lightbox-hint {
+  position: absolute;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--text-3);
+  z-index: 2;
+  pointer-events: none;
+}
+
+@media (max-width: 620px) {
+  .lightbox { padding: 56px 12px 56px; }
+
+  .lightbox-figure img {
+    max-height: calc(100vh - 190px);
+    max-height: calc(100dvh - 190px);
+  }
+
+  .lightbox-nav {
+    width: 42px;
+    height: 54px;
+    top: auto;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    transform: none;
+    font-size: 24px;
+  }
+
+  .lightbox-prev { left: 16px; }
+  .lightbox-next { right: 16px; }
+
+  .lightbox-hint { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+}
 
 /* ---------- 10. Photo placeholders & figures ---------- */
 .photo {
