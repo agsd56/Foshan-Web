@@ -21,29 +21,36 @@ EarthMC 大明共和国广东省佛山市的城市网站。纯静态站点，无
 
 ```
 .
-├── index.html              首页
-├── foshan.html             城市志（档案、纪事、分区、市民）
-├── guide.html              新手指南（11 个章节）
+├── index.html              首页（城市卡片由 site.json 渲染）
+├── photos.html             精选照片（相册 + 灯箱）
+├── guide.html              新手指南
 ├── join.html               加入我们
-├── 404.html                404 页面
-├── _headers                Cloudflare Pages 响应头（安全 + 缓存）
+├── admin.html              后台管理（不参与公开导航）
+├── 404.html
+├── content/
+│   └── site.json           站点内容（城市、照片、首屏）—— 后台修改的就是它
+├── _headers
 ├── robots.txt
 ├── sitemap.xml
 ├── functions/
 │   └── api/
 │       └── stats.js        /api/stats — EarthMC 数据代理
 └── assets/
-    ├── css/style.css       全部样式
+    ├── css/
+    │   ├── style.css       全站样式
+    │   └── admin.css       后台专用样式
     ├── js/
     │   ├── placeholder.js  图片占位回退（必须最先加载）
-    │   ├── main.js         导航 / 滚动动画 / 目录高亮 / 复制
-    │   └── live.js         实时数据渲染
+    │   ├── main.js         导航 / 滚动动画 / 复制
+    │   ├── live.js         EarthMC 实时数据
+    │   ├── site.js         读取 site.json 渲染首页与相册
+    │   └── admin.js        后台逻辑（GitHub API）
     └── img/
-        ├── favicon.ico          站点图标（16/32/48/64）
-        ├── foshan-logo-512.png  高清图标 / 分享图
+        ├── favicon.ico          站点图标
+        ├── foshan-logo-512.png  高清图标
         ├── foshan-logo-180.png  iOS 主屏图标
-        ├── recipes/             16 张合成配方图（已提取）
-        └── （城市图 / 风景图待补）
+        ├── recipes/             16 张合成配方图
+        └── uploads/             后台上传的图片（自动创建）
 ```
 
 ---
@@ -181,3 +188,41 @@ Pages 项目 → **Custom domains** → **Set up a custom domain**。
 
 本站为非官方粉丝站点，与 Mojang Studios、Microsoft 及 EarthMC 官方无隶属关系。
 Minecraft 是 Mojang Studios 的商标。
+
+---
+
+## 后台管理
+
+访问 `/admin.html`，用 GitHub Token 连接仓库后，就能在浏览器里增删城市、上传照片、改首屏图。
+
+### 1. 创建 Token
+
+GitHub → Settings → Developer settings → Personal access tokens → **Fine-grained tokens**
+
+- Repository access：只勾选这个网站仓库
+- Permissions → Contents：**Read and write**
+- 生成后立刻复制（只显示一次）
+
+### 2. 连接
+
+在 `/admin.html` 填入用户名、仓库名、分支（main）、Token，点「连接」。
+配置保存在这台电脑的浏览器里，下次打开自动连接。
+
+### 3. 编辑
+
+| 标签 | 能做什么 |
+|---|---|
+| 城市 | 改名称 / 市长 / 居民 / 区块 / 标签 / 介绍，换图，上下排序，增删 |
+| 照片 | 拖拽或点击上传（自动压缩到 1600px、转 JPG），写标题和说明，排序 |
+| 站点 | 更换首屏大图与标题 |
+
+### 4. 发布
+
+点右上角「保存并发布」。图片先上传，再提交 `content/site.json`，Cloudflare 约 30 秒后自动重新部署。
+
+### 注意
+
+- **Token 等于仓库写权限**，不要在公共电脑上保存，用完点「断开」并清除浏览器数据。
+- 图片会自动压成 JPG，单张控制在 1MB 以内（GitHub API 限制）。
+- 后台是纯静态页面，没有服务端，Token 不会发往任何第三方。
+- `/admin.html` 已加 `noindex`，不会被搜索引擎收录，但知道地址的人仍能打开——安全性依赖 Token 本身。

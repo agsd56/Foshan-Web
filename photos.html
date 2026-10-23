@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>精选照片 · 佛山联盟</title>
+<meta name="description" content="佛山联盟城市照片精选。">
+<meta name="theme-color" content="#0b0e0d">
+<meta property="og:title" content="精选照片 · 佛山联盟">
+<link rel="icon" href="assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/img/foshan-logo-512.png">
+<link rel="apple-touch-icon" href="assets/img/foshan-logo-180.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/placeholder.js"></script>
+</head>
+<body data-page="photos">
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="佛山联盟首页">
+      <span class="brand-mark">佛</span>
+      <span class="brand-text"><b>佛山联盟</b><i>FOSHAN LEAGUE</i></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html">首页</a>
+      <a href="photos.html" class="is-active">精选照片</a>
+      <a href="guide.html">新手指南</a>
+      <a href="join.html">加入我们</a>
+    </nav>
+    <a class="header-cta" href="join.html">进入服务器 →</a>
+    <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <p class="eyebrow">精选照片 · Gallery</p>
+    <h1 class="page-title">精选照片<small>SELECTED PHOTOS</small></h1>
+    <p class="page-desc" id="photoCount"></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="photo-wall" id="photoWall"></div>
+
+    <div class="tbd" id="photoEmpty" hidden>
+      <b>暂无照片</b>
+      <span>请在后台添加 · PHOTOS COMING SOON</span>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="照片查看">
+  <button class="lightbox-close" id="lbClose" aria-label="关闭">×</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="上一张">‹</button>
+  <figure class="lightbox-figure">
+    <img id="lbImage" src="" alt="">
+    <figcaption id="lbCaption"></figcaption>
+  </figure>
+  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="下一张">›</button>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">佛</span>
+          <span class="brand-text"><b>佛山联盟</b><i>FOSHAN LEAGUE</i></span>
+        </a>
+        <p class="footer-desc">
+          EarthMC 大明共和国广东省 · 佛山联盟非官方网站，
+          由市民维护，与 Mojang Studios 及 EarthMC 官方无隶属关系。
+        </p>
+      </div>
+      <div class="footer-col">
+        <h5>联盟</h5>
+        <a href="index.html#cities">八座城市</a>
+        <a href="photos.html">精选照片</a>
+        <a href="join.html">加入我们</a>
+      </div>
+      <div class="footer-col">
+        <h5>入门</h5>
+        <a href="guide.html">新手指南</a>
+        <a href="guide.html#town">城镇指令</a>
+        <a href="guide.html#faq">常见问题</a>
+        <a href="https://wiki.earthmc.net" target="_blank" rel="noopener">EarthMC Wiki ↗</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span data-year>2026</span> 佛山联盟 · EarthMC. 保留所有权利。</p>
+      <p class="mono" style="font-size: 11px; letter-spacing: 0.08em;">NOT AFFILIATED WITH MOJANG OR EARTHMC</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

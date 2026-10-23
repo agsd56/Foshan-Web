@@ -1,0 +1,304 @@
+/* ==========================================================================
+   后台管理界面样式 —— 仅 admin.html 使用
+   ========================================================================== */
+
+body.admin {
+  background: #0a0d0c;
+}
+
+.admin-top {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 28px;
+  background: rgba(9, 12, 11, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.admin-top h1 {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.admin-top h1 span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  margin-left: 10px;
+}
+
+.admin-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-main {
+  width: min(100% - 48px, 1180px);
+  margin: 0 auto;
+  padding: 32px 0 80px;
+}
+
+/* Tabs */
+.admin-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 28px;
+}
+
+.admin-tab {
+  padding: 12px 22px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.25s var(--ease);
+}
+
+.admin-tab:hover { color: var(--text); }
+.admin-tab.is-active { color: var(--gold); border-bottom-color: var(--gold); }
+
+.admin-panel { display: none; }
+.admin-panel.is-active { display: block; }
+
+/* 表单 */
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 7px;
+}
+
+.field input[type="text"],
+.field input[type="password"],
+.field input[type="number"],
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 11px 13px;
+  background: #0e1311;
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  border-radius: 2px;
+  transition: border-color 0.25s;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.field textarea {
+  min-height: 84px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.field-hint {
+  font-size: 11.5px;
+  color: var(--text-3);
+  margin-top: 6px;
+  line-height: 1.6;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+}
+
+/* 卡片列表 */
+.admin-list {
+  display: grid;
+  gap: 14px;
+}
+
+.admin-item {
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 132px 1fr auto;
+  gap: 18px;
+  align-items: start;
+}
+
+.admin-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  background: #0e1311;
+  overflow: hidden;
+}
+
+.admin-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.admin-thumb .no-img {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+}
+
+.admin-item-body { min-width: 0; }
+
+.admin-item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mini-btn {
+  padding: 7px 11px;
+  font-size: 12px;
+  border: 1px solid var(--line-mid);
+  color: var(--text-2);
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.mini-btn:hover { border-color: var(--gold); color: var(--gold); }
+.mini-btn--danger:hover { border-color: var(--crimson); color: #e08b85; }
+
+/* 上传区 */
+.dropzone {
+  border: 1px dashed var(--line-mid);
+  background: rgba(216, 180, 90, 0.03);
+  padding: 34px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-bottom: 22px;
+}
+
+.dropzone:hover,
+.dropzone.is-over {
+  border-color: var(--gold);
+  background: rgba(216, 180, 90, 0.07);
+}
+
+.dropzone b {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.dropzone span {
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+
+/* 状态条 */
+.admin-status {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 80;
+  padding: 12px 24px;
+  background: #131917;
+  border: 1px solid var(--line-mid);
+  font-size: 13px;
+  color: var(--text);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s var(--ease);
+  max-width: 90vw;
+}
+
+.admin-status.is-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.admin-status.is-error { border-color: var(--crimson); color: #e08b85; }
+.admin-status.is-ok { border-color: var(--jade); color: var(--jade); }
+
+/* 连接提示 */
+.connect-box {
+  max-width: 520px;
+  margin: 60px auto;
+  border: 1px solid var(--line-mid);
+  background: var(--bg-card);
+  padding: 36px;
+}
+
+.connect-box h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.connect-box p {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.steps-mini {
+  font-size: 12.5px;
+  color: var(--text-3);
+  line-height: 1.9;
+  padding-left: 18px;
+  margin: 0 0 24px;
+}
+
+.steps-mini code {
+  font-size: 11.5px;
+}
+
+/* 空状态 */
+.admin-empty {
+  padding: 50px 20px;
+  text-align: center;
+  border: 1px dashed var(--line);
+  color: var(--text-3);
+  font-size: 13.5px;
+}
+
+/* 响应式 */
+@media (max-width: 760px) {
+  .admin-main { width: calc(100% - 28px); padding-top: 20px; }
+  .admin-top { padding: 12px 14px; flex-wrap: wrap; }
+  .admin-top h1 { font-size: 15px; }
+  .admin-top h1 span { display: none; }
+  .admin-tab { padding: 10px 14px; font-size: 13px; }
+  .admin-item {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .admin-thumb { max-width: 180px; }
+  .admin-item-actions { flex-direction: row; flex-wrap: wrap; }
+  .connect-box { padding: 24px 20px; margin: 30px auto; }
+}

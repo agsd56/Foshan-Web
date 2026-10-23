@@ -5,6 +5,13 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=()
   Cross-Origin-Opener-Policy: same-origin
 
+/admin.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
+/content/*
+  Cache-Control: public, max-age=60
+
 /assets/*
   Cache-Control: public, max-age=604800
 
