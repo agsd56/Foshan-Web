@@ -2,7 +2,7 @@
   "version": 2,
   "updated": "2026-10-23",
   "hero": {
-    "image": "assets/img/uploads/hero-1792733012668-0fmg.jpg",
+    "image": "assets/img/league-hero.jpg",
     "title": "佛山联盟",
     "subtitle": ""
   },
@@ -30,7 +30,7 @@
       "residents": 2,
       "blocks": 50,
       "maxBlocks": 124,
-      "image": "assets/img/uploads/city-1792733036629-e513.jpg",
+      "image": "assets/img/uploads/20261023140116-6664.png",
       "tag": "北江流域",
       "feature": false,
       "desc": ""
@@ -44,7 +44,7 @@
       "residents": 1,
       "blocks": 28,
       "maxBlocks": 112,
-      "image": "assets/img/uploads/city-1792733043368-fhc8.jpg",
+      "image": "assets/img/uploads/20261023140111-1840.png",
       "tag": "北江流域",
       "feature": false,
       "desc": ""
@@ -58,7 +58,7 @@
       "residents": 3,
       "blocks": 88,
       "maxBlocks": 136,
-      "image": "assets/img/uploads/city-1792733048994-iile.jpg",
+      "image": "assets/img/uploads/20261023140126-6539.png",
       "tag": "北江流域",
       "feature": false,
       "desc": ""
@@ -122,14 +122,14 @@
   ],
   "albums": [
     {
-      "id": "amvkisix62j4",
+      "id": "amvkkb1g5jwi",
       "title": "合照",
       "desc": "",
-      "cover": "assets/img/uploads/photo-1792732756008-xgxr.jpg",
+      "cover": "assets/img/uploads/20261023140142-2651.png",
       "photos": [
         {
-          "id": "pmvkisnjcxoz",
-          "src": "assets/img/uploads/photo-1792732756008-xgxr.jpg",
+          "id": "pmvkkb8jnb8o",
+          "src": "assets/img/uploads/20261023140142-2651.png",
           "title": "新安江战役",
           "caption": ""
         }
