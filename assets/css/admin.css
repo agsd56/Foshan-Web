@@ -428,3 +428,25 @@ input[type="checkbox"] {
 .draft-bar b { color: var(--gold); }
 
 .draft-bar button { margin-left: auto; }
+
+/* 代码编辑器（教程 / 加入页正文） */
+.code-editor {
+  width: 100%;
+  min-height: 62vh;
+  padding: 16px 18px;
+  background: #0a0d0c;
+  border: 1px solid var(--line);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.75;
+  resize: vertical;
+  tab-size: 2;
+  white-space: pre;
+  overflow: auto;
+}
+
+.code-editor:focus {
+  outline: none;
+  border-color: var(--gold);
+}

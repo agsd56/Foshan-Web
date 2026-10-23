@@ -1,17 +1,22 @@
 /* ==========================================================================
    后台逻辑 —— 通过 GitHub Contents API 直接修改仓库
+   管理内容：城市、相册、教程 / 加入页正文、站点设置
    ========================================================================== */
 (function () {
   'use strict';
 
   var LS_KEY = 'foshan_admin_cfg';
   var SITE_PATH = 'content/site.json';
+  var GUIDE_PATH = 'content/guide-body.html';
+  var JOIN_PATH = 'content/join-body.html';
 
   var cfg = { owner: '', repo: '', branch: 'main', token: '' };
   var data = null;
   var siteSha = null;
+  var contentMeta = { guide: { sha: null, original: '' }, join: { sha: null, original: '' } };
+  var currentAlbumId = null;
   var dirty = false;
-  var pending = new Map();   // 路径 -> base64（待上传的图片）
+  var pending = new Map();   // 路径 -> base64（待上传图片）
 
   var $ = function (id) { return document.getElementById(id); };
 
@@ -19,6 +24,7 @@
   var toastTimer = null;
   function toast(msg, type) {
     var el = $('status');
+    if (!el) return;
     el.textContent = msg;
     el.className = 'admin-status is-show' + (type ? ' is-' + type : '');
     clearTimeout(toastTimer);
@@ -45,6 +51,10 @@
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
+  }
+
+  function uid(prefix) {
+    return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
   }
 
   function updateDirtyMark() {
@@ -126,7 +136,7 @@
     localStorage.setItem(LS_KEY, JSON.stringify(cfg));
   }
 
-  /* ---------------- 连接与读取 ---------------- */
+  /* ---------------- 连接 ---------------- */
   async function connect() {
     cfg.owner = $('cfgOwner').value.trim();
     cfg.repo = $('cfgRepo').value.trim();
@@ -142,14 +152,35 @@
     toast('正在读取仓库…', 'wait');
 
     try {
-      var file = await ghGet(SITE_PATH);
-      if (!file) throw new Error('仓库里没有 content/site.json');
-      data = JSON.parse(b64decode(file.content));
-      siteSha = file.sha;
+      var siteFile = await ghGet(SITE_PATH);
+      if (!siteFile) throw new Error('仓库里没有 content/site.json');
+
+      data = JSON.parse(b64decode(siteFile.content));
+      siteSha = siteFile.sha;
 
       if (!Array.isArray(data.cities)) data.cities = [];
-      if (!Array.isArray(data.photos)) data.photos = [];
+      if (!Array.isArray(data.albums)) data.albums = [];
       if (!data.hero) data.hero = { image: '', title: '佛山联盟' };
+
+      // 兼容旧结构
+      if (!data.albums.length && Array.isArray(data.photos) && data.photos.length) {
+        data.albums.push({
+          id: 'album-default',
+          title: '未分类',
+          desc: '',
+          cover: data.photos[0].src || '',
+          photos: data.photos
+        });
+        delete data.photos;
+      }
+
+      // 内容文件
+      var g = await ghGet(GUIDE_PATH);
+      var j = await ghGet(JOIN_PATH);
+      contentMeta.guide.sha = g ? g.sha : null;
+      contentMeta.guide.original = g ? b64decode(g.content) : '';
+      contentMeta.join.sha = j ? j.sha : null;
+      contentMeta.join.original = j ? b64decode(j.content) : '';
 
       $('connectBox').hidden = true;
       $('editor').hidden = false;
@@ -158,7 +189,7 @@
         if (el) el.hidden = false;
       });
 
-      // 检查上次未发布的草稿
+      // 草稿恢复
       try {
         var raw = localStorage.getItem('foshan_draft');
         if (raw) {
@@ -175,6 +206,9 @@
         }
       } catch (e) {}
 
+      $('guideEditor').value = contentMeta.guide.original;
+      $('joinEditor').value = contentMeta.join.original;
+
       renderAll();
       updateDirtyMark();
       toast('已连接 · ' + cfg.owner + '/' + cfg.repo, 'ok');
@@ -186,20 +220,21 @@
   async function reload() {
     if (dirty && !confirm('有未保存的修改，确定放弃并重新读取？')) return;
     dirty = false;
+    currentAlbumId = null;
     await connect();
   }
 
   /* ---------------- 渲染 ---------------- */
   function renderAll() {
     renderCities();
-    renderPhotos();
+    renderAlbums();
     renderSite();
+    showAlbumManage();
   }
 
   function thumbHtml(src, alt) {
     if (!src) return '<div class="no-img">NO IMAGE</div>';
-    return '<img src="' + esc(src) + '" alt="' + esc(alt || '') + '" ' +
-           'onerror="this.style.display=\'none\';this.parentNode.innerHTML=\'<div class=&quot;no-img&quot;>MISSING</div>\'">';
+    return '<img src="' + esc(src) + '" alt="' + esc(alt || '') + '">';
   }
 
   function renderCities() {
@@ -245,17 +280,89 @@
     }).join('');
   }
 
-  function renderPhotos() {
-    var box = $('photoList');
-    var tb = $('photoToolbar');
+  /* ---------------- 相册 ---------------- */
+  function renderAlbums() {
+    var box = $('albumList');
+    var empty = $('albumEmpty');
+    var count = $('albumCount');
 
-    if (!data.photos.length) {
-      box.innerHTML = '<div class="admin-empty">还没有照片。上传的图片会自动压缩并提交到仓库。</div>';
+    if (count) count.textContent = '共 ' + data.albums.length + ' 个相册';
+
+    if (!data.albums.length) {
+      box.innerHTML = '';
+      if (empty) empty.hidden = false;
+      return;
+    }
+    if (empty) empty.hidden = true;
+
+    box.innerHTML = data.albums.map(function (a, i) {
+      var cover = a.cover || (a.photos[0] && a.photos[0].src) || '';
+      return '' +
+        '<div class="admin-item" data-i="' + i + '">' +
+          '<div class="admin-thumb">' + thumbHtml(cover, a.title) + '</div>' +
+          '<div class="admin-item-body">' +
+            '<div class="field-row">' +
+              '<div class="field"><label>相册名称</label><input type="text" data-k="title" value="' + esc(a.title) + '"></div>' +
+              '<div class="field"><label>照片数</label><input type="text" value="' + a.photos.length + ' 张" disabled></div>' +
+            '</div>' +
+            '<div class="field"><label>描述</label><input type="text" data-k="desc" value="' + esc(a.desc) + '"></div>' +
+          '</div>' +
+          '<div class="admin-item-actions">' +
+            '<div class="admin-drag" draggable="true" title="拖动排序">⠿</div>' +
+            '<button class="mini-btn" data-act="open">管理照片</button>' +
+            '<button class="mini-btn" data-act="up">↑</button>' +
+            '<button class="mini-btn" data-act="down">↓</button>' +
+            '<button class="mini-btn mini-btn--danger" data-act="del">删除</button>' +
+          '</div>' +
+        '</div>';
+    }).join('');
+  }
+
+  function currentAlbum() {
+    for (var i = 0; i < data.albums.length; i++) {
+      if (data.albums[i].id === currentAlbumId) return data.albums[i];
+    }
+    return null;
+  }
+
+  function showAlbumManage() {
+    currentAlbumId = null;
+    $('albumManageView').hidden = false;
+    $('albumPhotoView').hidden = true;
+    renderAlbums();
+  }
+
+  function openAlbum(id) {
+    var a = null;
+    for (var i = 0; i < data.albums.length; i++) {
+      if (data.albums[i].id === id) { a = data.albums[i]; break; }
+    }
+    if (!a) return;
+
+    currentAlbumId = id;
+    $('albumManageView').hidden = true;
+    $('albumPhotoView').hidden = false;
+    $('albumNameInput').value = a.title || '';
+    $('albumDescInput').value = a.desc || '';
+    renderAlbumPhotos();
+  }
+
+  function renderAlbumPhotos() {
+    var a = currentAlbum();
+    if (!a) return;
+
+    var box = $('albumPhotoList');
+    var tb = $('albumPhotoToolbar');
+
+    if (!a.photos.length) {
+      box.innerHTML = '<div class="admin-empty">这个相册还没有照片，用上面的区域上传。</div>';
       if (tb) tb.hidden = true;
       return;
     }
 
-    box.innerHTML = data.photos.map(function (p, i) {
+    if (tb) tb.hidden = false;
+
+    box.innerHTML = a.photos.map(function (p, i) {
       return '' +
         '<div class="admin-item" data-i="' + i + '">' +
           '<div class="admin-thumb">' +
@@ -268,24 +375,34 @@
           '</div>' +
           '<div class="admin-item-actions">' +
             '<div class="admin-drag" draggable="true" title="拖动排序">⠿</div>' +
-            '<button class="mini-btn" data-act="up">↑ 上移</button>' +
-            '<button class="mini-btn" data-act="down">↓ 下移</button>' +
+            '<button class="mini-btn" data-act="cover">设为封面</button>' +
+            '<button class="mini-btn" data-act="up">↑</button>' +
+            '<button class="mini-btn" data-act="down">↓</button>' +
             '<button class="mini-btn mini-btn--danger" data-act="del">删除</button>' +
           '</div>' +
         '</div>';
     }).join('');
 
-    if (tb) tb.hidden = false;
-    if (typeof updateSelCount === 'function') updateSelCount();
+    updateAlbumSelCount();
   }
 
+  function updateAlbumSelCount() {
+    var sel = document.querySelectorAll('#albumPhotoList .photo-sel:checked');
+    var all = document.querySelectorAll('#albumPhotoList .photo-sel');
+    var el = $('albumSelCount');
+    if (el) el.textContent = '已选 ' + sel.length + ' 张';
+    var chk = $('albumCheckAll');
+    if (chk) chk.checked = all.length > 0 && sel.length === all.length;
+  }
+
+  /* ---------------- 站点 ---------------- */
   function renderSite() {
     $('heroImage').value = data.hero.image || '';
     $('heroTitle').value = data.hero.title || '';
     $('heroThumb').innerHTML = thumbHtml(data.hero.image, '首屏图');
   }
 
-  /* ---------------- 图片处理 ---------------- */
+  /* ---------------- 图片 ---------------- */
   function compress(file, maxW, quality) {
     maxW = maxW || 1600;
     quality = quality || 0.85;
@@ -318,16 +435,15 @@
   }
 
   function newImagePath(prefix) {
-    var ts = Date.now();
-    var rand = Math.random().toString(36).slice(2, 6);
-    return 'assets/img/uploads/' + prefix + '-' + ts + '-' + rand + '.jpg';
+    return 'assets/img/uploads/' + prefix + '-' + Date.now() + '-' +
+           Math.random().toString(36).slice(2, 6) + '.jpg';
   }
 
-  function pickFile(accept, multiple) {
+  function pickFile(multiple) {
     return new Promise(function (resolve) {
       var input = document.createElement('input');
       input.type = 'file';
-      input.accept = accept || 'image/*';
+      input.accept = 'image/*';
       input.multiple = !!multiple;
       input.onchange = function () {
         resolve(Array.prototype.slice.call(input.files || []));
@@ -337,7 +453,7 @@
   }
 
   async function replaceCityImage(index) {
-    var files = await pickFile('image/*', false);
+    var files = await pickFile(false);
     if (!files.length) return;
 
     toast('正在压缩…', 'wait');
@@ -354,31 +470,28 @@
     }
   }
 
-  async function addPhotos(files) {
-    if (!files.length) return;
-    toast('正在压缩 ' + files.length + ' 张…', 'wait');
+  async function addAlbumPhotos(files) {
+    var a = currentAlbum();
+    if (!a || !files.length) return;
 
+    toast('正在压缩 ' + files.length + ' 张…', 'wait');
     try {
       for (var i = 0; i < files.length; i++) {
         var out = await compress(files[i]);
         var path = newImagePath('photo');
         pending.set(path, out.dataUrl.split(',')[1]);
-        data.photos.push({
-          id: 'p' + Date.now() + i,
-          src: path,
-          title: '',
-          caption: ''
-        });
+        a.photos.push({ id: uid('p'), src: path, title: '', caption: '' });
       }
+      if (!a.cover) a.cover = a.photos[0].src;
       markDirty();
-      renderPhotos();
+      renderAlbumPhotos();
       toast('已添加 ' + files.length + ' 张，点「保存并发布」上传', 'ok');
     } catch (e) {
       toast(e.message, 'error');
     }
   }
 
-  /* ---------------- 排序与删除 ---------------- */
+  /* ---------------- 排序 ---------------- */
   function move(arr, from, to) {
     if (to < 0 || to >= arr.length) return false;
     var item = arr.splice(from, 1)[0];
@@ -389,6 +502,11 @@
   /* ---------------- 保存 ---------------- */
   async function save() {
     if (!data) return;
+
+    var guideText = $('guideEditor').value;
+    var joinText = $('joinEditor').value;
+    var guideChanged = guideText !== contentMeta.guide.original;
+    var joinChanged = joinText !== contentMeta.join.original;
 
     var total = pending.size;
     var done = 0;
@@ -401,15 +519,28 @@
         await ghPut(entry[0], entry[1], 'upload: ' + entry[0], null);
       }
 
-      // 2. 提交 JSON
-      toast('提交内容…', 'wait');
+      // 2. 内容文件
+      if (guideChanged) {
+        toast('提交教程正文…', 'wait');
+        var gMeta = await ghGet(GUIDE_PATH);
+        await ghPut(GUIDE_PATH, b64encode(guideText), 'content: 更新新手指南', gMeta ? gMeta.sha : null);
+        contentMeta.guide.original = guideText;
+      }
+
+      if (joinChanged) {
+        toast('提交加入页正文…', 'wait');
+        var jMeta = await ghGet(JOIN_PATH);
+        await ghPut(JOIN_PATH, b64encode(joinText), 'content: 更新加入我们', jMeta ? jMeta.sha : null);
+        contentMeta.join.original = joinText;
+      }
+
+      // 3. site.json
+      toast('提交站点数据…', 'wait');
       var latest = await ghGet(SITE_PATH);
       siteSha = latest ? latest.sha : null;
 
       data.updated = new Date().toISOString().slice(0, 10);
-      var content = b64encode(JSON.stringify(data, null, 2));
-
-      await ghPut(SITE_PATH, content, 'content: 更新站点内容', siteSha);
+      await ghPut(SITE_PATH, b64encode(JSON.stringify(data, null, 2)), 'content: 更新站点数据', siteSha);
 
       pending.clear();
       dirty = false;
@@ -421,197 +552,7 @@
     }
   }
 
-  /* ---------------- 事件绑定 ---------------- */
-  function bindEvents() {
-    $('btnConnect').addEventListener('click', connect);
-
-    $('btnReload').addEventListener('click', reload);
-
-    $('btnLogout').addEventListener('click', function () {
-      if (!confirm('断开连接？配置会保留，下次直接点连接即可。')) return;
-      $('editor').hidden = true;
-      $('connectBox').hidden = false;
-      $('btnSave').hidden = true;
-      $('btnReload').hidden = true;
-      $('btnLogout').hidden = true;
-    });
-
-    $('btnSave').addEventListener('click', save);
-
-    // Tabs
-    document.querySelectorAll('.admin-tab').forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        document.querySelectorAll('.admin-tab').forEach(function (t) { t.classList.remove('is-active'); });
-        document.querySelectorAll('.admin-panel').forEach(function (p) { p.classList.remove('is-active'); });
-        tab.classList.add('is-active');
-        $('panel-' + tab.getAttribute('data-tab')).classList.add('is-active');
-      });
-    });
-
-    // 城市列表：输入与按钮
-    $('cityList').addEventListener('input', function (e) {
-      var item = e.target.closest('.admin-item');
-      var key = e.target.getAttribute('data-k');
-      if (!item || !key) return;
-      var i = parseInt(item.getAttribute('data-i'), 10);
-      var val = e.target.value;
-      if (key === 'feature') val = val === '1';
-      else if (key === 'residents' || key === 'blocks' || key === 'maxBlocks') val = parseInt(val, 10) || 0;
-      data.cities[i][key] = val;
-      markDirty();
-    });
-
-    $('cityList').addEventListener('change', function (e) {
-      if (e.target.tagName === 'SELECT') {
-        var item = e.target.closest('.admin-item');
-        var i = parseInt(item.getAttribute('data-i'), 10);
-        data.cities[i].feature = e.target.value === '1';
-        markDirty();
-      }
-    });
-
-    $('cityList').addEventListener('click', async function (e) {
-      var btn = e.target.closest('button[data-act]');
-      if (!btn) return;
-      var item = btn.closest('.admin-item');
-      var i = parseInt(item.getAttribute('data-i'), 10);
-      var act = btn.getAttribute('data-act');
-
-      if (act === 'up') { if (move(data.cities, i, i - 1)) { markDirty(); renderCities(); } }
-      if (act === 'down') { if (move(data.cities, i, i + 1)) { markDirty(); renderCities(); } }
-      if (act === 'img') { await replaceCityImage(i); }
-      if (act === 'del') {
-        if (!confirm('删除「' + data.cities[i].name + '」？')) return;
-        data.cities.splice(i, 1);
-        markDirty();
-        renderCities();
-      }
-    });
-
-    $('btnAddCity').addEventListener('click', function () {
-      data.cities.push({
-        id: 'city' + Date.now(),
-        name: '新城市',
-        en: 'CITY',
-        founded: '',
-        mayor: '',
-        residents: 0,
-        blocks: 0,
-        maxBlocks: 0,
-        image: '',
-        tag: '',
-        feature: false,
-        desc: ''
-      });
-      markDirty();
-      renderCities();
-    });
-
-    // 照片列表
-    $('photoList').addEventListener('input', function (e) {
-      var item = e.target.closest('.admin-item');
-      var key = e.target.getAttribute('data-k');
-      if (!item || !key) return;
-      var i = parseInt(item.getAttribute('data-i'), 10);
-      data.photos[i][key] = e.target.value;
-      markDirty();
-    });
-
-    $('photoList').addEventListener('click', function (e) {
-      var btn = e.target.closest('button[data-act]');
-      if (!btn) return;
-      var item = btn.closest('.admin-item');
-      var i = parseInt(item.getAttribute('data-i'), 10);
-      var act = btn.getAttribute('data-act');
-
-      if (act === 'up') { if (move(data.photos, i, i - 1)) { markDirty(); renderPhotos(); } }
-      if (act === 'down') { if (move(data.photos, i, i + 1)) { markDirty(); renderPhotos(); } }
-      if (act === 'del') {
-        if (!confirm('删除这张照片？')) return;
-        data.photos.splice(i, 1);
-        markDirty();
-        renderPhotos();
-      }
-    });
-
-    // 上传区
-    var drop = $('photoDrop');
-    var input = $('photoInput');
-
-    drop.addEventListener('click', function () { input.click(); });
-    input.addEventListener('change', function () {
-      addPhotos(Array.prototype.slice.call(input.files || []));
-      input.value = '';
-    });
-
-    ['dragenter', 'dragover'].forEach(function (ev) {
-      drop.addEventListener(ev, function (e) {
-        e.preventDefault();
-        drop.classList.add('is-over');
-      });
-    });
-    ['dragleave', 'drop'].forEach(function (ev) {
-      drop.addEventListener(ev, function (e) {
-        e.preventDefault();
-        drop.classList.remove('is-over');
-      });
-    });
-    drop.addEventListener('drop', function (e) {
-      var files = Array.prototype.slice.call(e.dataTransfer.files || [])
-        .filter(function (f) { return f.type.indexOf('image/') === 0; });
-      addPhotos(files);
-    });
-
-    // 站点
-    $('heroImage').addEventListener('input', function (e) {
-      data.hero.image = e.target.value;
-      $('heroThumb').innerHTML = thumbHtml(data.hero.image, '首屏图');
-      markDirty();
-    });
-
-    $('heroTitle').addEventListener('input', function (e) {
-      data.hero.title = e.target.value;
-      markDirty();
-    });
-
-    $('btnHeroImage').addEventListener('click', async function () {
-      var files = await pickFile('image/*', false);
-      if (!files.length) return;
-      toast('正在压缩…', 'wait');
-      try {
-        var out = await compress(files[0], 1920);
-        var path = newImagePath('hero');
-        pending.set(path, out.dataUrl.split(',')[1]);
-        data.hero.image = path;
-        $('heroImage').value = path;
-        $('heroThumb').innerHTML = thumbHtml(path, '首屏图');
-        markDirty();
-        toast('首屏图已就绪，记得保存', 'ok');
-      } catch (e) {
-        toast(e.message, 'error');
-      }
-    });
-
-    // 离开提醒
-    window.addEventListener('beforeunload', function (e) {
-      if (dirty) {
-        e.preventDefault();
-        e.returnValue = '';
-      }
-    });
-  }
-
-  /* ---------------- 增强功能 ---------------- */
-  function updateSelCount() {
-    var sel = document.querySelectorAll('.photo-sel:checked');
-    var el = $('selCount');
-    if (el) el.textContent = '已选 ' + sel.length + ' 张';
-
-    var all = document.querySelectorAll('.photo-sel');
-    var chk = $('checkAll');
-    if (chk) chk.checked = all.length > 0 && sel.length === all.length;
-  }
-
+  /* ---------------- 拖拽排序 ---------------- */
   function bindDrag(listEl, getArr, rerender) {
     if (!listEl) return;
     var dragIndex = -1;
@@ -658,8 +599,331 @@
     });
   }
 
+  /* ---------------- 预览内容 ---------------- */
+  function previewContent(which) {
+    var text = which === 'guide' ? $('guideEditor').value : $('joinEditor').value;
+    var base = location.href.replace(/[^/]*$/, '');
+    var html = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">' +
+      '<link rel="stylesheet" href="' + base + 'assets/css/style.css">' +
+      '<style>body{padding:40px 0}.wrap{width:min(100% - 48px,820px);margin:0 auto}</style>' +
+      '</head><body><div class="wrap">' + text + '</div></body></html>';
+
+    var w = window.open('', '_blank');
+    if (w) {
+      w.document.open();
+      w.document.write(html);
+      w.document.close();
+    }
+  }
+
+  /* ---------------- 事件绑定 ---------------- */
+  function bindEvents() {
+    $('btnConnect').addEventListener('click', connect);
+    $('btnReload').addEventListener('click', reload);
+    $('btnSave').addEventListener('click', save);
+
+    $('btnLogout').addEventListener('click', function () {
+      if (!confirm('断开连接？配置会保留，下次直接点连接即可。')) return;
+      $('editor').hidden = true;
+      $('connectBox').hidden = false;
+      ['btnSave', 'btnReload', 'btnLogout', 'btnExport', 'btnImport'].forEach(function (id) {
+        var el = $(id);
+        if (el) el.hidden = true;
+      });
+    });
+
+    // Tabs
+    document.querySelectorAll('.admin-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.admin-tab').forEach(function (t) { t.classList.remove('is-active'); });
+        document.querySelectorAll('.admin-panel').forEach(function (p) { p.classList.remove('is-active'); });
+        tab.classList.add('is-active');
+        var name = tab.getAttribute('data-tab');
+        var panel = $('panel-' + name);
+        if (panel) panel.classList.add('is-active');
+        if (name === 'albums') showAlbumManage();
+      });
+    });
+
+    /* ---------- 城市 ---------- */
+    $('cityList').addEventListener('input', function (e) {
+      var item = e.target.closest('.admin-item');
+      var key = e.target.getAttribute('data-k');
+      if (!item || !key) return;
+      var i = parseInt(item.getAttribute('data-i'), 10);
+      var val = e.target.value;
+      if (key === 'residents' || key === 'blocks' || key === 'maxBlocks') val = parseInt(val, 10) || 0;
+      data.cities[i][key] = val;
+      markDirty();
+    });
+
+    $('cityList').addEventListener('change', function (e) {
+      if (e.target.tagName === 'SELECT') {
+        var item = e.target.closest('.admin-item');
+        var i = parseInt(item.getAttribute('data-i'), 10);
+        data.cities[i].feature = e.target.value === '1';
+        markDirty();
+      }
+    });
+
+    $('cityList').addEventListener('click', async function (e) {
+      var btn = e.target.closest('button[data-act]');
+      if (!btn) return;
+      var item = btn.closest('.admin-item');
+      var i = parseInt(item.getAttribute('data-i'), 10);
+      var act = btn.getAttribute('data-act');
+
+      if (act === 'up') { if (move(data.cities, i, i - 1)) { markDirty(); renderCities(); } }
+      if (act === 'down') { if (move(data.cities, i, i + 1)) { markDirty(); renderCities(); } }
+      if (act === 'img') { await replaceCityImage(i); }
+      if (act === 'del') {
+        if (!confirm('删除「' + data.cities[i].name + '」？')) return;
+        data.cities.splice(i, 1);
+        markDirty();
+        renderCities();
+      }
+    });
+
+    $('btnAddCity').addEventListener('click', function () {
+      data.cities.push({
+        id: uid('c'), name: '新城市', en: 'CITY', founded: '', mayor: '',
+        residents: 0, blocks: 0, maxBlocks: 0, image: '', tag: '', feature: false, desc: ''
+      });
+      markDirty();
+      renderCities();
+    });
+
+    /* ---------- 相册 ---------- */
+    $('btnAddAlbum').addEventListener('click', function () {
+      var a = { id: uid('a'), title: '新相册', desc: '', cover: '', photos: [] };
+      data.albums.push(a);
+      markDirty();
+      renderAlbums();
+      openAlbum(a.id);
+    });
+
+    $('albumList').addEventListener('input', function (e) {
+      var item = e.target.closest('.admin-item');
+      var key = e.target.getAttribute('data-k');
+      if (!item || !key) return;
+      var i = parseInt(item.getAttribute('data-i'), 10);
+      data.albums[i][key] = e.target.value;
+      markDirty();
+    });
+
+    $('albumList').addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-act]');
+      if (!btn) return;
+      var item = btn.closest('.admin-item');
+      var i = parseInt(item.getAttribute('data-i'), 10);
+      var act = btn.getAttribute('data-act');
+      var a = data.albums[i];
+
+      if (act === 'open') openAlbum(a.id);
+      if (act === 'up') { if (move(data.albums, i, i - 1)) { markDirty(); renderAlbums(); } }
+      if (act === 'down') { if (move(data.albums, i, i + 1)) { markDirty(); renderAlbums(); } }
+      if (act === 'del') {
+        if (!confirm('删除相册「' + a.title + '」及其 ' + a.photos.length + ' 张照片？\n（照片文件不会从仓库删除）')) return;
+        data.albums.splice(i, 1);
+        markDirty();
+        renderAlbums();
+      }
+    });
+
+    $('btnAlbumBack').addEventListener('click', function () {
+      showAlbumManage();
+    });
+
+    $('albumNameInput').addEventListener('input', function (e) {
+      var a = currentAlbum();
+      if (!a) return;
+      a.title = e.target.value;
+      markDirty();
+    });
+
+    $('albumDescInput').addEventListener('input', function (e) {
+      var a = currentAlbum();
+      if (!a) return;
+      a.desc = e.target.value;
+      markDirty();
+    });
+
+    $('albumPhotoList').addEventListener('input', function (e) {
+      var a = currentAlbum();
+      if (!a) return;
+      var item = e.target.closest('.admin-item');
+      var key = e.target.getAttribute('data-k');
+      if (!item || !key) return;
+      var i = parseInt(item.getAttribute('data-i'), 10);
+      a.photos[i][key] = e.target.value;
+      markDirty();
+    });
+
+    $('albumPhotoList').addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-act]');
+      if (!btn) return;
+      var a = currentAlbum();
+      if (!a) return;
+      var item = btn.closest('.admin-item');
+      var i = parseInt(item.getAttribute('data-i'), 10);
+      var act = btn.getAttribute('data-act');
+
+      if (act === 'cover') {
+        a.cover = a.photos[i].src;
+        markDirty();
+        toast('已设为封面', 'ok');
+      }
+      if (act === 'up') { if (move(a.photos, i, i - 1)) { markDirty(); renderAlbumPhotos(); } }
+      if (act === 'down') { if (move(a.photos, i, i + 1)) { markDirty(); renderAlbumPhotos(); } }
+      if (act === 'del') {
+        if (!confirm('删除这张照片？')) return;
+        a.photos.splice(i, 1);
+        if (a.cover && !a.photos.some(function (p) { return p.src === a.cover; })) {
+          a.cover = a.photos.length ? a.photos[0].src : '';
+        }
+        markDirty();
+        renderAlbumPhotos();
+      }
+    });
+
+    // 相册内上传
+    var drop = $('albumDrop');
+    var input = $('albumPhotoInput');
+
+    drop.addEventListener('click', function () { input.click(); });
+    input.addEventListener('change', function () {
+      addAlbumPhotos(Array.prototype.slice.call(input.files || []));
+      input.value = '';
+    });
+
+    ['dragenter', 'dragover'].forEach(function (ev) {
+      drop.addEventListener(ev, function (e) {
+        e.preventDefault();
+        drop.classList.add('is-over');
+      });
+    });
+    ['dragleave', 'drop'].forEach(function (ev) {
+      drop.addEventListener(ev, function (e) {
+        e.preventDefault();
+        drop.classList.remove('is-over');
+      });
+    });
+    drop.addEventListener('drop', function (e) {
+      var files = Array.prototype.slice.call(e.dataTransfer.files || [])
+        .filter(function (f) { return f.type.indexOf('image/') === 0; });
+      addAlbumPhotos(files);
+    });
+
+    // 批量删除照片
+    $('albumCheckAll').addEventListener('change', function (e) {
+      Array.prototype.forEach.call(document.querySelectorAll('#albumPhotoList .photo-sel'), function (c) {
+        c.checked = e.target.checked;
+      });
+      updateAlbumSelCount();
+    });
+
+    $('albumPhotoList').addEventListener('change', function (e) {
+      if (e.target.classList && e.target.classList.contains('photo-sel')) updateAlbumSelCount();
+    });
+
+    $('btnAlbumDeleteSelected').addEventListener('click', function () {
+      var a = currentAlbum();
+      if (!a) return;
+      var idx = [];
+      Array.prototype.forEach.call(document.querySelectorAll('#albumPhotoList .photo-sel:checked'), function (c) {
+        idx.push(parseInt(c.getAttribute('data-i'), 10));
+      });
+      if (!idx.length) { toast('还没选中照片', 'error'); return; }
+      if (!confirm('删除选中的 ' + idx.length + ' 张照片？')) return;
+
+      idx.sort(function (x, y) { return y - x; }).forEach(function (i) { a.photos.splice(i, 1); });
+      if (a.cover && !a.photos.some(function (p) { return p.src === a.cover; })) {
+        a.cover = a.photos.length ? a.photos[0].src : '';
+      }
+      markDirty();
+      renderAlbumPhotos();
+      toast('已删除 ' + idx.length + ' 张', 'ok');
+    });
+
+    /* ---------- 内容编辑 ---------- */
+    $('guideEditor').addEventListener('input', markDirty);
+    $('joinEditor').addEventListener('input', markDirty);
+
+    $('btnGuidePreview').addEventListener('click', function () { previewContent('guide'); });
+    $('btnJoinPreview').addEventListener('click', function () { previewContent('join'); });
+
+    $('btnGuideReload').addEventListener('click', async function () {
+      if (!confirm('放弃当前修改，重新读取仓库里的教程正文？')) return;
+      var g = await ghGet(GUIDE_PATH);
+      $('guideEditor').value = g ? b64decode(g.content) : '';
+      contentMeta.guide.original = $('guideEditor').value;
+      toast('已重新读取', 'ok');
+    });
+
+    $('btnJoinReload').addEventListener('click', async function () {
+      if (!confirm('放弃当前修改，重新读取仓库里的加入页正文？')) return;
+      var j = await ghGet(JOIN_PATH);
+      $('joinEditor').value = j ? b64decode(j.content) : '';
+      contentMeta.join.original = $('joinEditor').value;
+      toast('已重新读取', 'ok');
+    });
+
+    /* ---------- 站点 ---------- */
+    $('heroImage').addEventListener('input', function (e) {
+      data.hero.image = e.target.value;
+      $('heroThumb').innerHTML = thumbHtml(data.hero.image, '首屏图');
+      markDirty();
+    });
+
+    $('heroTitle').addEventListener('input', function (e) {
+      data.hero.title = e.target.value;
+      markDirty();
+    });
+
+    $('btnHeroImage').addEventListener('click', async function () {
+      var files = await pickFile(false);
+      if (!files.length) return;
+      toast('正在压缩…', 'wait');
+      try {
+        var out = await compress(files[0], 1920);
+        var path = newImagePath('hero');
+        pending.set(path, out.dataUrl.split(',')[1]);
+        data.hero.image = path;
+        $('heroImage').value = path;
+        $('heroThumb').innerHTML = thumbHtml(path, '首屏图');
+        markDirty();
+        toast('首屏图已就绪，记得保存', 'ok');
+      } catch (e) {
+        toast(e.message, 'error');
+      }
+    });
+
+    /* ---------- 拖拽 ---------- */
+    bindDrag($('cityList'), function () { return data ? data.cities : null; }, renderCities);
+    bindDrag($('albumList'), function () { return data ? data.albums : null; }, renderAlbums);
+    bindDrag($('albumPhotoList'), function () {
+      var a = currentAlbum();
+      return a ? a.photos : null;
+    }, renderAlbumPhotos);
+
+    /* ---------- 快捷键 ---------- */
+    document.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        if (data) save();
+      }
+    });
+
+    window.addEventListener('beforeunload', function (e) {
+      if (dirty) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    });
+  }
+
+  /* ---------------- 增强：导入导出、预览 ---------------- */
   function bindExtras() {
-    // 导出 JSON
     var exp = $('btnExport');
     if (exp) exp.addEventListener('click', function () {
       if (!data) return;
@@ -674,7 +938,6 @@
       toast('已导出 JSON', 'ok');
     });
 
-    // 导入 JSON
     var imp = $('btnImport');
     var impInput = $('importInput');
     if (imp && impInput) {
@@ -686,8 +949,8 @@
         r.onload = function () {
           try {
             var d = JSON.parse(r.result);
-            if (!Array.isArray(d.cities) || !Array.isArray(d.photos)) {
-              throw new Error('文件里缺少 cities / photos');
+            if (!Array.isArray(d.cities) || !Array.isArray(d.albums)) {
+              throw new Error('文件里缺少 cities / albums');
             }
             if (!confirm('导入会覆盖当前编辑内容，确定？')) return;
             data = d;
@@ -703,10 +966,9 @@
       });
     }
 
-    // 缩略图放大预览
+    // 缩略图预览
     var preview = $('preview');
     document.addEventListener('click', function (e) {
-      // 勾选框在缩略图内部，点击它不应触发预览
       if (e.target.closest && e.target.closest('.photo-check')) return;
       var thumb = e.target.closest ? e.target.closest('.admin-thumb') : null;
       if (!thumb || !preview) return;
@@ -716,50 +978,6 @@
       preview.hidden = false;
     });
     if (preview) preview.addEventListener('click', function () { preview.hidden = true; });
-
-    // 全选
-    var chkAll = $('checkAll');
-    if (chkAll) chkAll.addEventListener('change', function () {
-      Array.prototype.forEach.call(document.querySelectorAll('.photo-sel'), function (c) {
-        c.checked = chkAll.checked;
-      });
-      updateSelCount();
-    });
-
-    var list = $('photoList');
-    if (list) list.addEventListener('change', function (e) {
-      if (e.target.classList && e.target.classList.contains('photo-sel')) updateSelCount();
-    });
-
-    // 批量删除
-    var delSel = $('btnDeleteSelected');
-    if (delSel) delSel.addEventListener('click', function () {
-      var idx = [];
-      Array.prototype.forEach.call(document.querySelectorAll('.photo-sel:checked'), function (c) {
-        idx.push(parseInt(c.getAttribute('data-i'), 10));
-      });
-      if (!idx.length) { toast('还没选中照片', 'error'); return; }
-      if (!confirm('删除选中的 ' + idx.length + ' 张照片？')) return;
-
-      idx.sort(function (a, b) { return b - a; }).forEach(function (i) {
-        data.photos.splice(i, 1);
-      });
-      markDirty();
-      renderPhotos();
-      toast('已删除 ' + idx.length + ' 张', 'ok');
-    });
-
-    // 拖拽排序
-    bindDrag($('cityList'), function () { return data ? data.cities : null; }, renderCities);
-    bindDrag($('photoList'), function () { return data ? data.photos : null; }, renderPhotos);
-
-    // Ctrl / Cmd + S
-    document.addEventListener('keydown', function (e) {
-      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
-        e.preventDefault();
-        if (data) save();
-      }
-    });
   }
 
   /* ---------------- 启动 ---------------- */
@@ -767,7 +985,6 @@
   bindEvents();
   bindExtras();
 
-  // 配置齐全时自动连接
   if (cfg.owner && cfg.repo && cfg.token) {
     connect();
   }

@@ -28,7 +28,9 @@ EarthMC 大明共和国广东省佛山市的城市网站。纯静态站点，无
 ├── admin.html              后台管理（不参与公开导航）
 ├── 404.html
 ├── content/
-│   └── site.json           站点内容（城市、照片、首屏）—— 后台修改的就是它
+│   ├── site.json           城市 / 相册 / 首屏数据
+│   ├── guide-body.html     新手指南正文（后台可编辑）
+│   └── join-body.html      加入我们正文（后台可编辑）
 ├── _headers
 ├── robots.txt
 ├── sitemap.xml
@@ -213,7 +215,9 @@ GitHub → Settings → Developer settings → Personal access tokens → **Fine
 | 标签 | 能做什么 |
 |---|---|
 | 城市 | 改名称 / 市长 / 居民 / 区块 / 标签 / 介绍，换图，拖拽排序，增删 |
-| 照片 | 拖拽上传（自动压缩到 1600px、转 JPG），批量勾选删除，拖拽排序，写标题与说明 |
+| 相册 | 新建 / 删除相册，进入相册上传照片（自动压缩转 JPG），设封面，批量删除，拖拽排序 |
+| 教程 | 编辑新手指南正文（HTML 片段），支持预览与重新读取 |
+| 加入 | 编辑「加入我们」正文（HTML 片段） |
 | 站点 | 更换首屏大图与标题 |
 
 **其他功能**
@@ -223,6 +227,35 @@ GitHub → Settings → Developer settings → Personal access tokens → **Fine
 - 点缩略图看大图
 - `Ctrl / Cmd + S` 直接发布
 - 标题旁的「未保存」标记提示还有改动没提交
+
+### 相册结构
+
+照片按相册分组，存在 `content/site.json` 的 `albums` 数组里：
+
+```json
+{
+  "albums": [
+    {
+      "id": "album-xxx",
+      "title": "佛山夜景",
+      "desc": "城市灯光与河岸",
+      "cover": "assets/img/uploads/photo-xxx.jpg",
+      "photos": [
+        { "id": "p1", "src": "assets/img/uploads/photo-xxx.jpg", "title": "千灯湖", "caption": "2026.10" }
+      ]
+    }
+  ]
+}
+```
+
+前台 `/photos.html` 先显示相册封面墙，点进去看该相册的照片，地址栏会变成 `#album/<id>`，可以直接分享。
+
+### 教程与加入页
+
+这两个页面的正文单独存在 `content/guide-body.html` 和 `content/join-body.html`，
+页面骨架（导航、页脚）仍在 HTML 里。后台「教程」「加入」标签编辑的就是这两个文件。
+
+保存后 Cloudflare 重新部署，前台会自动加载新正文。改坏了点「重新读取」可以还原成仓库里的版本。
 
 ### 4. 发布
 

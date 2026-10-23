@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>精选照片 · 佛山联盟</title>
-<meta name="description" content="佛山联盟城市照片精选。">
+<meta name="description" content="佛山联盟城市照片精选，按相册分类。">
 <meta name="theme-color" content="#0b0e0d">
 <meta property="og:title" content="精选照片 · 佛山联盟">
 <link rel="icon" href="assets/img/favicon.ico" sizes="any">
@@ -37,19 +37,41 @@
 <section class="page-hero">
   <div class="wrap">
     <p class="eyebrow">精选照片 · Gallery</p>
-    <h1 class="page-title">精选照片<small>SELECTED PHOTOS</small></h1>
-    <p class="page-desc" id="photoCount"></p>
+    <h1 class="page-title" id="galleryTitle">精选照片<small>SELECTED PHOTOS</small></h1>
+    <p class="page-desc" id="galleryDesc">按相册分类，点击相册查看全部照片。</p>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <div class="photo-wall" id="photoWall"></div>
 
-    <div class="tbd" id="photoEmpty" hidden>
-      <b>暂无照片</b>
-      <span>请在后台添加 · PHOTOS COMING SOON</span>
+    <!-- ===== 相册列表 ===== -->
+    <div id="albumListView">
+      <div class="album-grid" id="albumGrid"></div>
+
+      <div class="tbd" id="albumEmpty" hidden>
+        <b>还没有相册</b>
+        <span>请在后台创建 · NO ALBUMS YET</span>
+      </div>
     </div>
+
+    <!-- ===== 相册详情 ===== -->
+    <div id="albumView" hidden>
+      <button class="album-back" id="albumBack">← 返回相册列表</button>
+
+      <div class="album-head">
+        <h2 class="album-title" id="albumTitle"></h2>
+        <p class="album-desc" id="albumDesc"></p>
+      </div>
+
+      <div class="photo-wall" id="photoWall"></div>
+
+      <div class="tbd" id="photoEmpty" hidden>
+        <b>这个相册还没有照片</b>
+        <span>请在后台添加 · EMPTY ALBUM</span>
+      </div>
+    </div>
+
   </div>
 </section>
 

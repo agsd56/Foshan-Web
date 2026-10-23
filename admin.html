@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>后台 · 佛山联盟</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a0d0c">
+<link rel="icon" href="assets/img/favicon.ico" sizes="any">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body class="admin">
+
+<header class="admin-top">
+  <h1>后台管理<span>FOSHAN LEAGUE CMS</span><em id="dirtyMark" hidden>未保存</em></h1>
+  <div class="admin-top-actions">
+    <button class="mini-btn" id="btnExport" hidden>导出</button>
+    <button class="mini-btn" id="btnImport" hidden>导入</button>
+    <button class="mini-btn" id="btnReload" hidden>重新读取</button>
+    <button class="mini-btn" id="btnLogout" hidden>断开</button>
+    <button class="btn btn--primary" id="btnSave" style="padding:9px 20px;font-size:13px;" hidden>保存并发布</button>
+  </div>
+</header>
+
+<main class="admin-main">
+
+  <!-- ============ 连接 ============ -->
+  <section class="connect-box" id="connectBox">
+    <h2>连接 GitHub 仓库</h2>
+    <p>
+      后台通过 GitHub API 直接修改仓库里的 <code>content/site.json</code> 和图片文件。
+      保存后 Cloudflare Pages 会自动重新部署，通常 30 秒内生效。
+    </p>
+
+    <ol class="steps-mini">
+      <li>打开 GitHub → Settings → Developer settings → Personal access tokens → <b>Fine-grained tokens</b></li>
+      <li>Repository access 只勾选这个网站的仓库</li>
+      <li>Permissions → Contents 设为 <b>Read and write</b></li>
+      <li>生成后把 token 粘到下面（只显示一次，记得复制）</li>
+    </ol>
+
+    <div class="field">
+      <label>GitHub 用户名</label>
+      <input type="text" id="cfgOwner" placeholder="例如 agsd56" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>仓库名</label>
+      <input type="text" id="cfgRepo" placeholder="例如 foshan-site" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>分支</label>
+      <input type="text" id="cfgBranch" value="main" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>Personal Access Token</label>
+      <input type="password" id="cfgToken" placeholder="github_pat_..." autocomplete="off">
+      <p class="field-hint">Token 只存在这台电脑的浏览器里，不会发给任何人。</p>
+    </div>
+
+    <button class="btn btn--primary" id="btnConnect" style="width:100%;">连接</button>
+  </section>
+
+  <!-- ============ 编辑 ============ -->
+  <section id="editor" hidden>
+
+    <div class="admin-tabs">
+      <button class="admin-tab is-active" data-tab="cities">城市</button>
+      <button class="admin-tab" data-tab="albums">相册</button>
+      <button class="admin-tab" data-tab="guide">教程</button>
+      <button class="admin-tab" data-tab="join">加入</button>
+      <button class="admin-tab" data-tab="site">站点</button>
+    </div>
+
+    <!-- 城市 -->
+    <div class="admin-panel is-active" id="panel-cities">
+      <div class="admin-list" id="cityList"></div>
+      <button class="btn btn--ghost mt-24" id="btnAddCity">+ 添加城市</button>
+    </div>
+
+    <!-- 相册 -->
+    <div class="admin-panel" id="panel-albums">
+
+      <div id="albumManageView">
+        <div class="admin-toolbar">
+          <span class="sel-count" id="albumCount">共 0 个相册</span>
+          <button class="mini-btn" id="btnAddAlbum">+ 新建相册</button>
+        </div>
+        <div class="admin-list" id="albumList"></div>
+        <div class="admin-empty" id="albumEmpty" hidden>还没有相册，点右上角新建。</div>
+      </div>
+
+      <div id="albumPhotoView" hidden>
+        <button class="album-back" id="btnAlbumBack">← 返回相册列表</button>
+
+        <div class="field-row">
+          <div class="field">
+            <label>相册名称</label>
+            <input type="text" id="albumNameInput">
+          </div>
+          <div class="field">
+            <label>相册描述</label>
+            <input type="text" id="albumDescInput">
+          </div>
+        </div>
+
+        <div class="dropzone" id="albumDrop">
+          <b>拖拽照片到这个相册，或点击选择</b>
+          <span>支持多选 · 自动压缩到 1600px · 输出 JPG</span>
+        </div>
+        <input type="file" id="albumPhotoInput" accept="image/*" multiple hidden>
+
+        <div class="admin-toolbar" id="albumPhotoToolbar" hidden>
+          <label class="check-all"><input type="checkbox" id="albumCheckAll"> 全选</label>
+          <span class="sel-count" id="albumSelCount">已选 0 张</span>
+          <button class="mini-btn mini-btn--danger" id="btnAlbumDeleteSelected">删除选中</button>
+        </div>
+
+        <div class="admin-list" id="albumPhotoList"></div>
+      </div>
+
+    </div>
+
+    <!-- 教程 -->
+    <div class="admin-panel" id="panel-guide">
+      <div class="admin-toolbar">
+        <span class="sel-count">content/guide-body.html</span>
+        <button class="mini-btn" id="btnGuidePreview">预览</button>
+        <button class="mini-btn" id="btnGuideReload">重新读取</button>
+      </div>
+      <p class="field-hint">
+        编辑正文的 HTML 片段，保存后点右上角「保存并发布」提交。
+        标签要成对闭合，改坏了可以用「重新读取」还原成仓库里的版本。
+      </p>
+      <textarea class="code-editor" id="guideEditor" spellcheck="false"></textarea>
+    </div>
+
+    <!-- 加入 -->
+    <div class="admin-panel" id="panel-join">
+      <div class="admin-toolbar">
+        <span class="sel-count">content/join-body.html</span>
+        <button class="mini-btn" id="btnJoinPreview">预览</button>
+        <button class="mini-btn" id="btnJoinReload">重新读取</button>
+      </div>
+      <p class="field-hint">同上，编辑的是「加入我们」页面的正文片段。</p>
+      <textarea class="code-editor" id="joinEditor" spellcheck="false"></textarea>
+    </div>
+
+    <!-- 站点 -->
+    <div class="admin-panel" id="panel-site">
+      <div class="admin-item" style="grid-template-columns:132px 1fr;">
+        <div class="admin-thumb" id="heroThumb"></div>
+        <div class="admin-item-body">
+          <div class="field">
+            <label>首屏大图</label>
+            <input type="text" id="heroImage" placeholder="assets/img/league-hero.jpg">
+          </div>
+          <div class="field">
+            <label>首屏标题</label>
+            <input type="text" id="heroTitle">
+          </div>
+          <button class="mini-btn" id="btnHeroImage">更换首屏图</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<div class="admin-status" id="status"></div>
+
+<div class="admin-preview" id="preview" hidden>
+  <img id="previewImg" src="" alt="预览">
+</div>
+
+<input type="file" id="importInput" accept="application/json,.json" hidden>
+
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

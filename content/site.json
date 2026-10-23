@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "updated": "2026-10-23",
   "hero": {
     "image": "assets/img/league-hero.jpg",
@@ -115,17 +115,10 @@
       "blocks": 8,
       "maxBlocks": 112,
       "image": "assets/img/city-shixing.jpg",
-      "tag": "佛山北部",
+      "tag": "北江流域",
       "feature": false,
       "desc": ""
     }
   ],
-  "photos": [
-    {
-      "id": "p17927302968340",
-      "src": "assets/img/uploads/photo-1792730296834-q3ri.jpg",
-      "title": "新安江战役合照",
-      "caption": ""
-    }
-  ]
+  "albums": []
 }
