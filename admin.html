@@ -15,6 +15,7 @@
 <header class="admin-top">
   <h1>后台管理<span>FOSHAN LEAGUE CMS</span><em id="dirtyMark" hidden>未保存</em></h1>
   <div class="admin-top-actions">
+    <button class="mini-btn" id="btnRepoStatus" hidden>仓库状态</button>
     <button class="mini-btn" id="btnExport" hidden>导出</button>
     <button class="mini-btn" id="btnImport" hidden>导入</button>
     <button class="mini-btn" id="btnReload" hidden>重新读取</button>
@@ -27,6 +28,12 @@
 
   <!-- ============ 连接 ============ -->
   <section class="connect-box" id="connectBox">
+    <div class="callout callout--danger" id="fileWarn" hidden style="margin-bottom:22px;">
+      <b>不能直接双击打开</b><br>
+      当前是 <code>file://</code> 本地文件，浏览器会拦截对 GitHub 的请求，保存一定失败。
+      请用本地服务器（<code>python -m http.server</code>）或线上网址打开本页。
+    </div>
+
     <h2>连接 GitHub 仓库</h2>
     <p>
       后台通过 GitHub API 直接修改仓库里的 <code>content/site.json</code> 和图片文件。
@@ -56,6 +63,7 @@
       <label>Personal Access Token</label>
       <input type="password" id="cfgToken" placeholder="github_pat_..." autocomplete="off">
       <p class="field-hint">Token 只存在这台电脑的浏览器里，不会发给任何人。</p>
+      <p class="field-hint" style="color:var(--gold);">注意：后台改的是 GitHub 仓库，不是本地文件。本地预览要执行 git pull 才会同步。</p>
     </div>
 
     <button class="btn btn--primary" id="btnConnect" style="width:100%;">连接</button>

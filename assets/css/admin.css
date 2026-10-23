@@ -450,3 +450,12 @@ input[type="checkbox"] {
   outline: none;
   border-color: var(--gold);
 }
+
+/* 状态条里的链接 */
+.admin-status a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.admin-status a:hover { color: var(--gold-bright); }

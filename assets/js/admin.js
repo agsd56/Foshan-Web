@@ -53,6 +53,11 @@
     });
   }
 
+  // 统一换行符，避免 CRLF/LF 差异导致误判为「已修改」
+  function norm(s) {
+    return String(s == null ? '' : s).replace(/\r\n/g, '\n');
+  }
+
   function uid(prefix) {
     return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
   }
@@ -76,6 +81,36 @@
     dirty = true;
     updateDirtyMark();
     saveDraft();
+  }
+
+  function showCommit(sha, url) {
+    var el = $('status');
+    if (!el) return;
+    clearTimeout(toastTimer);
+    if (sha && url) {
+      el.innerHTML = '已提交 <a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(sha) + '</a> · 点开确认，Cloudflare 约 30 秒后部署';
+    } else {
+      el.textContent = '已提交 · Cloudflare 约 30 秒后部署';
+    }
+    el.className = 'admin-status is-show is-ok';
+    toastTimer = setTimeout(function () { el.classList.remove('is-show'); }, 15000);
+  }
+
+  async function checkRepo() {
+    try {
+      var url = 'https://api.github.com/repos/' + cfg.owner + '/' + cfg.repo +
+                '/commits?path=' + encodeURIComponent(SITE_PATH) +
+                '&per_page=1&sha=' + encodeURIComponent(cfg.branch);
+      var res = await fetch(url, { headers: headers(), cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      var arr = await res.json();
+      if (!arr.length) { toast('这个分支还没有提交记录', 'error'); return; }
+      var c = arr[0];
+      var when = new Date(c.commit.author.date).toLocaleString();
+      toast('最近提交 ' + c.sha.slice(0, 7) + ' · ' + when + ' · ' + c.commit.message, 'ok');
+    } catch (e) {
+      toast('查询失败：' + e.message, 'error');
+    }
   }
 
   /* ---------------- GitHub API ---------------- */
@@ -184,7 +219,7 @@
 
       $('connectBox').hidden = true;
       $('editor').hidden = false;
-      ['btnSave', 'btnReload', 'btnLogout', 'btnExport', 'btnImport'].forEach(function (id) {
+      ['btnSave', 'btnReload', 'btnLogout', 'btnExport', 'btnImport', 'btnRepoStatus'].forEach(function (id) {
         var el = $(id);
         if (el) el.hidden = false;
       });
@@ -206,6 +241,8 @@
         }
       } catch (e) {}
 
+      contentMeta.guide.original = norm(contentMeta.guide.original);
+      contentMeta.join.original = norm(contentMeta.join.original);
       $('guideEditor').value = contentMeta.guide.original;
       $('joinEditor').value = contentMeta.join.original;
 
@@ -505,8 +542,8 @@
 
     var guideText = $('guideEditor').value;
     var joinText = $('joinEditor').value;
-    var guideChanged = guideText !== contentMeta.guide.original;
-    var joinChanged = joinText !== contentMeta.join.original;
+    var guideChanged = norm(guideText) !== norm(contentMeta.guide.original);
+    var joinChanged = norm(joinText) !== norm(contentMeta.join.original);
 
     var total = pending.size;
     var done = 0;
@@ -540,13 +577,16 @@
       siteSha = latest ? latest.sha : null;
 
       data.updated = new Date().toISOString().slice(0, 10);
-      await ghPut(SITE_PATH, b64encode(JSON.stringify(data, null, 2)), 'content: 更新站点数据', siteSha);
+      var result = await ghPut(SITE_PATH, b64encode(JSON.stringify(data, null, 2)), 'content: 更新站点数据', siteSha);
 
       pending.clear();
       dirty = false;
       clearDraft();
       updateDirtyMark();
-      toast('已发布 · Cloudflare 约 30 秒后生效', 'ok');
+
+      var sha = result && result.commit && result.commit.sha ? result.commit.sha.slice(0, 7) : '';
+      var url = result && result.commit && result.commit.html_url ? result.commit.html_url : '';
+      showCommit(sha, url);
     } catch (err) {
       toast(err.message || '保存失败', 'error');
     }
@@ -621,12 +661,13 @@
     $('btnConnect').addEventListener('click', connect);
     $('btnReload').addEventListener('click', reload);
     $('btnSave').addEventListener('click', save);
+    $('btnRepoStatus').addEventListener('click', checkRepo);
 
     $('btnLogout').addEventListener('click', function () {
       if (!confirm('断开连接？配置会保留，下次直接点连接即可。')) return;
       $('editor').hidden = true;
       $('connectBox').hidden = false;
-      ['btnSave', 'btnReload', 'btnLogout', 'btnExport', 'btnImport'].forEach(function (id) {
+      ['btnSave', 'btnReload', 'btnLogout', 'btnExport', 'btnImport', 'btnRepoStatus'].forEach(function (id) {
         var el = $(id);
         if (el) el.hidden = true;
       });
@@ -981,6 +1022,11 @@
   }
 
   /* ---------------- 启动 ---------------- */
+  if (location.protocol === 'file:') {
+    var fw = $('fileWarn');
+    if (fw) fw.hidden = false;
+  }
+
   loadCfg();
   bindEvents();
   bindExtras();
