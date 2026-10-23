@@ -120,5 +120,20 @@
       "desc": ""
     }
   ],
-  "albums": []
+  "albums": [
+    {
+      "id": "amvkhum6596k",
+      "title": "合照",
+      "desc": "",
+      "cover": "assets/img/uploads/photo-1792731178933-zc9q.jpg",
+      "photos": [
+        {
+          "id": "pmvkhuunpf7p",
+          "src": "assets/img/uploads/photo-1792731178933-zc9q.jpg",
+          "title": "新安江战役",
+          "caption": ""
+        }
+      ]
+    }
+  ]
 }
